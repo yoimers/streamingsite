@@ -1,7 +1,7 @@
 import { HStack, Center } from "@chakra-ui/layout";
 import { useColorModeValue } from "@chakra-ui/system";
 import React, { useState } from "react";
-import { SingInButton, SingUpButton } from "../mycomponents/HeaderButton";
+import { SingInButton, SingUpButton } from "../Header/HeaderButton";
 
 type Input = {
   isSignUp: boolean;

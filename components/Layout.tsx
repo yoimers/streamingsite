@@ -1,4 +1,9 @@
-import { Box, Center, ColorModeScript } from "@chakra-ui/react";
+import {
+  Box,
+  Center,
+  ColorModeScript,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import { ReactJSXElement } from "@emotion/react/types/jsx-namespace";
 import Head from "next/head";
 import React from "react";
@@ -10,6 +15,8 @@ type Input = {
   children?: ReactJSXElement;
 };
 export const Layout = ({ title, children }: Input) => {
+  const bg = useColorModeValue("brand.backgroundcolor2", "gray.700");
+
   return (
     <>
       <Head>
@@ -20,14 +27,9 @@ export const Layout = ({ title, children }: Input) => {
       <Box height="100vh">
         <ColorModeScript initialColorMode={theme.config.initialColorMode} />
         <Header />
-        <Center
-          height="calc(100% - 60px)"
-          width="100%"
-          background="brand.backgroundcolor2"
-        >
+        <Center height="calc(100% - 60px)" width="100%" background={bg}>
           {children}
         </Center>
-        
       </Box>
     </>
   );

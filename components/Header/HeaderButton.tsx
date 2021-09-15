@@ -1,6 +1,5 @@
 import { Button, ButtonProps, useColorModeValue } from "@chakra-ui/react";
 import { FC } from "react";
-import Link from "next/link";
 
 export const HeaderButton: FC<ButtonProps> = (props) => {
   return (
@@ -26,16 +25,13 @@ export const SingInButton: FC<ButtonProps> = (props) => {
   const hoverbackground = useColorModeValue("gray.200", "gray.600");
   const activebackground = useColorModeValue("gray.300", "gray.500");
   return (
-    <Link href="/signup" passHref>
-      <HeaderButton
-        as="a"
-        color={color}
-        background={background}
-        _hover={{ background: hoverbackground }}
-        _active={{ background: activebackground }}
-        {...props}
-      />
-    </Link>
+    <HeaderButton
+      color={color}
+      background={background}
+      _hover={{ background: hoverbackground }}
+      _active={{ background: activebackground }}
+      {...props}
+    />
   );
 };
 
@@ -45,15 +41,12 @@ export const SingUpButton: FC<ButtonProps> = (props) => {
   const activebackground = useColorModeValue("blue.800", "blue.700");
 
   return (
-    <Link href="/signup" passHref>
-      <HeaderButton
-        as="a"
-        color="white"
-        background={background}
-        _hover={{ background: hoverbackground }}
-        _active={{ background: activebackground }}
-        {...props}
-      />
-    </Link>
+    <HeaderButton
+      color="white"
+      background={background}
+      _hover={{ background: hoverbackground }}
+      _active={{ background: activebackground }}
+      {...props}
+    />
   );
 };

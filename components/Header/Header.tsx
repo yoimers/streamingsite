@@ -12,9 +12,10 @@ import {
 } from "@chakra-ui/react";
 import Image from "next/image";
 import { MoonIcon, SearchIcon, SunIcon } from "@chakra-ui/icons";
-import { SingInButton, SingUpButton } from "../mycomponents/HeaderButton";
+import { SingInButton, SingUpButton } from "./HeaderButton";
 import { Menubar } from "./Menubar";
 import Link from "next/link";
+import SignUpInModal from "../SignInUp/SignUpInModal";
 
 export const Header = () => {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -75,8 +76,7 @@ export const Header = () => {
               icon={<SunIcon w={6} h={6} />}
             />
           )}
-          <SingInButton>ログイン</SingInButton>
-          <SingUpButton>新規登録</SingUpButton>
+          <SignUpInModal />
         </HStack>
       </Flex>
     </>
