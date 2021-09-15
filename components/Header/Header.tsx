@@ -12,7 +12,6 @@ import {
 } from "@chakra-ui/react";
 import Image from "next/image";
 import { MoonIcon, SearchIcon, SunIcon } from "@chakra-ui/icons";
-import { SingInButton, SingUpButton } from "./HeaderButton";
 import { Menubar } from "./Menubar";
 import Link from "next/link";
 import SignUpInModal from "../SignInUp/SignUpInModal";

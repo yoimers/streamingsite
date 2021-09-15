@@ -2,12 +2,9 @@ import {
   Modal,
   ModalOverlay,
   ModalContent,
-  ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
   useDisclosure,
-  Button,
   TabPanel,
   TabPanels,
   Tab,
@@ -15,7 +12,6 @@ import {
   Tabs,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { BrandingWatermark } from "@material-ui/icons";
 import React, { useState } from "react";
 import { SingInButton, SingUpButton } from "../Header/HeaderButton";
 import SignIn from "./SignIn";
