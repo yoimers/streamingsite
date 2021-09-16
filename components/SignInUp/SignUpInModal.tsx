@@ -80,9 +80,20 @@ const SignUpInModal = () => {
         }
         SignOut={
           <>
-            <Button variant="mainbutton">テストボタン</Button>
-            <SingInButton onClick={() => onClick(false)}>ログイン</SingInButton>
-            <SignUpButton onClick={() => onClick(true)}>新規登録</SignUpButton>
+            <Button
+              variant="subbutton"
+              size="xl"
+              onClick={() => onClick(false)}
+            >
+              ログイン
+            </Button>
+            <Button
+              variant="mainbutton"
+              size="xl"
+              onClick={() => onClick(true)}
+            >
+              新規登録
+            </Button>
           </>
         }
         Loading={

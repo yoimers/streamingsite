@@ -12,7 +12,6 @@ const Home: NextPage = () => {
         SignOut={<p>SignOut</p>}
         Loading={<p>Loading</p>}
       />
-      <Input />
     </Layout>
   );
 };

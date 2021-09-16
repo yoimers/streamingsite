@@ -57,7 +57,7 @@ export const Header = () => {
           {colorMode === "light" ? (
             <IconButton
               aria-label="Change LightMode"
-              color="brand.mygray1"
+              color="brand.maincolor"
               rounded="full"
               _focus={{}}
               _hover={{}}
@@ -68,7 +68,7 @@ export const Header = () => {
           ) : (
             <IconButton
               aria-label="Change DarkMode"
-              color="brand.mygray1"
+              color="brand.usercolor"
               rounded="full"
               _focus={{}}
               _hover={{}}

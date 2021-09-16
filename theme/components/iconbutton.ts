@@ -1,6 +1,7 @@
 import { mode } from "@chakra-ui/theme-tools";
+import styles from "../styles";
 
-const Button = {
+const iconbutton = {
   baseStyle: {},
   sizes: {
     xl: {
@@ -16,7 +17,7 @@ const Button = {
     mainbutton: (props: any) => ({
       color: "white",
       rounded: "full",
-      bg: mode(props.theme.styles.brand.maincolor, "blue.500")(props),
+      bg: mode(styles.brand.maincolor, "blue.500")(props),
       _hover: { bg: mode("blue.600", "blue.600")(props) },
       _focus: { boxShadow: 0 },
       _active: { bg: mode("blue.800", "blue.700")(props) },
@@ -29,18 +30,10 @@ const Button = {
       _focus: { boxShadow: 0 },
       _active: { bg: mode("gray.400", "gray.700")(props) },
     }),
-    broadbutton: (props: any) => ({
-      color: mode(props.theme.styles.brand.usercolor, "gray.200")(props),
-      rounded: "full",
-      bg: mode(props.theme.styles.brand.mygray2, "gray.600")(props),
-      _hover: { bg: mode("gray.200", "gray.600")(props) },
-      _focus: { boxShadow: 0 },
-      _active: { bg: mode("gray.300", "gray.500")(props) },
-    }),
   },
 
   defaultProps: {
     variant: "solid",
   },
 };
-export default Button;
+export default iconbutton;

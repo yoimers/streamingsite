@@ -1,10 +1,8 @@
 import { extendTheme, ThemeConfig } from "@chakra-ui/react";
-import styles from "./styles";
-
-import Borders from "./foundations/borders";
-
-import Button from "./components/button";
 import Input from "./components/input";
+import Button from "./components/button";
+import Borders from "./foundations/borders";
+import styles from "./styles";
 
 const config: ThemeConfig = {
   initialColorMode: "light",
@@ -16,8 +14,8 @@ const overrides = {
   Borders,
   // Other foundational style overrides go here
   components: {
-    Button,
     Input,
+    Button,
     // Other components go here
   },
   config,
