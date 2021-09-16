@@ -35,10 +35,10 @@ export const Header = () => {
               <Image src="/wavelet.svg" alt="Title" height={40} width={135} />
             </Center>
           </Link>
-          <InputGroup w="260px">
+          <InputGroup w="260px" justifyItems="center">
             <Input placeholder="放送を検索！" variant="searchinput" />
-            <InputRightElement>
-              <SearchIcon color="brand.maincolor" />
+            <InputRightElement width="40px" height="40px" mr={1}>
+              <SearchIcon color="brand.maincolor" width="20px" height="20px" />
             </InputRightElement>
           </InputGroup>
         </Flex>
