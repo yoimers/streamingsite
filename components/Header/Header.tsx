@@ -36,16 +36,7 @@ export const Header = () => {
             </Center>
           </Link>
           <InputGroup w="260px">
-            <Input
-              placeholder="放送を検索！"
-              ml={6}
-              // borderRadius="xl"
-              // background="brand.subcolor"
-              // _focus={{
-              //   borderWidth: "2px",
-              //   borderColor: "brand.maincolor",
-              // }}
-            />
+            <Input placeholder="放送を検索！" variant="searchinput" />
             <InputRightElement>
               <SearchIcon color="brand.maincolor" />
             </InputRightElement>

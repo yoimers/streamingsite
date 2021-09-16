@@ -1,4 +1,5 @@
 import {
+  Button,
   Center,
   FormControl,
   FormErrorMessage,
@@ -7,7 +8,6 @@ import {
 } from "@chakra-ui/react";
 import { FormikHelpers, useFormik } from "formik";
 import React, { useState } from "react";
-import { SignUpButton } from "../Header/HeaderButton";
 import { inputoption, MyLabel } from "./SignIn";
 import * as Yup from "yup";
 import { auth } from "../../src/lib/firebase";
@@ -154,9 +154,13 @@ const SignUp = ({ onClose }: Input) => {
         <FormErrorMessage>{formik.errors.passwordconfirm}</FormErrorMessage>
       </FormControl>
       <Center mt={10}>
-        <SignUpButton type="submit" isLoading={formik.isSubmitting}>
+        <Button
+          variant="mainbutton"
+          type="submit"
+          isLoading={formik.isSubmitting}
+        >
           新規登録
-        </SignUpButton>
+        </Button>
       </Center>
     </VStack>
   );

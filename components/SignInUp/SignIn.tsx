@@ -13,7 +13,6 @@ import {
 } from "@chakra-ui/react";
 import { FormikHelpers, useFormik } from "formik";
 import React, { useState } from "react";
-import { SignUpButton } from "../Header/HeaderButton";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import * as Yup from "yup";
@@ -141,9 +140,13 @@ const SignIn = ({ onClose }: Input) => {
       </FormControl>
 
       <Center mt={10}>
-        <SignUpButton type="submit" isLoading={formik.isSubmitting}>
+        <Button
+          variant="mainbutton"
+          type="submit"
+          isLoading={formik.isSubmitting}
+        >
           ログイン
-        </SignUpButton>
+        </Button>
       </Center>
     </VStack>
   );

@@ -2,8 +2,7 @@ import { mode } from "@chakra-ui/theme-tools";
 
 const Input = {
   baseStyle: {
-    color: "tomato",
-    background: "tomato",
+    field: {},
   },
   sizes: {
     lg: {
@@ -12,25 +11,17 @@ const Input = {
     },
   },
   variants: {
-    maininput: (props: any) => ({
-      m: "10px",
-      color: "gray.400",
-      rounded: "full",
-      background: "tomato",
-      bg: "tomato",
-      _hover: { bg: mode("blue.600", "blue.600")(props), rounded: "full" },
-      _focus: { boxShadow: 0 },
-      _active: { bg: mode("blue.800", "blue.700")(props) },
-    }),
-    outline: (props: any) => ({
-      background: "tomato",
-      _invalid: {
-        borderWidth: "2px",
-        borderColor: "red.300",
-      },
-      _focus: {
-        borderWidth: "2px",
-        borderColor: "brand.maincolor",
+    searchinput: (props: any) => ({
+      field: {
+        ml: 6,
+        color: "gray.400",
+        rounded: "10",
+        borderRadius: "xl",
+        background: "brand.subcolor",
+        _focus: {
+          borderWidth: "2px",
+          borderColor: "brand.maincolor",
+        },
       },
     }),
   },

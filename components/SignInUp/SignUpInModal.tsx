@@ -20,11 +20,6 @@ import {
 import { GoogleLoginButton } from "react-social-login-buttons";
 import { FaUserCircle } from "react-icons/fa";
 import React, { useState } from "react";
-import {
-  BroadcastButton,
-  SingInButton,
-  SignUpButton,
-} from "../Header/HeaderButton";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 import { signInWithGoogle, signOutWithGoogle } from "../../src/lib/firebase";
@@ -95,8 +90,8 @@ const SignUpInModal = () => {
         }
         Loading={
           <>
-            <SingInButton isLoading={true} />
-            <SingInButton isLoading={true} />
+            <Button variant="subbutton" isLoading={true} />
+            <Button variant="subbutton" isLoading={true} />
           </>
         }
       />
