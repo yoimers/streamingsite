@@ -10,8 +10,8 @@ import {
 } from "@emotion/react/types/jsx-namespace";
 import Head from "next/head";
 import React, { ReactNode } from "react";
+import theme from "../theme";
 import { Header } from "./Header/Header";
-import theme from "./theme";
 
 type Input = {
   title: string;

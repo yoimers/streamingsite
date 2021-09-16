@@ -38,13 +38,14 @@ export const Header = () => {
           <InputGroup w="260px">
             <Input
               placeholder="放送を検索！"
-              borderRadius="xl"
-              ml={6}
-              background="brand.backgroundcolor2"
-              _focus={{
-                borderWidth: "2px",
-                borderColor: "brand.maincolor",
-              }}
+              // borderRadius="xl"
+              // ml={6}
+
+              // background="brand.subcolor"
+              // _focus={{
+              //   borderWidth: "2px",
+              //   borderColor: "brand.maincolor",
+              // }}
             />
             <InputRightElement>
               <SearchIcon color="brand.maincolor" />

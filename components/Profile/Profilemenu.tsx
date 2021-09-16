@@ -8,6 +8,7 @@ import TwitterIcon from "@material-ui/icons/Twitter";
 import YouTubeIcon from "@material-ui/icons/YouTube";
 import AppleIcon from "@material-ui/icons/Apple";
 import AccountBoxIcon from "@material-ui/icons/AccountBox";
+import { signOutWithGoogle } from "../../src/lib/firebase";
 
 type Input = {
   main: JSX.Element;
@@ -30,7 +31,9 @@ export const Profilemenu = ({ main }: Input): JSX.Element => {
         <MenuItem icon={<YouTubeIcon />}>余白１</MenuItem>
         <MenuItem icon={<TwitterIcon />}>余白２</MenuItem>
         <MenuItem icon={<AppleIcon />}>余白３</MenuItem>
-        <MenuItem icon={<ExitToAppIcon />}>ログアウト</MenuItem>
+        <MenuItem icon={<ExitToAppIcon />} onClick={signOutWithGoogle}>
+          ログアウト
+        </MenuItem>
       </MenuList>
     </Menu>
   );

@@ -1,15 +1,12 @@
 import { extendTheme, ThemeConfig } from "@chakra-ui/react";
 import { mode } from "@chakra-ui/theme-tools";
 
-const colors = {
+const styles = {
   fonts: {
     heading: "Noto Sans",
     body: "Noto Sans",
   },
   brand: {
-    900: "#1a365d",
-    800: "#153e75",
-    700: "#2a69ac",
     mygray1: "#737373",
     mygray2: "#ECECEC",
     maincolor: "#6BA2F5",
@@ -28,22 +25,7 @@ const colors = {
         bg: "rgba(230, 237, 255, 0.2)",
       },
     }),
-    textStyles: {
-      h1: {
-        fontSize: ["48px", "72px"],
-        fontWeight: "bold",
-        lineHeight: "110%",
-        letterSpacing: "-2%",
-      },
-      h2: {},
-      h3: {},
-    },
   },
 };
-const config: ThemeConfig = {
-  initialColorMode: "light",
-  useSystemColorMode: false,
-};
-const theme = extendTheme({ colors, config });
 
-export default theme;
+export default styles;
