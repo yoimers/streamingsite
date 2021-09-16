@@ -6,7 +6,6 @@ import {
   Input,
   InputGroup,
   InputRightElement,
-  Stack,
   Text,
   HStack,
   VStack,
@@ -14,13 +13,14 @@ import {
 } from "@chakra-ui/react";
 import { FormikHelpers, useFormik } from "formik";
 import React, { useState } from "react";
-import { SingUpButton } from "../Header/HeaderButton";
+import { SignUpButton } from "../Header/HeaderButton";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import * as Yup from "yup";
+import { auth } from "../../src/lib/firebase";
 
 type InputType<T> = {
-  username: T;
+  email: T;
   password: T;
 };
 
@@ -36,33 +36,45 @@ export const inputoption = {
   },
 };
 const initialValues: InputType<string> = {
-  username: "",
+  email: "",
   password: "",
 };
-const onSubmit = (
-  values: InputType<string>,
-  formikHelpers: FormikHelpers<InputType<string>>
-) => {
-  formikHelpers.setSubmitting(true);
-  setTimeout(() => {
-    formikHelpers.setSubmitting(false);
-    alert(JSON.stringify(values, null, 2));
-  }, 1000);
-};
+
 const validationSchema = Yup.object({
-  username: Yup.string()
-    .min(2, "名前が短すぎます")
-    .max(10, "名前が長すぎます")
-    .required("名前を入力してください"),
+  email: Yup.string()
+    .email("正しいメールアドレスを入力してください")
+    .required("メールアドレスを入力してください"),
   password: Yup.string()
-    .min(2, "パスワードが短すぎます")
-    .max(10, "パスワードが長すぎます")
+    .min(6, "パスワードが短すぎます")
+    .max(30, "パスワードが長すぎます")
     .required("パスワードを入力してください"),
 });
-
-const SignIn = () => {
+type Input = {
+  onClose: () => void;
+};
+const SignIn = ({ onClose }: Input) => {
   const [isShow, setIsShow] = useState(false);
+  const [isExistUser, setIsExistUser] = useState(true);
   const eyebg = useColorModeValue("brand.mygray1", "h2");
+  const onSubmit = (
+    values: InputType<string>,
+    formikHelpers: FormikHelpers<InputType<string>>
+  ) => {
+    formikHelpers.setSubmitting(true);
+    auth
+      .signInWithEmailAndPassword(values.email, values.password)
+      .then((userCredential) => {
+        userCredential;
+        onClose();
+        formikHelpers.setSubmitting(false);
+      })
+      .catch((error) => {
+        console.error(error);
+        setIsExistUser(false);
+        formikHelpers.setSubmitting(false);
+      });
+  };
+
   const formik = useFormik({
     initialValues,
     onSubmit,
@@ -78,20 +90,24 @@ const SignIn = () => {
       onSubmit={formik.handleSubmit as any}
     >
       <FormControl
-        id="username"
+        id="email"
         width="100%"
-        isInvalid={Boolean(formik.errors.username && formik.touched.username)}
+        isInvalid={Boolean(
+          (formik.errors.email || !isExistUser) && formik.touched.email
+        )}
       >
-        <MyLabel label="名前" />
+        <MyLabel label="メールアドレス" />
         <Input
-          name="username"
+          name="email"
           type="text"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-          value={formik.values.username}
+          value={formik.values.email}
           {...inputoption}
         />
-        <FormErrorMessage>{formik.errors.username}</FormErrorMessage>
+        <FormErrorMessage>
+          {formik.errors.email || (!isExistUser && "ユーザーが存在しません")}
+        </FormErrorMessage>
       </FormControl>
 
       <FormControl
@@ -126,9 +142,9 @@ const SignIn = () => {
       </FormControl>
 
       <Center mt={10}>
-        <SingUpButton type="submit" isLoading={formik.isSubmitting}>
+        <SignUpButton type="submit" isLoading={formik.isSubmitting}>
           ログイン
-        </SingUpButton>
+        </SignUpButton>
       </Center>
     </VStack>
   );

@@ -4,15 +4,18 @@ import {
   ColorModeScript,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { ReactJSXElement } from "@emotion/react/types/jsx-namespace";
+import {
+  ReactJSXElement,
+  ReactJSXElementChildrenAttribute,
+} from "@emotion/react/types/jsx-namespace";
 import Head from "next/head";
-import React from "react";
+import React, { ReactNode } from "react";
 import { Header } from "./Header/Header";
 import theme from "./theme";
 
 type Input = {
   title: string;
-  children?: ReactJSXElement;
+  children?: ReactNode;
 };
 export const Layout = ({ title, children }: Input) => {
   const bg = useColorModeValue("brand.backgroundcolor2", "gray.700");

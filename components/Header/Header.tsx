@@ -18,6 +18,7 @@ import SignUpInModal from "../SignInUp/SignUpInModal";
 
 export const Header = () => {
   const { colorMode, toggleColorMode } = useColorMode();
+
   return (
     <>
       <Flex
@@ -54,8 +55,8 @@ export const Header = () => {
         <HStack spacing={6}>
           {colorMode === "light" ? (
             <IconButton
-              color="brand.mygray1"
               aria-label="Change LightMode"
+              color="brand.mygray1"
               rounded="full"
               _focus={{}}
               _hover={{}}

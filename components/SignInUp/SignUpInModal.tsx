@@ -11,25 +11,86 @@ import {
   TabList,
   Tabs,
   useColorModeValue,
+  ModalFooter,
+  Divider,
+  HStack,
+  Box,
+  Button,
 } from "@chakra-ui/react";
+import { GoogleLoginButton } from "react-social-login-buttons";
+import { FaUserCircle } from "react-icons/fa";
 import React, { useState } from "react";
-import { SingInButton, SingUpButton } from "../Header/HeaderButton";
+import {
+  BroadcastButton,
+  SingInButton,
+  SignUpButton,
+} from "../Header/HeaderButton";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
+import { signInWithGoogle, signOutWithGoogle } from "../../src/lib/firebase";
+import Link from "next/link";
+import Image from "next/image";
+
+import { SignInOutTriger } from "../../src/lib/SignInOutTriger";
+import { useRecoilValue } from "recoil";
+import { currentUserState } from "../../states/currentUser";
+import { Profilemenu } from "../Profile/Profilemenu";
 
 const SignUpInModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isSignUp, setIsSignUp] = useState<boolean>(false);
   const tabcolor = useColorModeValue("brand.maincolor", "blue.300");
   const bg = useColorModeValue("#F7F9FF", "gray.700");
+  const profileiconcolor = useColorModeValue("#383838", "#E6EDFF");
+  const currentUser = useRecoilValue(currentUserState);
+  if (currentUser != null) {
+    console.log(currentUser.photoURL);
+  }
   const onClick = (issignup: boolean) => {
     onOpen();
     setIsSignUp(issignup);
   };
+
   return (
     <>
-      <SingInButton onClick={() => onClick(false)}>ログイン</SingInButton>
-      <SingUpButton onClick={() => onClick(true)}>新規登録</SingUpButton>
+      <SignInOutTriger
+        SignIn={
+          <>
+            <Link href="/broadcast" passHref>
+              <a>
+                <SignUpButton>放送する</SignUpButton>
+              </a>
+            </Link>
+            <Button size="40px" rounded="full" _active={{}} _focus={{}}>
+              {currentUser && currentUser.photoURL ? (
+                <Profilemenu
+                  main={
+                    <Image
+                      src={currentUser.photoURL}
+                      layout="fill"
+                      alt="Picture of the author"
+                    />
+                  }
+                />
+              ) : (
+                <FaUserCircle size={40} color={profileiconcolor} />
+              )}
+            </Button>
+          </>
+        }
+        SignOut={
+          <>
+            <SingInButton onClick={() => onClick(false)}>ログイン</SingInButton>
+            <SignUpButton onClick={() => onClick(true)}>新規登録</SignUpButton>
+          </>
+        }
+        Loading={
+          <>
+            <SingInButton isLoading={true} />
+            <SingInButton isLoading={true} />
+          </>
+        }
+      />
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
@@ -73,15 +134,25 @@ const SignUpInModal = () => {
               <TabPanels>
                 <TabPanel>
                   {/* ログイン */}
-                  <SignIn />
+                  <SignIn onClose={onClose} />
                 </TabPanel>
                 <TabPanel>
                   {/* 新規登録 */}
-                  <SignUp />
+                  <SignUp onClose={onClose} />
                 </TabPanel>
               </TabPanels>
             </Tabs>
           </ModalBody>
+          <Divider opacity={0.4} borderColor="brand.maincolor" />
+          <ModalFooter justifyContent="center">
+            <HStack>
+              <GoogleLoginButton
+                style={{ background: bg, color: tabcolor }}
+                activeStyle={{ background: bg, color: tabcolor }}
+                onClick={signInWithGoogle}
+              />
+            </HStack>
+          </ModalFooter>
         </ModalContent>
       </Modal>
     </>

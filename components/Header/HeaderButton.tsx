@@ -22,6 +22,22 @@ export const HeaderButton: FC<ButtonProps> = (props) => {
 export const SingInButton: FC<ButtonProps> = (props) => {
   const background = useColorModeValue("brand.mygray2", "gray.600");
   const color = useColorModeValue("brand.usercolor", "gray.200");
+  const hoverbackground = useColorModeValue("gray.300", "gray.700");
+  const activebackground = useColorModeValue("gray.400", "gray.700");
+  return (
+    <HeaderButton
+      color={color}
+      background={background}
+      _hover={{ background: hoverbackground }}
+      _active={{ background: activebackground }}
+      {...props}
+    />
+  );
+};
+
+export const BroadcastButton: FC<ButtonProps> = (props) => {
+  const background = useColorModeValue("brand.mygray2", "gray.600");
+  const color = useColorModeValue("brand.usercolor", "gray.200");
   const hoverbackground = useColorModeValue("gray.200", "gray.600");
   const activebackground = useColorModeValue("gray.300", "gray.500");
   return (
@@ -34,8 +50,7 @@ export const SingInButton: FC<ButtonProps> = (props) => {
     />
   );
 };
-
-export const SingUpButton: FC<ButtonProps> = (props) => {
+export const SignUpButton: FC<ButtonProps> = (props) => {
   const background = useColorModeValue("brand.maincolor", "blue.500");
   const hoverbackground = useColorModeValue("blue.600", "blue.600");
   const activebackground = useColorModeValue("blue.800", "blue.700");
