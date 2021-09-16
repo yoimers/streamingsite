@@ -43,9 +43,7 @@ const SignUpInModal = () => {
   const bg = useColorModeValue("#F7F9FF", "gray.700");
   const profileiconcolor = useColorModeValue("#383838", "#E6EDFF");
   const currentUser = useRecoilValue(currentUserState);
-  if (currentUser != null) {
-    console.log(currentUser.photoURL);
-  }
+
   const onClick = (issignup: boolean) => {
     onOpen();
     setIsSignUp(issignup);
@@ -58,24 +56,23 @@ const SignUpInModal = () => {
           <>
             <Link href="/broadcast" passHref>
               <a>
-                <SignUpButton>放送する</SignUpButton>
+                <Button variant="mainbutton" size="xl">
+                  放送する
+                </Button>
               </a>
             </Link>
-            <Button size="40px" rounded="full" _active={{}} _focus={{}}>
+
+            <Profilemenu>
               {currentUser && currentUser.photoURL ? (
-                <Profilemenu
-                  main={
-                    <Image
-                      src={currentUser.photoURL}
-                      layout="fill"
-                      alt="Picture of the author"
-                    />
-                  }
+                <Image
+                  src={currentUser.photoURL}
+                  layout="fill"
+                  alt="Picture of the author"
                 />
               ) : (
                 <FaUserCircle size={40} color={profileiconcolor} />
               )}
-            </Button>
+            </Profilemenu>
           </>
         }
         SignOut={

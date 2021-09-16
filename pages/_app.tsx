@@ -1,5 +1,5 @@
 import "../styles/globals.css";
-import { ChakraProvider, Input } from "@chakra-ui/react";
+import { ChakraProvider, extendTheme, Input } from "@chakra-ui/react";
 import { AppProps } from "next/app";
 import React, { useEffect } from "react";
 import { RecoilRoot, useSetRecoilState } from "recoil";
@@ -23,7 +23,6 @@ function MyApp({ Component, pageProps }: AppProps) {
     <RecoilRoot>
       <AppInit />
       <ChakraProvider theme={theme}>
-        <Input variant="maininput" />
         <Component {...pageProps} />
       </ChakraProvider>
     </RecoilRoot>

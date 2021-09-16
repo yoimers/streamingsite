@@ -91,7 +91,6 @@ const SignIn = ({ onClose }: Input) => {
       onSubmit={formik.handleSubmit as any}
     >
       <FormControl
-        id="email"
         width="100%"
         isInvalid={Boolean(
           (formik.errors.email || !isExistUser) && formik.touched.email
@@ -112,7 +111,6 @@ const SignIn = ({ onClose }: Input) => {
       </FormControl>
 
       <FormControl
-        id="password"
         width="100%"
         isInvalid={Boolean(formik.errors.password && formik.touched.password)}
       >

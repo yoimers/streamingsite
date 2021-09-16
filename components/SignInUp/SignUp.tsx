@@ -85,7 +85,6 @@ const SignUp = ({ onClose }: Input) => {
       onSubmit={formik.handleSubmit as any}
     >
       <FormControl
-        id="username"
         width="100%"
         isInvalid={Boolean(formik.errors.username && formik.touched.username)}
       >
@@ -102,7 +101,6 @@ const SignUp = ({ onClose }: Input) => {
       </FormControl>
 
       <FormControl
-        id="email"
         width="100%"
         isInvalid={Boolean(
           (formik.errors.email || isExistUser) && formik.touched.email
@@ -124,7 +122,6 @@ const SignUp = ({ onClose }: Input) => {
       </FormControl>
 
       <FormControl
-        id="password"
         width="100%"
         isInvalid={Boolean(formik.errors.password && formik.touched.password)}
       >
@@ -140,7 +137,6 @@ const SignUp = ({ onClose }: Input) => {
         <FormErrorMessage>{formik.errors.password}</FormErrorMessage>
       </FormControl>
       <FormControl
-        id="passwordconfirm"
         width="100%"
         isInvalid={Boolean(
           formik.errors.passwordconfirm && formik.touched.passwordconfirm

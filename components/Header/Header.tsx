@@ -38,9 +38,8 @@ export const Header = () => {
           <InputGroup w="260px">
             <Input
               placeholder="放送を検索！"
+              ml={6}
               // borderRadius="xl"
-              // ml={6}
-
               // background="brand.subcolor"
               // _focus={{
               //   borderWidth: "2px",
@@ -57,7 +56,7 @@ export const Header = () => {
           {colorMode === "light" ? (
             <IconButton
               aria-label="Change LightMode"
-              color="brand.maincolor"
+              color="brand.usercolor"
               rounded="full"
               _focus={{}}
               _hover={{}}

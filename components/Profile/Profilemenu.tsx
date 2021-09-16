@@ -1,6 +1,6 @@
 import { Button } from "@chakra-ui/button";
 import { ChevronDownIcon } from "@chakra-ui/icons";
-import { Center } from "@chakra-ui/layout";
+import { Box, Center } from "@chakra-ui/layout";
 import { Menu, MenuList, MenuItem, MenuButton } from "@chakra-ui/menu";
 import React from "react";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
@@ -11,21 +11,27 @@ import AccountBoxIcon from "@material-ui/icons/AccountBox";
 import { signOutWithGoogle } from "../../src/lib/firebase";
 
 type Input = {
-  main: JSX.Element;
+  children: JSX.Element;
 };
-export const Profilemenu = ({ main }: Input): JSX.Element => {
+export const Profilemenu = ({ children }: Input): JSX.Element => {
   return (
     <Menu>
       <MenuButton
-        as={Button}
-        width="40px"
-        height="40px"
+        as="button"
         rounded="full"
         _active={{ boxShadow: "outline" }}
         _focus={{}}
       >
-        {main}
+        <Center
+          height="40px"
+          width="40px"
+          position="relative"
+          outlineOffset={0}
+        >
+          {children}
+        </Center>
       </MenuButton>
+
       <MenuList>
         <MenuItem icon={<AccountBoxIcon />}>マイページ</MenuItem>
         <MenuItem icon={<YouTubeIcon />}>余白１</MenuItem>
