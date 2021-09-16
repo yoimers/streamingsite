@@ -11,6 +11,11 @@ const styles = {
         color: mode("gray.100", "gray.800")(props),
         bg: "rgba(230, 237, 255, 0.2)",
       },
+      a: {
+        _hover: {
+          textDecoration: "none",
+        },
+      },
     }),
   },
 };

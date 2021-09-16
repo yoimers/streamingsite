@@ -10,6 +10,7 @@ import {
   HStack,
   VStack,
   useColorModeValue,
+  Box,
 } from "@chakra-ui/react";
 import { FormikHelpers, useFormik } from "formik";
 import React, { useState } from "react";
@@ -21,18 +22,6 @@ import { auth } from "../../src/lib/firebase";
 type InputType<T> = {
   email: T;
   password: T;
-};
-
-export const inputoption = {
-  background: "brand.backgroundcolor2",
-  _invalid: {
-    borderWidth: "2px",
-    borderColor: "red.300",
-  },
-  _focus: {
-    borderWidth: "2px",
-    borderColor: "brand.maincolor",
-  },
 };
 
 const initialValues: InputType<string> = {
@@ -99,14 +88,16 @@ const SignIn = ({ onClose }: Input) => {
         <Input
           name="email"
           type="text"
+          variant="inputform"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.email}
-          {...inputoption}
         />
-        <FormErrorMessage>
-          {formik.errors.email || (!isExistUser && "ユーザーが存在しません")}
-        </FormErrorMessage>
+        <Box h={1}>
+          <FormErrorMessage m={0} p={0}>
+            {formik.errors.email || (!isExistUser && "ユーザーが存在しません")}
+          </FormErrorMessage>
+        </Box>
       </FormControl>
 
       <FormControl
@@ -118,12 +109,12 @@ const SignIn = ({ onClose }: Input) => {
           <Input
             type={isShow ? "text" : "password"}
             name="password"
+            variant="inputform"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.password}
-            {...inputoption}
           />
-          <InputRightElement width="4rem">
+          <InputRightElement width="4rem" h="100%">
             <Button
               h="1.5rem"
               size="xs"
@@ -136,7 +127,11 @@ const SignIn = ({ onClose }: Input) => {
             </Button>
           </InputRightElement>
         </InputGroup>
-        <FormErrorMessage>{formik.errors.password}</FormErrorMessage>
+        <Box h={1}>
+          <FormErrorMessage m={0} p={0}>
+            {formik.errors.password}
+          </FormErrorMessage>
+        </Box>
       </FormControl>
 
       <Center mt={10}>

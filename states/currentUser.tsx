@@ -3,6 +3,7 @@ import { User } from "../src/lib/AuthType";
 
 // undefined : ログイン確認中の状態
 // null      : ログイン確認をした結果、ログインしていない状態
+
 export const currentUserState = atom<undefined | null | User>({
   key: "CurrentUser",
   default: undefined,

@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Center,
   FormControl,
@@ -8,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 import { FormikHelpers, useFormik } from "formik";
 import React, { useState } from "react";
-import { inputoption, MyLabel } from "./SignIn";
+import { MyLabel } from "./SignIn";
 import * as Yup from "yup";
 import { auth } from "../../src/lib/firebase";
 
@@ -92,12 +93,16 @@ const SignUp = ({ onClose }: Input) => {
         <Input
           name="username"
           type="text"
+          variant="inputform"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.username}
-          {...inputoption}
         />
-        <FormErrorMessage>{formik.errors.username}</FormErrorMessage>
+        <Box h={1}>
+          <FormErrorMessage m={0} p={0}>
+            {formik.errors.username}
+          </FormErrorMessage>
+        </Box>
       </FormControl>
 
       <FormControl
@@ -110,15 +115,17 @@ const SignUp = ({ onClose }: Input) => {
         <Input
           name="email"
           type="text"
+          variant="inputform"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.email}
-          {...inputoption}
         />
-        <FormErrorMessage>
-          {formik.errors.email ||
-            (isExistUser && "このメールアドレスは既に登録されています")}
-        </FormErrorMessage>
+        <Box h={1}>
+          <FormErrorMessage m={0} p={0}>
+            {formik.errors.email ||
+              (isExistUser && "このメールアドレスは既に登録されています")}
+          </FormErrorMessage>
+        </Box>
       </FormControl>
 
       <FormControl
@@ -129,12 +136,16 @@ const SignUp = ({ onClose }: Input) => {
         <Input
           type="password"
           name="password"
+          variant="inputform"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.password}
-          {...inputoption}
         />
-        <FormErrorMessage>{formik.errors.password}</FormErrorMessage>
+        <Box h={1}>
+          <FormErrorMessage m={0} p={0}>
+            {formik.errors.password}
+          </FormErrorMessage>
+        </Box>
       </FormControl>
       <FormControl
         width="100%"
@@ -146,12 +157,16 @@ const SignUp = ({ onClose }: Input) => {
         <Input
           type="password"
           name="passwordconfirm"
+          variant="inputform"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.passwordconfirm}
-          {...inputoption}
         />
-        <FormErrorMessage>{formik.errors.passwordconfirm}</FormErrorMessage>
+        <Box h={1}>
+          <FormErrorMessage m={0} p={0}>
+            {formik.errors.passwordconfirm}
+          </FormErrorMessage>
+        </Box>
       </FormControl>
       <Center mt={10}>
         <Button

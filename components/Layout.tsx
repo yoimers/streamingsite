@@ -6,13 +6,18 @@ import {
 } from "@chakra-ui/react";
 
 import Head from "next/head";
-import React, { ReactNode } from "react";
+import React, {
+  ReactChild,
+  ReactChildren,
+  ReactElement,
+  ReactNode,
+} from "react";
 import theme from "../theme";
 import { Header } from "./Header/Header";
 
 type Input = {
   title: string;
-  children?: ReactNode;
+  children?: ReactChild | ReactChild[] | ReactChildren | ReactChildren[];
 };
 export const Layout = ({ title, children }: Input) => {
   const bg = useColorModeValue("brand.backgroundcolor2", "gray.700");

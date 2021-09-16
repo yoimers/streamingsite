@@ -1,6 +1,7 @@
 import { extendTheme, ThemeConfig } from "@chakra-ui/react";
 import Input from "./components/input";
 import Button from "./components/button";
+import Heading from "./components/heading";
 import styles from "./styles";
 import colors from "./colors";
 
@@ -15,6 +16,7 @@ const overrides = {
   components: {
     Button,
     Input,
+    Heading,
   },
   config,
 };
