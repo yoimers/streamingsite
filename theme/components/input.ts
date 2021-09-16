@@ -5,6 +5,9 @@ const Input = {
   sizes: {},
   // styles for different visual variants ("outline", "solid")
   variants: {
+    mainbutton:(props:any)=>({
+
+    }),
     outline: (props: any) => ({
       background: "brand.backgroundcolor2",
       _invalid: {

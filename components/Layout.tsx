@@ -4,10 +4,7 @@ import {
   ColorModeScript,
   useColorModeValue,
 } from "@chakra-ui/react";
-import {
-  ReactJSXElement,
-  ReactJSXElementChildrenAttribute,
-} from "@emotion/react/types/jsx-namespace";
+
 import Head from "next/head";
 import React, { ReactNode } from "react";
 import theme from "../theme";
