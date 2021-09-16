@@ -102,7 +102,7 @@ const SignIn = ({ onClose }: Input) => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.email}
-          // {...inputoption}
+          {...inputoption}
         />
         <FormErrorMessage>
           {formik.errors.email || (!isExistUser && "ユーザーが存在しません")}

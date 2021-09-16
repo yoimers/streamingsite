@@ -14,7 +14,7 @@ const Input = {
       field: {
         ...props.theme.components.Input.variants.outline(props).field,
         ml: 6,
-        color: "gray.400",
+        color: mode("gray.700", "gray.200")(props),
         height: "40px",
         rounded: "10",
         borderRadius: "xl",
