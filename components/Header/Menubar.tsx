@@ -19,6 +19,7 @@ import HeadsetIcon from "@material-ui/icons/Headset";
 import HomeIcon from "@material-ui/icons/Home";
 import React from "react";
 import { MenuItem } from "./MenuItem";
+import SignUpInModal from "../SignInUp/SignUpInModal";
 
 type Input = {
   isOpen: boolean;
@@ -27,7 +28,7 @@ type Input = {
 export const Menubar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { colorMode, toggleColorMode } = useColorMode();
-
+  const isMd = useBreakpointValue({ base: false, md: true });
   const Icon = (props: Input) => {
     const { isOpen, ...rest } = props;
     return (
@@ -72,33 +73,8 @@ export const Menubar = () => {
               Live
             </MenuItem>
           </DrawerBody>
-          <DrawerFooter justifyContent="left" p={4}>
-            <Icon isOpen={false} />
-            <Spacer />
-            {colorMode === "light" ? (
-              <IconButton
-                aria-label="Change LightMode"
-                color="brand.usercolor"
-                rounded="full"
-                _focus={{}}
-                _hover={{}}
-                _active={{}}
-                onClick={toggleColorMode}
-                // eslint-disable-next-line react/jsx-no-undef
-                icon={<MoonIcon w={6} h={6} />}
-              />
-            ) : (
-              <IconButton
-                aria-label="Change DarkMode"
-                color="brand.usercolor"
-                rounded="full"
-                _focus={{}}
-                _hover={{}}
-                _active={{}}
-                onClick={toggleColorMode}
-                icon={<SunIcon w={6} h={6} />}
-              />
-            )}
+          <DrawerFooter justifyContent="left">
+            <SignUpInModal isMd={!isMd} isHeader={false} />
           </DrawerFooter>
         </DrawerContent>
       </Drawer>

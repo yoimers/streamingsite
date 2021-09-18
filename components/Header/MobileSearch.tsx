@@ -27,6 +27,7 @@ const MobileSearch = () => {
         aria-label="Open menubar"
         onClick={onOpen}
         _focus={{}}
+        ml={4}
         icon={<SearchIcon w={6} h={6} />}
       />
       <Modal

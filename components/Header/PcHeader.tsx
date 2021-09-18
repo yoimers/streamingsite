@@ -19,7 +19,6 @@ import ModeIcon from "./ModeIcon";
 
 const PcHeader = () => {
   const bg = useColorModeValue("brand.backgroundcolor2", "gray.800");
-
   return (
     <>
       <Flex
@@ -49,14 +48,18 @@ const PcHeader = () => {
           <InputGroup w="100%" maxWidth="240px" justifyItems="center" mr={4}>
             <Input placeholder="放送を検索！" variant="searchinput" />
             <InputRightElement width="40px" height="40px" mr={1}>
-              <SearchIcon color="brand.maincolor" width="20px" height="20px" />
+              <SearchIcon
+                color="brand.searchcolor"
+                width="20px"
+                height="20px"
+              />
             </InputRightElement>
           </InputGroup>
         </Flex>
         <Spacer />
         <HStack spacing={6}>
           <ModeIcon />
-          <SignUpInModal />
+          <SignUpInModal isMd={true} />
         </HStack>
       </Flex>
     </>

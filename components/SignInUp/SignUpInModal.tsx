@@ -20,7 +20,7 @@ import {
 } from "@chakra-ui/react";
 import { GoogleLoginButton } from "react-social-login-buttons";
 import { FaUserCircle } from "react-icons/fa";
-import React, { useState } from "react";
+import React, { ReactElement, useState } from "react";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 import { signInWithGoogle } from "../../src/lib/firebase";
@@ -30,15 +30,19 @@ import { SignInOutTriger } from "../../src/lib/SignInOutTriger";
 import { useRecoilValue } from "recoil";
 import { currentUserState } from "../../states/currentUser";
 import { Profilemenu } from "../Profile/Profilemenu";
+import ModeIcon from "../Header/ModeIcon";
 
-const SignUpInModal = () => {
+type Input = {
+  isMd: boolean;
+  isHeader?: boolean;
+};
+const SignUpInModal = ({ isMd, isHeader = true }: Input) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isSignUp, setIsSignUp] = useState<boolean>(false);
   const tabcolor = useColorModeValue("brand.maincolor", "blue.300");
   const bg = useColorModeValue("#F7F9FF", "gray.700");
   const profileiconcolor = useColorModeValue("#383838", "#E6EDFF");
   const currentUser = useRecoilValue(currentUserState);
-  const isMd = useBreakpointValue({ base: false, md: true });
 
   const onClick = (issignup: boolean) => {
     onOpen();
@@ -47,61 +51,105 @@ const SignUpInModal = () => {
 
   return (
     <>
-      <SignInOutTriger
-        SignIn={
-          <>
-            {isMd && (
-              <Link href="/broadcast" passHref>
-                <a>
-                  <Button variant="mainbutton" size="xl">
-                    放送する
-                  </Button>
-                </a>
-              </Link>
-            )}
-
-            <Profilemenu>
-              {currentUser && currentUser.photoURL ? (
-                <Image
-                  src={currentUser.photoURL}
-                  layout="fill"
-                  alt="Picture of the author"
-                />
-              ) : (
-                <FaUserCircle size={40} color={profileiconcolor} />
+      {isHeader ? (
+        <SignInOutTriger
+          SignIn={
+            <>
+              {isMd && (
+                <Link href="/broadcast" passHref>
+                  <a>
+                    <Button variant="mainbutton" size="xl">
+                      放送する
+                    </Button>
+                  </a>
+                </Link>
               )}
-            </Profilemenu>
-          </>
-        }
-        SignOut={
-          <>
-            <Button
-              variant="subbutton"
-              size="xl"
-              onClick={() => onClick(false)}
-            >
-              ログイン
-            </Button>
-            <Button
-              variant="mainbutton"
-              size="xl"
-              onClick={() => onClick(true)}
-            >
-              新規登録
-            </Button>
-          </>
-        }
-        Loading={
-          <>
-            <Button variant="subbutton" isLoading={true} />
-            <Button variant="subbutton" isLoading={true} />
-          </>
-        }
-      />
-
+              <Profilemenu>
+                {currentUser && currentUser.photoURL ? (
+                  <Image
+                    src={currentUser.photoURL}
+                    layout="fill"
+                    alt="Picture of the author"
+                  />
+                ) : (
+                  <FaUserCircle size={40} color={profileiconcolor} />
+                )}
+              </Profilemenu>
+            </>
+          }
+          SignOut={
+            <>
+              {isMd && (
+                <>
+                  <Button
+                    variant="subbutton"
+                    size="xl"
+                    onClick={() => onClick(false)}
+                  >
+                    ログイン
+                  </Button>
+                  <Button
+                    variant="mainbutton"
+                    size="xl"
+                    onClick={() => onClick(true)}
+                  >
+                    新規登録
+                  </Button>
+                </>
+              )}
+            </>
+          }
+          Loading={
+            <>
+              <Button variant="subbutton" isLoading={true} />
+            </>
+          }
+        />
+      ) : (
+        <SignInOutTriger
+          SignIn={
+            <>
+              {isMd && (
+                <>
+                  <Link href="/broadcast" passHref>
+                    <a>
+                      <Button variant="mainbutton" size="xl" mr={4}>
+                        放送する
+                      </Button>
+                    </a>
+                  </Link>
+                  <ModeIcon />
+                </>
+              )}
+            </>
+          }
+          SignOut={
+            <>
+              {isMd && (
+                <>
+                  <Button
+                    variant="subbutton"
+                    size="xl"
+                    onClick={() => onClick(false)}
+                    mb={1}
+                  >
+                    ログイン
+                  </Button>
+                  <ModeIcon />
+                </>
+              )}
+            </>
+          }
+          Loading={
+            <>
+              <Button variant="subbutton" isLoading={true} />
+            </>
+          }
+        />
+      )}
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent background={bg}>
+        <ModalContent background={bg} mx={4}>
           <ModalCloseButton _active={{}} _focus={{}} />
           <ModalBody>
             <Tabs

@@ -11,7 +11,8 @@ const properties = [
     broadId: 1,
     imageUrl: "/img.png",
     imageAlt: "放送用サムネイル",
-    title: "aaaaaaaaaaaaaaaaafefegrggsgaaegeaaaaaaaaaaaaaaaaaaa",
+    title:
+      "aaaaaaaaaaaaaaaaafefegrggsgaaegeaaaaaaaaaaaaaaaaafefegrggsgaaegeaaaaaaaaaaaaaaaaafefegrggsgaaegeaaaaaaaaaaaaaaaaafefegrggsgaaegeaaaaaaaaaaaaaaaaafefegrggsgaaegeaaaaaaaaaaaaaaaaafefegrggsgaaegeaaaaaaaaaaaaaaaaafefegrggsgaaegeaaaaaaaaaaaaaaaaafefegrggsgaaegeaaaaaaaaaaaaaaaaafefegrggsgaaegeaaaaaaaaaaaaaaaaafefegrggsgaaegeaaaaaaaaaaaaaaaaafefegrggsgaaegeaaaaaaaaaaaaaaaaafefegrggsgaaegeaaaaaaaaaaaaaaaaafefegrggsgaaegeaaaaaaaaaaaaaaaaafefegrggsgaaegeaaaaaaaaaaaaaaaaafefegrggsgaaegeaaaaaaaaaaaaaaaaafefegrggsgaaegeaaaaaaaaaaaaaaaaafefegrggsgaaegeaaaaaaaaaaaaaaaaafefegrggsgaaegeaaaaaaaaaaaaaaaaafefegrggsgaaegeaaaaaaaaaaaaaaaaafefegrggsgaaegeaaaaaaaaaaaaaaaaafefegrggsgaaegeaaaaaaaaaaaaaaaaafefegrggsgaaegeaaaaaaaaaaaaaaaaaaa",
     user: "user ユーザー",
     createdAt: moment("2021-09-17 17:00:00"),
     connections: 20,

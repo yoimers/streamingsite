@@ -54,23 +54,21 @@ const Card = ({ property }: Input) => {
           <VStack
             p={1}
             alignItems="left"
-            w={{ base: "180px", md: "200px" }}
-            // maxWidth={{ base: "180px", md: "200px" }}
+            w={{ base: "calc(100vw - 300px)", md: "200px" }}
+            minWidth={{ base: "150px", md: "200px" }}
+            maxWidth={{ base: "400px", md: "200px" }}
             spacing={1}
           >
             <Text
               noOfLines={2}
-              w="100%"
               fontWeight="normal"
               as="h3"
               lineHeight="tight"
               fontSize="sm"
-              h={5}
-              isTruncated
             >
               {property.title}
             </Text>
-            {/* <Text
+            <Text
               fontWeight="normal"
               as="h3"
               lineHeight="tight"
@@ -87,7 +85,7 @@ const Card = ({ property }: Input) => {
               </Heading>
 
               <CardTime createdAt={property.createdAt} />
-            </HStack> */}
+            </HStack>
           </VStack>
         </Stack>
       </Link>
