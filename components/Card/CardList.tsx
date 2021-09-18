@@ -31,7 +31,7 @@ const CardList = ({ properties, title }: Input) => {
         }}
         gap={4}
         pt="20px"
-        width={isMobile ? "100%" : undefined}
+        w="100%"
       >
         {properties.map((property) => (
           <Card property={property} key={property.broadId} />

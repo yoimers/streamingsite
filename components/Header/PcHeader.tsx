@@ -7,10 +7,11 @@ import {
   InputGroup,
   InputRightElement,
   Spacer,
+  useBreakpointValue,
   useColorModeValue,
 } from "@chakra-ui/react";
 import Image from "next/image";
-import {  SearchIcon } from "@chakra-ui/icons";
+import { SearchIcon } from "@chakra-ui/icons";
 import { Menubar } from "./Menubar";
 import Link from "next/link";
 import SignUpInModal from "../SignInUp/SignUpInModal";
@@ -45,7 +46,7 @@ const PcHeader = () => {
               />
             </Center>
           </Link>
-          <InputGroup w="260px" justifyItems="center">
+          <InputGroup w="100%" maxWidth="240px" justifyItems="center" mr={4}>
             <Input placeholder="放送を検索！" variant="searchinput" />
             <InputRightElement width="40px" height="40px" mr={1}>
               <SearchIcon color="brand.maincolor" width="20px" height="20px" />

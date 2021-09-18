@@ -23,7 +23,7 @@ const MobileSearch = () => {
   return (
     <>
       <IconButton
-        color="brand.maincolor"
+        color="brand.searchcolor"
         aria-label="Open menubar"
         onClick={onOpen}
         _focus={{}}
@@ -47,7 +47,7 @@ const MobileSearch = () => {
               />
               <InputRightElement width="44px" height="44px">
                 <SearchIcon
-                  color="brand.maincolor"
+                  color="brand.searchcolor"
                   width="22px"
                   height="22px"
                 />

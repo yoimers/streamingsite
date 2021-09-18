@@ -32,7 +32,7 @@ const MobileHeader = () => {
         <Menubar />
         <Link href="/" passHref>
           <Center as="a">
-            <Image src="/wavelet.svg" alt="Title" height={40} width={135} />
+            <Image src="/wavelet.svg" alt="Title" height={40} width={120} />
           </Center>
         </Link>
       </Flex>

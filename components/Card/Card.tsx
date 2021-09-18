@@ -1,4 +1,11 @@
-import { Text, Container, HStack, VStack, GridItem } from "@chakra-ui/layout";
+import {
+  Text,
+  Container,
+  HStack,
+  VStack,
+  GridItem,
+  Box,
+} from "@chakra-ui/layout";
 import React from "react";
 import Image from "next/image";
 import PersonIcon from "@material-ui/icons/Person";
@@ -22,12 +29,11 @@ const Card = ({ property }: Input) => {
   const isMobile = useBreakpointValue({ base: true, md: false });
   return (
     <GridItem>
-      <Stack align="center" direction={{ base: "row", md: "column" }}>
-        <Link href={`/live/${property.broadId}`} passHref>
+      <Link href={`/live/${property.broadId}`} passHref>
+        <Stack as="a" align="center" direction={{ base: "row", md: "column" }}>
           <Container
-            as="a"
             m={0}
-            w={{ base: "50%", md: 200 }}
+            w={{ base: 140, md: 200 }}
             maxWidth={{ base: 140, md: 200 }}
             h={100}
             rounded="10"
@@ -45,25 +51,26 @@ const Card = ({ property }: Input) => {
             />
             <MyBadge>New</MyBadge>
           </Container>
-        </Link>
-        <Link href={`/live/${property.broadId}`} passHref>
           <VStack
             p={1}
             alignItems="left"
-            w={{ base: "100%", md: "200px" }}
-            maxWidth={{ base: "140px", md: "200px" }}
+            w={{ base: "180px", md: "200px" }}
+            // maxWidth={{ base: "180px", md: "200px" }}
             spacing={1}
           >
             <Text
-              noOfLines={isMobile ? 1 : 2}
-              as="h2"
-              fontWeight="semibold"
-              fontSize="md"
+              noOfLines={2}
+              w="100%"
+              fontWeight="normal"
+              as="h3"
               lineHeight="tight"
+              fontSize="sm"
+              h={5}
+              isTruncated
             >
               {property.title}
             </Text>
-            <Text
+            {/* <Text
               fontWeight="normal"
               as="h3"
               lineHeight="tight"
@@ -80,10 +87,10 @@ const Card = ({ property }: Input) => {
               </Heading>
 
               <CardTime createdAt={property.createdAt} />
-            </HStack>
+            </HStack> */}
           </VStack>
-        </Link>
-      </Stack>
+        </Stack>
+      </Link>
     </GridItem>
   );
 };

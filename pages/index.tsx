@@ -97,6 +97,7 @@ const Home: NextPage = () => {
   return (
     <Layout title="Wavelet">
       <CardList properties={properties} title="オススメのライブ" />
+      <CardList properties={properties} title="最新のライブ" />
     </Layout>
   );
 };

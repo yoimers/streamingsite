@@ -9,6 +9,7 @@ import {
 import Head from "next/head";
 import React, { ReactChild, ReactChildren } from "react";
 import theme from "../theme";
+import Footerbar from "./Footer/Footerbar";
 import Header from "./Header/Header";
 
 type Input = {
@@ -32,6 +33,7 @@ export const Layout = ({ title, children }: Input) => {
         <VStack height="calc(100% - 60px)" h="2000px">
           {children}
         </VStack>
+        <Footerbar />
       </Box>
     </>
   );

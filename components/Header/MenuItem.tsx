@@ -7,8 +7,8 @@ import React, { ReactNode } from "react";
 
 type Input = {
   Icon: OverridableComponent<SvgIconTypeMap<{}, "svg">>;
-  children: ReactNode;
-  onClose: () => void;
+  children?: ReactNode;
+  onClose?: () => void;
   link: string;
 };
 export const MenuItem = ({ link, Icon, children, onClose }: Input) => {
@@ -29,9 +29,11 @@ export const MenuItem = ({ link, Icon, children, onClose }: Input) => {
         transition="background-color 0.1s linear"
       >
         <Icon fontSize="medium" />
-        <Heading variant="menuitem" size="md">
-          {children}
-        </Heading>
+        {children && (
+          <Heading variant="menuitem" size="md">
+            {children}
+          </Heading>
+        )}
       </HStack>
     </Link>
   );

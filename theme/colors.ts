@@ -4,6 +4,7 @@ const colors = {
     mygray2: "#ECECEC",
     maincolor: "#6BA2F5",
     subcolor: "#D0E3FF",
+    searchcolor: "#A3C8FF",
     h2: "#3A3A3A",
     h2dark: "rgba(255, 255, 255, 0.92)",
     usercolor: "#575757",

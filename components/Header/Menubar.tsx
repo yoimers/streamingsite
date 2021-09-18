@@ -11,6 +11,7 @@ import {
   DrawerFooter,
   useColorMode,
   Spacer,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -53,7 +54,7 @@ export const Menubar = () => {
               src="/wavelet.svg"
               alt="Title"
               height={40}
-              width={135}
+              width={120}
               onClick={onClose}
             />
           </HStack>
