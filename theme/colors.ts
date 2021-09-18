@@ -9,11 +9,7 @@ const colors = {
     usercolor: "#575757",
     useridcolor: "rgba(87, 87, 87, 0.5)",
     backgroundcolor1: "#E6EDFF",
-    backgroundcolor2: "rgba(230, 237, 255, 0.2)",
-    900: "#1a365d",
-    800: "#153e75",
-    700: "#2a69ac",
-    100: "#FFFFFF",
+    backgroundcolor2: "rgba(246, 249, 255, 1)",
   },
 };
 

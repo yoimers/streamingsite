@@ -1,19 +1,102 @@
-import { Heading, HStack, Input, Stack, Text } from "@chakra-ui/react";
+import { Box, Center, Grid, Text } from "@chakra-ui/react";
+import moment from "moment";
 import type { NextPage } from "next";
-import Link from "next/link";
 import React from "react";
+import Card from "../components/Card/Card";
+import CardList from "../components/Card/CardList";
 import { Layout } from "../components/Layout";
-import { SignInOutTriger } from "../src/lib/SignInOutTriger";
+
+const properties = [
+  {
+    broadId: 1,
+    imageUrl: "/img.png",
+    imageAlt: "放送用サムネイル",
+    title: "aaaaaaaaaaaaaaaaafefegrggsgaaegeaaaaaaaaaaaaaaaaaaa",
+    user: "user ユーザー",
+    createdAt: moment("2021-09-17 17:00:00"),
+    connections: 20,
+    rating: 4,
+    like: 10,
+    dislike: 5,
+  },
+  {
+    broadId: 2,
+    imageUrl: "/img.png",
+    imageAlt: "放送用サムネイル",
+    title: "放送タイトル２！",
+    user: "useあああああr",
+    createdAt: moment("2021-09-17 17:37:00"),
+    connections: 2,
+    rating: 5,
+    like: 40,
+    dislike: 30,
+  },
+  {
+    broadId: 3,
+    imageUrl: "/img.png",
+    imageAlt: "放送用サムネイル",
+    title: "放送タイトル２！",
+    user: "useあああああr",
+    createdAt: moment("2021-09-17 17:37:00"),
+    connections: 2,
+    rating: 5,
+    like: 40,
+    dislike: 30,
+  },
+  {
+    broadId: 4,
+    imageUrl: "/img.png",
+    imageAlt: "放送用サムネイル",
+    title: "放送タイトル２！",
+    user: "useあああああr",
+    createdAt: moment("2021-09-17 17:37:00"),
+    connections: 2,
+    rating: 5,
+    like: 40,
+    dislike: 30,
+  },
+  {
+    broadId: 6,
+    imageUrl: "/img.png",
+    imageAlt: "放送用サムネイル",
+    title: "放送タイトル２！",
+    user: "useあああああr",
+    createdAt: moment("2021-09-17 17:37:00"),
+    connections: 2,
+    rating: 5,
+    like: 40,
+    dislike: 30,
+  },
+  {
+    broadId: 7,
+    imageUrl: "/img.png",
+    imageAlt: "放送用サムネイル",
+    title: "放送タイトル２！",
+    user: "useあああああr",
+    createdAt: moment("2021-09-17 17:37:00"),
+    connections: 2,
+    rating: 5,
+    like: 40,
+    dislike: 30,
+  },
+  {
+    broadId: 8,
+    imageUrl: "/img.png",
+    imageAlt: "放送用サムネイル",
+    title: "放送タイトル２！",
+    user: "useあああああr",
+    createdAt: moment("2021-09-17 17:37:00"),
+    connections: 2,
+    rating: 5,
+    like: 40,
+    dislike: 30,
+  },
+];
 
 const Home: NextPage = () => {
   return (
     <Layout title="Wavelet">
-      <SignInOutTriger
-        SignIn={<p>SignIn</p>}
-        SignOut={<p>SignOut</p>}
-        Loading={<p>Loading</p>}
-      />
-      a
+      <CardList properties={properties} title="オススメのライブ" />
     </Layout>
   );
 };

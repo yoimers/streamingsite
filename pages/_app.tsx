@@ -1,5 +1,4 @@
-import "../styles/globals.css";
-import { ChakraProvider, extendTheme, Input } from "@chakra-ui/react";
+import { ChakraProvider } from "@chakra-ui/react";
 import { AppProps } from "next/app";
 import React, { useEffect } from "react";
 import { RecoilRoot, useSetRecoilState } from "recoil";

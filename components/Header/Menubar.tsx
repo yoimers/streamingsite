@@ -1,4 +1,4 @@
-import { HamburgerIcon } from "@chakra-ui/icons";
+import { HamburgerIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { Input } from "@chakra-ui/input";
 import {
   Drawer,
@@ -8,8 +8,9 @@ import {
   IconButton,
   useDisclosure,
   HStack,
-  useColorModeValue,
-  Heading,
+  DrawerFooter,
+  useColorMode,
+  Spacer,
 } from "@chakra-ui/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -20,31 +21,34 @@ import { MenuItem } from "./MenuItem";
 
 type Input = {
   isOpen: boolean;
+  [key: string]: any;
 };
 export const Menubar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { colorMode, toggleColorMode } = useColorMode();
 
-  const Icon = ({ isOpen = true }: Input) => {
+  const Icon = (props: Input) => {
+    const { isOpen, ...rest } = props;
     return (
       <IconButton
         color="brand.mygray1"
         aria-label="Open menubar"
-        mr={6}
         _focus={{}}
         onClick={isOpen ? onOpen : onClose}
         icon={<HamburgerIcon w={6} h={6} />}
+        {...rest}
       />
     );
   };
 
   return (
     <>
-      <Icon isOpen={true} />
-      <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
+      <Icon isOpen={true} mr={6} />
+      <Drawer isOpen={isOpen} placement="left" onClose={onClose} size="xss">
         <DrawerOverlay />
         <DrawerContent>
           <HStack pt={1} pl={4} height="60px" boxShadow="base">
-            <Icon isOpen={false} />
+            <Icon isOpen={false} mr={6} />
             <Image
               src="/wavelet.svg"
               alt="Title"
@@ -67,6 +71,34 @@ export const Menubar = () => {
               Live
             </MenuItem>
           </DrawerBody>
+          <DrawerFooter justifyContent="left" p={4}>
+            <Icon isOpen={false} />
+            <Spacer />
+            {colorMode === "light" ? (
+              <IconButton
+                aria-label="Change LightMode"
+                color="brand.usercolor"
+                rounded="full"
+                _focus={{}}
+                _hover={{}}
+                _active={{}}
+                onClick={toggleColorMode}
+                // eslint-disable-next-line react/jsx-no-undef
+                icon={<MoonIcon w={6} h={6} />}
+              />
+            ) : (
+              <IconButton
+                aria-label="Change DarkMode"
+                color="brand.usercolor"
+                rounded="full"
+                _focus={{}}
+                _hover={{}}
+                _active={{}}
+                onClick={toggleColorMode}
+                icon={<SunIcon w={6} h={6} />}
+              />
+            )}
+          </DrawerFooter>
         </DrawerContent>
       </Drawer>
     </>

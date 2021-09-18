@@ -1,14 +1,13 @@
-import { Button } from "@chakra-ui/button";
-import { ChevronDownIcon } from "@chakra-ui/icons";
-import { Box, Center } from "@chakra-ui/layout";
+import { Center } from "@chakra-ui/layout";
 import { Menu, MenuList, MenuItem, MenuButton } from "@chakra-ui/menu";
 import React from "react";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import TwitterIcon from "@material-ui/icons/Twitter";
-import YouTubeIcon from "@material-ui/icons/YouTube";
+import { CgMediaPodcast } from "react-icons/cg";
 import AppleIcon from "@material-ui/icons/Apple";
 import AccountBoxIcon from "@material-ui/icons/AccountBox";
 import { signOutWithGoogle } from "../../src/lib/firebase";
+import Link from "next/link";
 
 type Input = {
   children: JSX.Element;
@@ -34,7 +33,11 @@ export const Profilemenu = ({ children }: Input): JSX.Element => {
 
       <MenuList>
         <MenuItem icon={<AccountBoxIcon />}>マイページ</MenuItem>
-        <MenuItem icon={<YouTubeIcon />}>余白１</MenuItem>
+        <Link href="/broadcast" passHref>
+          <MenuItem as="a" icon={<CgMediaPodcast size="24px" />}>
+            放送する
+          </MenuItem>
+        </Link>
         <MenuItem icon={<TwitterIcon />}>余白２</MenuItem>
         <MenuItem icon={<AppleIcon />}>余白３</MenuItem>
         <MenuItem icon={<ExitToAppIcon />} onClick={signOutWithGoogle}>
