@@ -43,7 +43,6 @@ const SignUpInModal = ({ isMd, isHeader = true }: Input) => {
   const bg = useColorModeValue("#F7F9FF", "gray.700");
   const profileiconcolor = useColorModeValue("#383838", "#E6EDFF");
   const currentUser = useRecoilValue(currentUserState);
-
   const onClick = (issignup: boolean) => {
     onOpen();
     setIsSignUp(issignup);

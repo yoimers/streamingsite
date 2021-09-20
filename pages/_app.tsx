@@ -3,15 +3,16 @@ import { AppProps } from "next/app";
 import React, { useEffect } from "react";
 import { RecoilRoot, useSetRecoilState } from "recoil";
 import { auth } from "../src/lib/firebase";
-import { User } from "../src/lib/AuthType";
 import { currentUserState } from "../states/currentUser";
 import theme from "../theme";
+// import "../styles//styles.css";
+import { onAuthStateChanged, User } from "firebase/auth";
 
 function AppInit() {
   const setCurrentUser = useSetRecoilState(currentUserState);
 
   useEffect(() => {
-    auth.onAuthStateChanged((user: User | null) => setCurrentUser(user));
+    onAuthStateChanged(auth, (user: User | null) => setCurrentUser(user));
   }, [setCurrentUser]);
 
   return null;

@@ -1,20 +1,16 @@
 import React from "react";
 import {
-  Box,
   Center,
   Flex,
   HStack,
-  IconButton,
   Spacer,
   useColorModeValue,
 } from "@chakra-ui/react";
 import Image from "next/image";
-import { SearchIcon } from "@chakra-ui/icons";
 import { Menubar } from "./Menubar";
 import Link from "next/link";
 import SignUpInModal from "../SignInUp/SignUpInModal";
 import MobileSearch from "./MobileSearch";
-import ModeIcon from "./ModeIcon";
 
 const MobileHeader = () => {
   const bg = useColorModeValue("brand.backgroundcolor2", "gray.800");

@@ -2,6 +2,7 @@ const colors = {
   brand: {
     mygray1: "#737373",
     mygray2: "#ECECEC",
+    serchgray: "#282E36",
     maincolor: "#6BA2F5",
     subcolor: "#D0E3FF",
     searchcolor: "#A3C8FF",

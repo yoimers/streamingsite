@@ -18,6 +18,7 @@ import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import * as Yup from "yup";
 import { auth } from "../../src/lib/firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 type InputType<T> = {
   email: T;
@@ -50,8 +51,7 @@ const SignIn = ({ onClose }: Input) => {
     formikHelpers: FormikHelpers<InputType<string>>
   ) => {
     formikHelpers.setSubmitting(true);
-    auth
-      .signInWithEmailAndPassword(values.email, values.password)
+    signInWithEmailAndPassword(auth, values.email, values.password)
       .then((userCredential) => {
         userCredential;
         onClose();

@@ -1,7 +1,7 @@
 import moment from "moment";
 
 export interface CardType {
-  broadId: number;
+  broadId: string;
   imageUrl: string;
   imageAlt: string;
   title: string;
@@ -11,4 +11,5 @@ export interface CardType {
   rating: number;
   like: number;
   dislike: number;
+  isNow: boolean;
 }

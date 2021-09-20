@@ -3,9 +3,9 @@ import { mode } from "@chakra-ui/theme-tools";
 const Input = {
   baseStyle: (props: any) => ({
     field: {
-      background: mode("brand.backgroundcolor2", "gray.600")(props),
+      background: mode("brand.backgroundcolor1", "gray.600")(props),
       boxShadow: mode(
-        `0 0 0 1px ${props.theme.colors.brand.backgroundcolor1}`,
+        `0 0 0 1px ${props.theme.colors.brand.subcolor}`,
         `0 0 0 1px gray.400`
       )(props),
       rounded: "10",
@@ -23,9 +23,27 @@ const Input = {
       field: {
         ml: 6,
         height: "40px",
+        background: mode("brand.backgroundcolor2", "brand.serchgray")(props),
         _focus: {
           ...props.theme.components.Input.variants.outline(props).field._focus,
           boxShadow: `0 0 0 1px ${props.theme.colors.brand.maincolor}`,
+        },
+      },
+    }),
+    commentinput: (props: any) => ({
+      field: {
+        h: 8,
+        roundedRight: 0,
+        border: "1px",
+        pl: 2,
+        fontSize: "xs",
+        background: mode("brand.backgroundcolor2", "gray.700")(props),
+        borderColor: mode("blue.100", "blue.700")(props),
+        boxShadow: "0",
+        _focus: {
+          // ...props.theme.components.Input.variants.outline(props).field._focus,
+          border: "1px",
+          borderColor: mode("blue.500", "blue.200")(props),
         },
       },
     }),

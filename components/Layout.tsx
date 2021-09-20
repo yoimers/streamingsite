@@ -28,11 +28,9 @@ export const Layout = ({ title, children }: Input) => {
         ></meta>
       </Head>
       <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-      <Box height="100vh" width="100%">
+      <Box height="100%" width="100%">
         <Header />
-        <VStack height="calc(100% - 60px)" h="2000px">
-          {children}
-        </VStack>
+        {children}
         <Footerbar />
       </Box>
     </>

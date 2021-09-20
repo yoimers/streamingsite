@@ -1,45 +1,63 @@
-import firebase from "firebase/compat/app";
-import "firebase/compat/auth";
-import "firebase/compat/firestore";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithRedirect,
+  signOut,
+} from "firebase/auth";
+
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
 
 // TODO: Replace the following with your app's Firebase project configuration
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL,
-  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  databaseURL: process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BAKET,
   messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BAKET,
   appID: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
-let app;
-if (firebase.apps.length === 0) {
-  app = firebase.initializeApp(firebaseConfig);
-}
-const provider = new firebase.auth.GoogleAuthProvider();
 
-export const auth = firebase.auth();
+const firebaseApp = initializeApp(firebaseConfig);
+const auth = getAuth();
+const db = getFirestore();
+export { auth, db };
+const provider = new GoogleAuthProvider();
+
 export const signInWithGoogle = () => {
-  firebase
-    .auth()
-    .signInWithPopup(provider)
-    .then((res) => console.log(res))
-    .catch((error) => console.log(error.message));
+  signInWithRedirect(auth, provider)
+    .then((result: any) => {
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential?.accessToken;
+      // The signed-in user info.
+      const user = result.user;
+      console.log(result);
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // The email of the user's account used.
+      const email = error.email;
+      // The AuthCredential type that was used.
+      const credential = GoogleAuthProvider.credentialFromError(error);
+      console.log(errorMessage);
+    });
 };
+
 export const signOutWithGoogle = () => {
-  firebase
-    .auth()
-    .signOut()
+  signOut(auth)
     .then((res) => console.log(res))
     .catch((error) => console.log(error.message));
 };
-export const createUserWithEmailAndPassword = (
+
+export const createUserWithEmailAndPasswords = (
   email: string,
   password: string
 ) => {
-  firebase
-    .auth()
-    .createUserWithEmailAndPassword(email, password)
+  createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       console.log(userCredential);
     })

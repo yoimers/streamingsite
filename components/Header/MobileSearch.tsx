@@ -1,17 +1,7 @@
-import { Button } from "@chakra-ui/button";
-import { FormControl, FormLabel } from "@chakra-ui/form-control";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { SearchIcon } from "@chakra-ui/icons";
 import { Input } from "@chakra-ui/input";
-import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
-  ModalBody,
-  ModalFooter,
-} from "@chakra-ui/modal";
+import { Modal, ModalOverlay, ModalContent, ModalBody } from "@chakra-ui/modal";
 import { IconButton, InputGroup, InputRightElement } from "@chakra-ui/react";
 import React from "react";
 

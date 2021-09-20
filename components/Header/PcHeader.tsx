@@ -7,7 +7,6 @@ import {
   InputGroup,
   InputRightElement,
   Spacer,
-  useBreakpointValue,
   useColorModeValue,
 } from "@chakra-ui/react";
 import Image from "next/image";

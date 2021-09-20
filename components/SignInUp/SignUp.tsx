@@ -12,6 +12,7 @@ import React, { useState } from "react";
 import { MyLabel } from "./SignIn";
 import * as Yup from "yup";
 import { auth } from "../../src/lib/firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 type InputType<T> = {
   username: T;
@@ -57,17 +58,12 @@ const SignUp = ({ onClose }: Input) => {
   ) => {
     formikHelpers.setSubmitting(true);
     setIsExistUser(false);
-    auth
-      .createUserWithEmailAndPassword(values.email, values.password)
+    createUserWithEmailAndPassword(auth, values.email, values.password)
       .then((userCredential) => {
-        userCredential;
-        onClose();
-        formikHelpers.setSubmitting(false);
+        console.log(userCredential);
       })
       .catch((error) => {
-        console.error(error);
-        setIsExistUser(true);
-        formikHelpers.setSubmitting(false);
+        console.log(error);
       });
   };
 

@@ -1,14 +1,15 @@
-import { Box, Center, Grid, Text } from "@chakra-ui/react";
+import { Box, Center, Grid, Text, VStack } from "@chakra-ui/react";
 import moment from "moment";
 import type { NextPage } from "next";
 import React from "react";
 import Card from "../components/Card/Card";
 import CardList from "../components/Card/CardList";
+import { CardType } from "../components/Card/CardType";
 import { Layout } from "../components/Layout";
 
-const properties = [
+const properties: CardType[] = [
   {
-    broadId: 1,
+    broadId: "98CwC1mIS2mIt5F6d2D4",
     imageUrl: "/img.png",
     imageAlt: "放送用サムネイル",
     title:
@@ -19,9 +20,10 @@ const properties = [
     rating: 4,
     like: 10,
     dislike: 5,
+    isNow: true,
   },
   {
-    broadId: 2,
+    broadId: "98CwC1mIS2mIt5F6d2D4b",
     imageUrl: "/img.png",
     imageAlt: "放送用サムネイル",
     title: "放送タイトル２！",
@@ -31,9 +33,10 @@ const properties = [
     rating: 5,
     like: 40,
     dislike: 30,
+    isNow: true,
   },
   {
-    broadId: 3,
+    broadId: "98CwC1mIS2mIt5F6xd2D4b",
     imageUrl: "/img.png",
     imageAlt: "放送用サムネイル",
     title: "放送タイトル２！",
@@ -43,9 +46,10 @@ const properties = [
     rating: 5,
     like: 40,
     dislike: 30,
+    isNow: true,
   },
   {
-    broadId: 4,
+    broadId: "98CwC1mIS2mIt5F6d2aD4",
     imageUrl: "/img.png",
     imageAlt: "放送用サムネイル",
     title: "放送タイトル２！",
@@ -55,9 +59,10 @@ const properties = [
     rating: 5,
     like: 40,
     dislike: 30,
+    isNow: true,
   },
   {
-    broadId: 6,
+    broadId: "98CwC1mIS2mIt5aF6d2D4",
     imageUrl: "/img.png",
     imageAlt: "放送用サムネイル",
     title: "放送タイトル２！",
@@ -67,9 +72,10 @@ const properties = [
     rating: 5,
     like: 40,
     dislike: 30,
+    isNow: true,
   },
   {
-    broadId: 7,
+    broadId: "98CwC1mIS2mIt5wF6d2D4",
     imageUrl: "/img.png",
     imageAlt: "放送用サムネイル",
     title: "放送タイトル２！",
@@ -79,9 +85,10 @@ const properties = [
     rating: 5,
     like: 40,
     dislike: 30,
+    isNow: true,
   },
   {
-    broadId: 8,
+    broadId: "98CwC1mIS2mIt5F6dx2D4",
     imageUrl: "/img.png",
     imageAlt: "放送用サムネイル",
     title: "放送タイトル２！",
@@ -91,14 +98,17 @@ const properties = [
     rating: 5,
     like: 40,
     dislike: 30,
+    isNow: true,
   },
 ];
 
 const Home: NextPage = () => {
   return (
     <Layout title="Wavelet">
-      <CardList properties={properties} title="オススメのライブ" />
-      <CardList properties={properties} title="最新のライブ" />
+      <VStack height="calc(100% - 60px)" pb="50px">
+        <CardList properties={properties} title="オススメのライブ" />
+        <CardList properties={properties} title="最新のライブ" />
+      </VStack>
     </Layout>
   );
 };
