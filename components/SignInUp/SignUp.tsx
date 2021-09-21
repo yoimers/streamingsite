@@ -13,6 +13,7 @@ import { MyLabel } from "./SignIn";
 import * as Yup from "yup";
 import { auth } from "../../src/lib/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { signupSchema } from "../../validationschema/schema";
 
 type InputType<T> = {
   username: T;
@@ -27,23 +28,6 @@ const initialValues: InputType<string> = {
   password: "",
   passwordconfirm: "",
 };
-
-const validationSchema = Yup.object({
-  username: Yup.string()
-    .min(2, "名前が短すぎます")
-    .max(10, "名前が長すぎます")
-    .required("名前を入力してください"),
-  email: Yup.string()
-    .email("正しいメールアドレスを入力してください")
-    .required("メールアドレスを入力してください"),
-  password: Yup.string()
-    .min(6, "パスワードが短すぎます")
-    .max(30, "パスワードが長すぎます")
-    .required("パスワードを入力してください"),
-  passwordconfirm: Yup.string()
-    .oneOf([Yup.ref("password"), null], "パスワードが一致しません")
-    .required("パスワードを入力してください"),
-});
 
 type Input = {
   onClose: () => void;
@@ -70,7 +54,7 @@ const SignUp = ({ onClose }: Input) => {
   const formik = useFormik({
     initialValues,
     onSubmit,
-    validationSchema,
+    validationSchema: signupSchema,
   });
 
   return (

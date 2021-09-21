@@ -1,5 +1,5 @@
+import { User } from "firebase/auth";
 import { useRecoilValue } from "recoil";
-import { User } from "../src/lib/AuthType";
 import { currentUserState } from "../states/currentUser";
 
 export type UserandChecking = {
@@ -9,7 +9,7 @@ export type UserandChecking = {
 export function useCurrentUser(): UserandChecking {
   const currentUser = useRecoilValue(currentUserState);
   const isAuthChecking = currentUser === undefined;
-
+  
   return {
     currentUser,
     isAuthChecking,

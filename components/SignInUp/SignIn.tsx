@@ -19,6 +19,7 @@ import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import * as Yup from "yup";
 import { auth } from "../../src/lib/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { signinSchema } from "../../validationschema/schema";
 
 type InputType<T> = {
   email: T;
@@ -30,15 +31,7 @@ const initialValues: InputType<string> = {
   password: "",
 };
 
-const validationSchema = Yup.object({
-  email: Yup.string()
-    .email("正しいメールアドレスを入力してください")
-    .required("メールアドレスを入力してください"),
-  password: Yup.string()
-    .min(6, "パスワードが短すぎます")
-    .max(30, "パスワードが長すぎます")
-    .required("パスワードを入力してください"),
-});
+
 type Input = {
   onClose: () => void;
 };
@@ -46,6 +39,7 @@ const SignIn = ({ onClose }: Input) => {
   const [isShow, setIsShow] = useState(false);
   const [isExistUser, setIsExistUser] = useState(true);
   const eyebg = useColorModeValue("brand.mygray1", "h2");
+
   const onSubmit = (
     values: InputType<string>,
     formikHelpers: FormikHelpers<InputType<string>>
@@ -67,7 +61,7 @@ const SignIn = ({ onClose }: Input) => {
   const formik = useFormik({
     initialValues,
     onSubmit,
-    validationSchema,
+    validationSchema: signinSchema,
   });
 
   return (

@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Heading } from "@chakra-ui/react";
 import moment from "moment";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
+import { Timestamp } from "firebase/firestore";
 
 type Input = {
-  createdAt: moment.Moment;
+  createdAt: number;
 };
 
 const CardTime = ({ createdAt }: Input) => {
-  const [time, setTime] = useState(moment().diff(createdAt, "millisecond"));
+  const [time, setTime] = useState(moment().diff(createdAt * 1000));
   useEffect(() => {
     const Interval = setInterval(() => {
       setTime((prev) => prev + 1000);
@@ -18,7 +19,7 @@ const CardTime = ({ createdAt }: Input) => {
   const { hour, minute, second } = timetostring(time);
   return (
     <>
-      <AccessTimeIcon style={{ fontSize: "16px", marginLeft: "8px" }} />
+      <AccessTimeIcon style={{ fontSize: "16px" }} />
       <Heading variant="menuitem" as="h4" size="xs">
         {hour}:{minute}:{second}
       </Heading>

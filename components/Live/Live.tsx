@@ -1,20 +1,9 @@
-import {
-  AspectRatio,
-  Box,
-  Center,
-  Flex,
-  HStack,
-  VStack,
-} from "@chakra-ui/layout";
+import { AspectRatio, Box, Flex } from "@chakra-ui/layout";
 import { useBreakpointValue } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React from "react";
 import CommentForm from "./CommentForm";
 import VideoSidemenu from "./VideoSidemenu";
-import moment from "moment";
-import { CommentType } from "./LiveType";
-import { db } from "../../src/lib/firebase";
-import { collection, getDocs } from "firebase/firestore";
 
 const Live = () => {
   const videofixed = useBreakpointValue({ lg: "flex-start", xl: "center" });

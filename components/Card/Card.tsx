@@ -16,6 +16,7 @@ import {
   Heading,
   Stack,
   useBreakpointValue,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { CardType } from "./CardType";
 import Link from "next/link";
@@ -27,8 +28,10 @@ type Input = {
 
 const Card = ({ property }: Input) => {
   const isMobile = useBreakpointValue({ base: true, md: false });
+  const bg = useColorModeValue("gray.50", "gray.900");
+
   return (
-    <GridItem>
+    <GridItem bg={bg} rounded={10} p={1}>
       <Link href={`/live/${property.broadId}`} passHref>
         <Stack as="a" align="center" direction={{ base: "row", md: "column" }}>
           <Container
@@ -45,7 +48,7 @@ const Card = ({ property }: Input) => {
           >
             <Image
               src={property.imageUrl}
-              alt={property.imageAlt}
+              alt="動画用のサムネイル"
               layout="fill"
               objectFit="cover"
             />
@@ -76,15 +79,25 @@ const Card = ({ property }: Input) => {
               h={5}
               isTruncated
             >
-              {property.user}
+              {property.displayName}
             </Text>
             <HStack opacity={0.5} h={5} spacing={1}>
-              <PersonIcon style={{ fontSize: "16px" }} />
-              <Heading variant="menuitem" as="h4" size="xs">
-                {property.connections}
-              </Heading>
+              {property.connections && (
+                <>
+                  <PersonIcon style={{ fontSize: "16px" }} />
+                  <Heading variant="menuitem" as="h4" size="xs" mr={2}>
+                    {property.connections}
+                  </Heading>
+                </>
+              )}
 
-              <CardTime createdAt={property.createdAt} />
+              <CardTime
+                createdAt={
+                  typeof property.createdAt === "number"
+                    ? property.createdAt
+                    : property.createdAt.seconds
+                }
+              />
             </HStack>
           </VStack>
         </Stack>

@@ -38,7 +38,7 @@ const CommentForm = () => {
     (async () => {
       try {
         const docRef = await addDoc(
-          collection(db, `broad/${router.query.live}/comments`),
+          collection(db, `broads/${router.query.live}/comments`),
           {
             content: values.comment,
             uid: currentUser?.uid || "guest",

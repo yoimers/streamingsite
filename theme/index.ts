@@ -5,6 +5,7 @@ import Heading from "./components/heading";
 import Drawer from "./components/drawer";
 import styles from "./styles";
 import colors from "./colors";
+import Textarea from "./components/textarea";
 
 const config: ThemeConfig = {
   initialColorMode: "light",
@@ -19,6 +20,7 @@ const overrides = {
     Input,
     Heading,
     Drawer,
+    Textarea,
   },
   config,
 };

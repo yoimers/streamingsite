@@ -23,7 +23,7 @@ const CommentTab = () => {
   const containerRef = useRef<any>(null);
 
   useEffect(() => {
-    const commentref = collection(db, `broad/${router.query.live}/comments`);
+    const commentref = collection(db, `broads/${router.query.live}/comments`);
     const q = query(commentref, orderBy("createdAt", "desc"), limit(30));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       snapshot.docChanges().forEach((change) => {
