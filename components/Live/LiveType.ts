@@ -8,3 +8,15 @@ export interface CommentType {
   createdAt: number;
   displayName?: string;
 }
+
+export interface LiveInfomationType {
+  title: string;
+  content: string;
+  createdAt: number;
+  uid: string;
+  displayName: string;
+  imageUrl: string;
+  isNow: boolean;
+  live: string;
+  photoURL: string;
+}

@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  Box,
   Center,
   Flex,
   HStack,
@@ -19,14 +20,13 @@ import ModeIcon from "./ModeIcon";
 const PcHeader = () => {
   const bg = useColorModeValue("brand.backgroundcolor2", "gray.800");
   return (
-    <>
+    <Box minW="1040px" bg={bg}>
       <Flex
-        width="100%"
+        width="100vw"
         height="60px"
         px={5}
         alignItems="center"
         boxShadow="base"
-        bg={bg}
         position="sticky"
         zIndex="sticky"
         top="0"
@@ -61,7 +61,7 @@ const PcHeader = () => {
           <SignUpInModal isMd={true} />
         </HStack>
       </Flex>
-    </>
+    </Box>
   );
 };
 

@@ -11,9 +11,10 @@ import { FormikHelpers, useFormik } from "formik";
 import React, { useState } from "react";
 import { MyLabel } from "./SignIn";
 import * as Yup from "yup";
-import { auth } from "../../src/lib/firebase";
+import { auth, db } from "../../src/lib/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { signupSchema } from "../../validationschema/schema";
+import { doc, setDoc } from "firebase/firestore";
 
 type InputType<T> = {
   username: T;
@@ -45,9 +46,28 @@ const SignUp = ({ onClose }: Input) => {
     createUserWithEmailAndPassword(auth, values.email, values.password)
       .then((userCredential) => {
         console.log(userCredential);
+        const { user } = userCredential;
+        const userRef = doc(db, "users", user.uid);
+        (async () => {
+          //存在しない→作成、存在する→上書き
+          await setDoc(userRef, {
+            displayName: values.username,
+            email: user.email,
+            emailVerified: user.emailVerified,
+            isAnonymous: user.isAnonymous,
+            photoURL: user.photoURL,
+            uid: user.uid,
+            creationTime: user.metadata.creationTime,
+            lastSignInTime: user.metadata.lastSignInTime,
+          });
+        })();
+        formikHelpers.setSubmitting(false);
+        onClose();
       })
       .catch((error) => {
         console.log(error);
+        formikHelpers.setSubmitting(false);
+        onClose();
       });
   };
 

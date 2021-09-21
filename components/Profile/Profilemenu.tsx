@@ -8,11 +8,14 @@ import AppleIcon from "@material-ui/icons/Apple";
 import AccountBoxIcon from "@material-ui/icons/AccountBox";
 import { signOutWithGoogle } from "../../src/lib/firebase";
 import Link from "next/link";
+import { useCurrentUser } from "../../hooks/useCurrentUser";
 
 type Input = {
   children: JSX.Element;
 };
 export const Profilemenu = ({ children }: Input): JSX.Element => {
+  const { isAuthChecking, currentUser } = useCurrentUser();
+  if (!currentUser) return <></>;
   return (
     <Menu>
       <MenuButton
@@ -32,7 +35,9 @@ export const Profilemenu = ({ children }: Input): JSX.Element => {
       </MenuButton>
 
       <MenuList>
-        <MenuItem icon={<AccountBoxIcon />}>マイページ</MenuItem>
+        <Link href={`/users/${currentUser.uid}`} passHref>
+          <MenuItem icon={<AccountBoxIcon />}>マイページ</MenuItem>
+        </Link>
         <Link href="/broadcast" passHref>
           <MenuItem as="a" icon={<CgMediaPodcast size="24px" />}>
             放送する

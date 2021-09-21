@@ -31,7 +31,7 @@ export const Layout = ({ title, children }: Input) => {
       <Box height="100%" width="100%">
         <Header />
         {children}
-        <Footerbar />
+        {/* <Footerbar /> */}
       </Box>
     </>
   );

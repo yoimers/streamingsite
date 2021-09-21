@@ -4,9 +4,10 @@ import {
   GoogleAuthProvider,
   signInWithRedirect,
   signOut,
+  signInWithPopup,
 } from "firebase/auth";
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { doc, setDoc, getFirestore } from "firebase/firestore";
 import firebase from "firebase/app";
 import "firebase/storage";
 
@@ -29,13 +30,33 @@ export { auth, db };
 const provider = new GoogleAuthProvider();
 
 export const signInWithGoogle = () => {
-  signInWithRedirect(auth, provider)
-    .then((result: any) => {
+  signInWithPopup(auth, provider)
+    // signInWithRedirect(auth, provider)
+    .then((result) => {
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const token = credential?.accessToken;
       // The signed-in user info.
       const user = result.user;
-      console.log(result);
+      console.log(user);
+
+      const userRef = doc(db, "users", user.uid);
+      (async () => {
+        //存在しない→作成、存在する→何もしない
+        await setDoc(
+          userRef,
+          {
+            displayName: user.displayName,
+            email: user.email,
+            emailVerified: user.emailVerified,
+            isAnonymous: user.isAnonymous,
+            photoURL: user.photoURL,
+            uid: user.uid,
+            creationTime: user.metadata.creationTime,
+            lastSignInTime: user.metadata.lastSignInTime,
+          },
+          { merge: true } //存在するとき何もしない
+        );
+      })();
     })
     .catch((error) => {
       const errorCode = error.code;
