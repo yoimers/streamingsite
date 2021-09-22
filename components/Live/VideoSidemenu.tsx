@@ -23,11 +23,17 @@ import CommentTab from "./CommentTab";
 import { CommentType } from "./LiveType";
 
 const VideoSidemenu = () => {
-  const bg = useColorModeValue("white", "gray.600");
+  const bg = useColorModeValue("brand.backgroundcolor2", "gray.600");
   return (
     <Box bg={bg} w="320px" minWidth="320px" roundedRight={10}>
       <Tabs id="tabtabtab" h="100%">
-        <TabList justifyContent="space-around" color="brand.mygray1">
+        <TabList
+          bg={bg}
+          justifyContent="space-around"
+          color="brand.mygray1"
+          roundedRight={10}
+          boxShadow="none"
+        >
           <MyTab>コメント</MyTab>
           <MyTab>何か１</MyTab>
           <MyTab roundedTopRight={10}>何か２</MyTab>
@@ -62,7 +68,7 @@ type TabInput = {
 };
 const MyTab = ({ children, ...rest }: TabInput) => {
   const tabcolor = useColorModeValue("brand.maincolor", "white"); //"blue.300"
-  const selectedbg = useColorModeValue("white", "gray.600");
+  const selectedbg = useColorModeValue("brand.backgroundcolor2", "gray.600");
   const bg = useColorModeValue("gray.300", "gray.900");
   return (
     <Tab

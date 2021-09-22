@@ -23,7 +23,7 @@ const Input = {
       field: {
         ml: 6,
         height: "40px",
-        background: mode("brand.backgroundcolor2", "brand.serchgray")(props),
+        background: mode("brand.backgroundcolor1", "brand.serchgray")(props),
         _focus: {
           ...props.theme.components.Input.variants.outline(props).field._focus,
           boxShadow: `0 0 0 1px ${props.theme.colors.brand.maincolor}`,

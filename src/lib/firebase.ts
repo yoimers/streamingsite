@@ -30,9 +30,9 @@ export { auth, db };
 const provider = new GoogleAuthProvider();
 
 export const signInWithGoogle = () => {
-  signInWithPopup(auth, provider)
-    // signInWithRedirect(auth, provider)
-    .then((result) => {
+  // signInWithPopup(auth, provider)
+  signInWithRedirect(auth, provider)
+    .then((result: any) => {
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const token = credential?.accessToken;
       // The signed-in user info.
@@ -45,11 +45,9 @@ export const signInWithGoogle = () => {
         await setDoc(
           userRef,
           {
-            displayName: user.displayName,
             email: user.email,
             emailVerified: user.emailVerified,
             isAnonymous: user.isAnonymous,
-            photoURL: user.photoURL,
             uid: user.uid,
             creationTime: user.metadata.creationTime,
             lastSignInTime: user.metadata.lastSignInTime,

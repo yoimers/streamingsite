@@ -26,7 +26,7 @@ type InputType = {
   comment: string;
 };
 const CommentForm = () => {
-  const bg = useColorModeValue("white", "gray.600");
+  const bg = useColorModeValue("brand.backgroundcolor2", "gray.600");
   const borderright = useColorModeValue("gray.100", "gray.500");
   const currentUser = useRecoilValue(currentUserState);
   const router = useRouter();

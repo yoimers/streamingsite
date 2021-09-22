@@ -10,6 +10,6 @@ export const currentUserState = atom<undefined | null | User>({
   dangerouslyAllowMutability: true,
 });
 
-// const [todoList, setTodoList] = useRecoilState(todoListState); state + set func
-// const todoList = useRecoilValue(todoListState);                     state only
-// const setTodoList = useSetRecoilState(todoListState);            set func only
+// const [todoList, setTodoList] = useRecoilState(currentUserState); state + set func
+// const todoList = useRecoilValue(currentUserState);                     state only
+// const setTodoList = useSetRecoilState(currentUserState);            set func only

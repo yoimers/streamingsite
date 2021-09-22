@@ -45,11 +45,10 @@ const SignUp = ({ onClose }: Input) => {
     setIsExistUser(false);
     createUserWithEmailAndPassword(auth, values.email, values.password)
       .then((userCredential) => {
-        console.log(userCredential);
         const { user } = userCredential;
         const userRef = doc(db, "users", user.uid);
+        //users Collectionに格納
         (async () => {
-          //存在しない→作成、存在する→上書き
           await setDoc(userRef, {
             displayName: values.username,
             email: user.email,

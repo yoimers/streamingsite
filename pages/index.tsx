@@ -25,6 +25,7 @@ const Home: NextPage = (props) => {
     <Layout title="Wavelet">
       <VStack height="calc(100% - 60px)" pb="50px">
         <CardList properties={properties} title="オススメのライブ" />
+        <CardList properties={properties} title="オススメのライブ" />
       </VStack>
     </Layout>
   );

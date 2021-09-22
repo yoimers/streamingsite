@@ -28,7 +28,7 @@ type Input = {
 
 const Card = ({ property }: Input) => {
   const isMobile = useBreakpointValue({ base: true, md: false });
-  const bg = useColorModeValue("gray.50", "gray.900");
+  const bg = useColorModeValue("brand.backgroundcolor2", "gray.900");
 
   return (
     <GridItem bg={bg} rounded={10} p={1}>

@@ -117,7 +117,6 @@ const SignUpInModal = ({ isMd, isHeader = true }: Input) => {
                       </Button>
                     </a>
                   </Link>
-                  <ModeIcon />
                 </>
               )}
             </>
@@ -127,14 +126,13 @@ const SignUpInModal = ({ isMd, isHeader = true }: Input) => {
               {isMd && (
                 <>
                   <Button
-                    variant="subbutton"
+                    variant="mainbutton"
                     size="xl"
                     onClick={() => onClick(false)}
                     mb={1}
                   >
                     ログイン
                   </Button>
-                  <ModeIcon />
                 </>
               )}
             </>

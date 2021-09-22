@@ -6,6 +6,7 @@ import React from "react";
 import MySpinner from "../../components/CommonComponents/MySpinner";
 import NotLogin from "../../components/CommonComponents/NotLogin";
 import { Layout } from "../../components/Layout";
+import MyPage from "../../components/Profile/MyPage";
 import { useIsMyPage } from "../../hooks/useIsMyPage";
 import { db } from "../../src/lib/firebase";
 
@@ -17,8 +18,8 @@ export const UserPage: NextPage = (props) => {
   if (isAuthChecking) return <MySpinner />;
   if (!currentUser) return <NotLogin />;
   return (
-    <Layout title={`Wavelet ${router.query.username}`}>
-      {isMyPage.toString()}
+    <Layout title={`Wavelet ${currentUser.displayName}`}>
+      <MyPage isMyPage={isMyPage} {...props} />
     </Layout>
   );
 };

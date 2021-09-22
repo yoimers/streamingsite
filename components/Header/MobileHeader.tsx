@@ -11,6 +11,7 @@ import { Menubar } from "./Menubar";
 import Link from "next/link";
 import SignUpInModal from "../SignInUp/SignUpInModal";
 import MobileSearch from "./MobileSearch";
+import ModeIcon from "./ModeIcon";
 
 const MobileHeader = () => {
   const bg = useColorModeValue("brand.backgroundcolor2", "gray.800");
@@ -35,6 +36,7 @@ const MobileHeader = () => {
       </Flex>
       <Spacer />
       <HStack spacing={6} p={2}>
+        <ModeIcon />
         <MobileSearch />
         <SignUpInModal isMd={false} />
       </HStack>
