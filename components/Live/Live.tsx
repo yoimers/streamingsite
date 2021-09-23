@@ -11,7 +11,7 @@ import VideoSidemenu from "./VideoSidemenu";
 const Live = (props: LiveInfomationType) => {
   const videofixed = useBreakpointValue({ lg: "flex-start", xl: "center" });
   const router = useRouter();
-
+  
   return (
     <Box mx={6}>
       <LiveHeader {...props} />

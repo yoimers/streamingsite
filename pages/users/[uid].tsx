@@ -2,7 +2,7 @@ import { doc } from "@firebase/firestore";
 import { getDoc } from "firebase/firestore";
 import { GetServerSideProps, NextPage } from "next";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MySpinner from "../../components/CommonComponents/MySpinner";
 import NotLogin from "../../components/CommonComponents/NotLogin";
 import { Layout } from "../../components/Layout";
@@ -10,15 +10,14 @@ import MyPage from "../../components/Profile/MyPage";
 import { useIsMyPage } from "../../hooks/useIsMyPage";
 import { db } from "../../src/lib/firebase";
 
-export const UserPage: NextPage = (props) => {
+export const UserPage: NextPage = (props: any) => {
   const { isMyPage, isAuthChecking, currentUser } = useIsMyPage();
   const router = useRouter();
   if (Object.keys(props).length === 0) router.push("/404");
-
   if (isAuthChecking) return <MySpinner />;
   if (!currentUser) return <NotLogin />;
   return (
-    <Layout title={`Wavelet ${currentUser.displayName}`}>
+    <Layout title={`Wavelet ${props.displayName}`}>
       <MyPage isMyPage={isMyPage} {...props} />
     </Layout>
   );
@@ -43,19 +42,5 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     return { props: {} };
   }
 };
-//#引数context
-//##params ... getStaticPathsからreturnされたroute parameters が入っている context.params = {username:"aa"} みたいな感じ
-//##
 
-// export const getStaticPaths: GetStaticPaths = async () => {
-//   return {
-//     paths: [{ params: { username: "aa" } }, { params: { username: "bb" } }],
-//     fallback: false,
-//   };
-// };
-
-//fallback: false → pathsに含まれないURLは404ページ
-//fallback: true  → pathsに含まれないURLのリクエストが来る→fallbackページをレスポンス&裏でHTML/JSONを生成(getStaticPropsも実行)→次からはそのHTML/JSONを返す
-
-//fallbackページの特徴：　ページのpropsは空 {},route.isFallbackがtrue...この情報でfallback用の動作が指定出来る
 export default UserPage;

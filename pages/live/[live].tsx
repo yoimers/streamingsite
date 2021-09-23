@@ -1,14 +1,23 @@
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, onSnapshot } from "firebase/firestore";
 import { GetServerSideProps, NextPage } from "next";
-import React from "react";
+import { useRouter } from "next/router";
+import React, { useEffect } from "react";
 import { Layout } from "../../components/Layout";
 import Live from "../../components/Live/Live";
 import { db } from "../../src/lib/firebase";
 
-const LivePage: NextPage = (props) => {
+const LivePage: NextPage = (props: any) => {
+  const router = useRouter();
+  if (!props.isNow) router.push("/");
+  useEffect(() => {
+    const unsub = onSnapshot(doc(db, `broads/${router.query.live}`), (doc) => {
+      if (!doc.data()?.isNow) router.push("/");
+    });
+    return unsub;
+  }, [router, router.query.live]);
   return (
     <Layout title={`Wavelet ${"タイトル書く"}`}>
-      <Live {...(props as any)} />
+      <Live {...props} />
     </Layout>
   );
 };
@@ -18,7 +27,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   if (!params) return { props: {} };
   const commentref = doc(db, `broads/${params.live}`);
   const docSnap = await getDoc(commentref);
-  if (docSnap.exists()) {
+  if (docSnap.exists() && docSnap.data().isNow) {
     return {
       props: {
         live: params?.live,

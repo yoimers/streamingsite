@@ -1,9 +1,13 @@
 import { useColorModeValue } from "@chakra-ui/color-mode";
 import { Box, Center, Flex } from "@chakra-ui/layout";
-import { useBreakpointValue } from "@chakra-ui/react";
+import { Button, useBreakpointValue } from "@chakra-ui/react";
 import { Spinner } from "@chakra-ui/spinner";
+import { setDoc } from "@firebase/firestore";
+import { doc } from "firebase/firestore";
+import { useRouter } from "next/router";
 import React from "react";
 import { useCurrentUser } from "../../hooks/useCurrentUser";
+import { db } from "../../src/lib/firebase";
 import MySpinner from "../CommonComponents/MySpinner";
 import { LiveInfomationType } from "./LiveType";
 
@@ -11,9 +15,19 @@ const LiveFooter = (props: LiveInfomationType) => {
   const { currentUser, isAuthChecking } = useCurrentUser();
   const bg = useColorModeValue("white", "gray.600");
   const videofixed = useBreakpointValue({ lg: "flex-start", xl: "center" });
-
+  const router = useRouter();
   if (currentUser?.uid !== props.uid) return <></>; //放送者以外には何も表示しない
   if (isAuthChecking) return <MySpinner />; //Loading中
+
+  const onFinished = async () => {
+    await setDoc(
+      doc(db, `broads/${router.query.live}`),
+      {
+        isNow: false,
+      },
+      { merge: true }
+    );
+  };
   return (
     <Flex justifyContent={videofixed}>
       <Box
@@ -25,7 +39,14 @@ const LiveFooter = (props: LiveInfomationType) => {
         minWidth="992px"
         maxW="1351px"
       >
-        以下は放送者のみが閲覧出来ます。
+        <Button
+          colorScheme="red"
+          variant="solid"
+          _focus={{}}
+          onClick={onFinished}
+        >
+          放送終了
+        </Button>
       </Box>
     </Flex>
   );

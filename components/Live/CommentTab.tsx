@@ -12,6 +12,7 @@ import {
 } from "firebase/firestore";
 import { useRouter } from "next/router";
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import useScrollbar from "../../hooks/useScrollbar";
 import { db } from "../../src/lib/firebase";
 import CommentList from "./CommentList";
 import { CommentType } from "./LiveType";
@@ -21,7 +22,7 @@ const CommentTab = () => {
   const [comments, setComments] = useState<CommentType[]>([]);
   const scrollBottomRef = useRef<any>(null);
   const containerRef = useRef<any>(null);
-
+  const scrollstyle = useScrollbar();
   useEffect(() => {
     const commentref = collection(db, `broads/${router.query.live}/comments`);
     const q = query(commentref, orderBy("createdAt", "desc"), limit(30));
@@ -59,6 +60,7 @@ const CommentTab = () => {
       h="calc(100% - 42px)"
       overflow="auto"
       ref={containerRef}
+      css={scrollstyle}
     >
       {comments.map((comment) => (
         <CommentList key={comment.documentId} comment={comment} />

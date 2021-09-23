@@ -11,6 +11,7 @@ import {
 import React from "react";
 import { LiveInfomationType } from "./LiveType";
 import Image from "next/image";
+import Link from "next/link";
 const LiveHeader = (props: LiveInfomationType) => {
   const videofixed = useBreakpointValue({ lg: "flex-start", xl: "center" });
   const bg = useColorModeValue("white", "gray.600");
@@ -32,7 +33,9 @@ const LiveHeader = (props: LiveInfomationType) => {
               {props.title}
             </Text>
             <Text fontSize="sm" colorScheme="gray" fontWeight="thin">
-              {props.displayName}
+              <Link href={`/users/${props.uid}`}>
+                <a>{props.displayName}</a>
+              </Link>
             </Text>
           </Stack>
           <Box ml="10px">

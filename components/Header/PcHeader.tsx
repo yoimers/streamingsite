@@ -20,7 +20,8 @@ import ModeIcon from "./ModeIcon";
 const PcHeader = () => {
   const bg = useColorModeValue("brand.backgroundcolor2", "gray.800");
   return (
-    <Box minW="1040px" bg={bg}>
+    <Box bg={bg}>
+      {/* minW="1040px"  */}
       <Flex
         width="100vw"
         height="60px"

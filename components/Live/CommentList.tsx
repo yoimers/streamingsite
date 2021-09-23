@@ -14,7 +14,7 @@ const CommentList = ({ comment }: Input) => {
     <Tooltip label={`${comment.content}`} placement="top-start">
       <HStack mt={0.5} spacing={0}>
         <Text px={2} fontSize="xs" color="gray.400">
-          {comment.commentId}
+          {comment.displayName}
         </Text>
         <Text fontSize="sm">{comment.content}</Text>
       </HStack>
