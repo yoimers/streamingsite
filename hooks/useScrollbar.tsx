@@ -3,7 +3,6 @@ import React from "react";
 
 const useScrollbar = () => {
   const scroll = useColorModeValue("brand.backgroundcolor2", "gray.600");
-
   const scrollstyle = {
     "&::-webkit-scrollbar": { width: "10px" },
     "&::-webkit-scrollbar-thumb": {

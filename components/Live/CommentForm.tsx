@@ -17,9 +17,11 @@ import { db } from "../../src/lib/firebase";
 import { currentUserState } from "../../states/currentUser";
 import { useRecoilValue } from "recoil";
 import { useRouter } from "next/router";
+import { currentUserStore } from "../../states/currentUserStore";
 
+const maxlength = 100;
 const validationSchema = Yup.object({
-  comment: Yup.string().max(100).required(),
+  comment: Yup.string().max(maxlength).required(),
 });
 
 type InputType = {
@@ -29,6 +31,7 @@ const CommentForm = () => {
   const bg = useColorModeValue("brand.backgroundcolor2", "gray.600");
   const borderright = useColorModeValue("gray.100", "gray.500");
   const currentUser = useRecoilValue(currentUserState);
+  const currentUserstore = useRecoilValue(currentUserStore);
   const router = useRouter();
   const onSubmit = (
     values: InputType,
@@ -37,15 +40,12 @@ const CommentForm = () => {
     formikHelpers.setSubmitting(true);
     (async () => {
       try {
-        const docRef = await addDoc(
-          collection(db, `broads/${router.query.live}/comments`),
-          {
-            content: values.comment,
-            uid: currentUser?.uid || "guest",
-            displayName: currentUser?.displayName || "guest",
-            createdAt: Timestamp.now(),
-          }
-        );
+        await addDoc(collection(db, `broads/${router.query.live}/comments`), {
+          content: values.comment,
+          uid: currentUser?.uid || "guest",
+          displayName: currentUserstore?.displayName || "guest",
+          createdAt: Timestamp.now(),
+        });
         formikHelpers.setSubmitting(false);
       } catch (e) {
         console.error("Error adding document: ", e);
@@ -93,7 +93,7 @@ const CommentForm = () => {
           />
           <InputRightElement h={8} w={10}>
             <Badge colorScheme={formik.errors.comment ? "red" : "gray"}>
-              {formik.values.comment.length}
+              {maxlength - formik.values.comment.length}
             </Badge>
           </InputRightElement>
         </InputGroup>

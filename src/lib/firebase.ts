@@ -8,7 +8,7 @@ import {
 } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import { doc, setDoc, getFirestore } from "firebase/firestore";
-import { getStorage } from "firebase/storage";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 // TODO: Replace the following with your app's Firebase project configuration
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -25,6 +25,7 @@ const firebaseApp = initializeApp(firebaseConfig);
 const auth = getAuth();
 const db = getFirestore();
 const storage = getStorage();
+
 export { auth, db, storage };
 const provider = new GoogleAuthProvider();
 
@@ -35,26 +36,7 @@ export const signInWithGoogle = () => {
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const token = credential?.accessToken;
       // The signed-in user info.
-      const user = result.user;
-      console.log(user);
-      const userRef = doc(db, "users", user.uid);
-      (async () => {
-        //存在しない→作成、存在する→何もしない
-        await setDoc(
-          userRef,
-          {
-            displayName: user.displayName,
-            email: user.email,
-            emailVerified: user.emailVerified,
-            isAnonymous: user.isAnonymous,
-            uid: user.uid,
-            creationTime: user.metadata.creationTime,
-            lastSignInTime: user.metadata.lastSignInTime,
-            photoURL: user.photoURL,
-          },
-          { merge: true } //存在するとき何もしない
-        );
-      })();
+      createUserDataBase(result);
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -79,9 +61,29 @@ export const createUserWithEmailAndPasswords = (
 ) => {
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      console.log(userCredential);
+      createUserDataBase(userCredential);
     })
     .catch((error) => {
       console.log(error);
     });
+};
+
+const createUserDataBase = async (result: any) => {
+  const user = result.user;
+  const userRef = doc(db, "users", user.uid);
+  //存在しない→作成、存在する→何もしない
+  await setDoc(
+    userRef,
+    {
+      displayName: user.displayName,
+      email: user.email,
+      emailVerified: user.emailVerified,
+      isAnonymous: user.isAnonymous,
+      uid: user.uid,
+      creationTime: user.metadata.creationTime,
+      lastSignInTime: user.metadata.lastSignInTime,
+      photoURL: user.photoURL,
+    },
+    { merge: true } //存在するとき何もしない
+  );
 };

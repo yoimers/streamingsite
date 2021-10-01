@@ -20,18 +20,17 @@ import ModeIcon from "./ModeIcon";
 const PcHeader = () => {
   const bg = useColorModeValue("brand.backgroundcolor2", "gray.800");
   return (
-    <Box bg={bg}>
+    <Box
+      bg={bg}
+      boxShadow="base"
+      position="sticky"
+      zIndex="sticky"
+      top="0"
+      height="60px"
+      overflow="hidden"
+    >
       {/* minW="1040px"  */}
-      <Flex
-        width="100vw"
-        height="60px"
-        px={5}
-        alignItems="center"
-        boxShadow="base"
-        position="sticky"
-        zIndex="sticky"
-        top="0"
-      >
+      <Flex width="100vw" px={5} alignItems="center">
         <Flex width="full" justifyItems="center" alignItems="center">
           <Menubar />
           <Link href="/" passHref>

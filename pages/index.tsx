@@ -1,21 +1,12 @@
 import { VStack } from "@chakra-ui/react";
-import {
-  collection,
-  DocumentData,
-  getDocs,
-  limit,
-  orderBy,
-  query,
-  QueryDocumentSnapshot,
-  where,
-} from "firebase/firestore";
+import { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
 import type { GetServerSideProps, NextPage } from "next";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import CardList from "../components/Card/CardList";
 import { CardType } from "../components/Card/CardType";
 import { Layout } from "../components/Layout";
-import { db } from "../src/lib/firebase";
+import { getBroadLists } from "../src/lib/getBroadLists";
 
 const Home: NextPage = (props) => {
   const router = useRouter();
@@ -31,17 +22,12 @@ const Home: NextPage = (props) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const commentref = collection(db, `broads`);
-  const q = query(
-    commentref,
-    where("isNow", "==", true),
-    orderBy("createdAt", "desc"),
-    limit(10)
-  );
+  const querySnapshot = await getBroadLists();
   const cards: CardType[] = [];
-  const querySnapshot = await getDocs(q);
+
   querySnapshot.forEach((doc) => {
-    cards.push(toData(doc));
+    const data = toData(doc);
+    cards.push({ ...data });
   });
   return { props: { cards } };
 };

@@ -55,6 +55,7 @@ const SignUp = ({ onClose }: Input) => {
             emailVerified: user.emailVerified,
             isAnonymous: user.isAnonymous,
             photoURL: user.photoURL,
+            photoSource: "",
             uid: user.uid,
             creationTime: user.metadata.creationTime,
             lastSignInTime: user.metadata.lastSignInTime,

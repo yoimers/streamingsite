@@ -31,7 +31,6 @@ const initialValues: InputType<string> = {
   password: "",
 };
 
-
 type Input = {
   onClose: () => void;
 };
@@ -141,11 +140,17 @@ const SignIn = ({ onClose }: Input) => {
   );
 };
 
-export const MyLabel = ({ label }: { label: string }) => {
+export const MyLabel = ({
+  label,
+  isRequire = true,
+}: {
+  label: string;
+  isRequire?: boolean;
+}) => {
   return (
     <HStack flexDirection="row">
       <Text>{label}</Text>
-      <Text color="red.300">*</Text>
+      {isRequire && <Text color="red.300">*</Text>}
     </HStack>
   );
 };

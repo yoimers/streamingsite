@@ -7,7 +7,8 @@ import {
 } from "@chakra-ui/react";
 
 import Head from "next/head";
-import React, { ReactChild, ReactChildren } from "react";
+import React, { ReactChild, ReactChildren, useEffect, useRef } from "react";
+import useScrollbar from "../hooks/useScrollbar";
 import theme from "../theme";
 import Footerbar from "./Footer/Footerbar";
 import Header from "./Header/Header";
@@ -17,6 +18,7 @@ type Input = {
   children?: ReactChild | ReactChild[] | ReactChildren | ReactChildren[];
 };
 export const Layout = ({ title, children }: Input) => {
+  const scrollstyle = useScrollbar();
   return (
     <>
       <Head>
@@ -28,9 +30,11 @@ export const Layout = ({ title, children }: Input) => {
         ></meta>
       </Head>
       <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-      <Box height="100%" width="100%">
+      <Box height="100vh" width="100%">
         <Header />
-        {children}
+        <Box height="calc(100% - 60px)" overflowX="scroll" css={scrollstyle}>
+          {children}
+        </Box>
         {/* <Footerbar /> */}
       </Box>
     </>

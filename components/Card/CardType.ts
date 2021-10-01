@@ -4,6 +4,7 @@ import moment from "moment";
 export interface CardType {
   broadId?: string;
   imageUrl: string;
+  imageSource: string;
   title: string;
   content: string;
   displayName: string | null;

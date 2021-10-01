@@ -2,9 +2,12 @@ import { Center, Spinner } from "@chakra-ui/react";
 import React from "react";
 import { Layout } from "../Layout";
 
-const MySpinner = () => {
+type InputType = {
+  title?: string;
+};
+const MySpinner = ({ title }: InputType) => {
   return (
-    <Layout title="Wavelet">
+    <Layout title={`Wavelet ${title}`}>
       <Center w="100%" h="100vh">
         <Spinner
           thickness="4px"

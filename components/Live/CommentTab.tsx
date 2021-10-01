@@ -20,7 +20,6 @@ import { CommentType } from "./LiveType";
 const CommentTab = () => {
   const router = useRouter();
   const [comments, setComments] = useState<CommentType[]>([]);
-  const scrollBottomRef = useRef<any>(null);
   const containerRef = useRef<any>(null);
   const scrollstyle = useScrollbar();
   useEffect(() => {
@@ -42,14 +41,16 @@ const CommentTab = () => {
 
   useEffect(() => {
     if (
-      scrollBottomRef?.current &&
       containerRef?.current &&
       containerRef.current.scrollHeight -
         containerRef.current.clientHeight -
         containerRef.current.scrollTop <
         35
     ) {
-      scrollBottomRef.current.scrollIntoView();
+      containerRef.current.scroll(
+        0,
+        containerRef.current.scrollHeight - containerRef.current.clientHeight
+      );
     }
   }, [comments]);
 
@@ -65,7 +66,6 @@ const CommentTab = () => {
       {comments.map((comment) => (
         <CommentList key={comment.documentId} comment={comment} />
       ))}
-      <Box as="div" ref={scrollBottomRef} pb={2} />
     </Box>
   );
 };

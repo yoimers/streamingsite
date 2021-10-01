@@ -1,23 +1,19 @@
 import { doc, getDoc, onSnapshot } from "firebase/firestore";
+import { getDownloadURL, ref } from "firebase/storage";
 import { GetServerSideProps, NextPage } from "next";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { Layout } from "../../components/Layout";
 import Live from "../../components/Live/Live";
-import { db } from "../../src/lib/firebase";
+import ReturnModal from "../../components/Live/ReturnModal";
+import useIsBroadCast from "../../hooks/useIsBroadCast";
+import { db, storage } from "../../src/lib/firebase";
 
 const LivePage: NextPage = (props: any) => {
-  const router = useRouter();
-  if (!props.isNow) router.push("/");
-  useEffect(() => {
-    const unsub = onSnapshot(doc(db, `broads/${router.query.live}`), (doc) => {
-      if (!doc.data()?.isNow) router.push("/");
-    });
-    return unsub;
-  }, [router, router.query.live]);
+  const { isNow } = useIsBroadCast();
   return (
     <Layout title={`Wavelet ${"タイトル書く"}`}>
-      <Live {...props} />
+      {isNow ? <Live {...props} /> : <ReturnModal />}
     </Layout>
   );
 };
@@ -25,14 +21,15 @@ const LivePage: NextPage = (props: any) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { params } = context;
   if (!params) return { props: {} };
-  const commentref = doc(db, `broads/${params.live}`);
-  const docSnap = await getDoc(commentref);
+
+  const docSnap = await getDoc(doc(db, `broads/${params.live}`));
   if (docSnap.exists() && docSnap.data().isNow) {
+    const data = docSnap.data();
     return {
       props: {
         live: params?.live,
-        ...docSnap.data(),
-        createdAt: docSnap.data().createdAt.seconds,
+        ...data,
+        createdAt: data.createdAt.seconds,
       },
     };
   } else {
@@ -40,12 +37,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 };
 
-// getServerSidePropsでは使えない
-
-// export const getStaticPaths: GetStaticPaths = async () => {
-//   return {
-//     paths: [],
-//     fallback: "blocking",
-//   };
-// };
 export default LivePage;

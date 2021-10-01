@@ -17,7 +17,6 @@ const MobileHeader = () => {
   const bg = useColorModeValue("brand.backgroundcolor2", "gray.800");
   return (
     <Flex
-      width="full"
       height="60px"
       alignItems="center"
       bg={bg}
@@ -25,6 +24,7 @@ const MobileHeader = () => {
       position="sticky"
       zIndex="sticky"
       top="0"
+      overflow="hidden"
     >
       <Flex width="full" p={2}>
         <Menubar />

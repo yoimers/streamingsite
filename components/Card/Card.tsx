@@ -9,7 +9,7 @@ import {
 import React from "react";
 import Image from "next/image";
 import PersonIcon from "@material-ui/icons/Person";
-import AccessTimeIcon from "@material-ui/icons/AccessTime";
+import styles from "../Layout.module.css";
 import {
   Badge,
   BadgeProps,
@@ -51,6 +51,7 @@ const Card = ({ property }: Input) => {
               alt="動画用のサムネイル"
               layout="fill"
               objectFit="cover"
+              className={styles.broadimage}
             />
             <MyBadge>New</MyBadge>
           </Container>

@@ -6,6 +6,7 @@ import {
   EditablePreview,
   Heading,
   IconButton,
+  Input,
   Stack,
   Textarea,
   useBreakpointValue,
@@ -16,17 +17,19 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
 import { doc, setDoc } from "@firebase/firestore";
-import { db } from "../../src/lib/firebase";
+import { db, storage } from "../../src/lib/firebase";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import useScrollbar from "../../hooks/useScrollbar";
+import { getDownloadURL, ref } from "@firebase/storage";
+import ImageModal from "./ImageModal";
 
-type Input = {
+type Inputdata = {
   isMyPage: boolean;
   [key: string]: any;
 };
 
-const Profile = ({ isMyPage, ...props }: Input) => {
+const Profile = ({ isMyPage, ...props }: Inputdata) => {
   const w = useBreakpointValue({ base: "90%", md: "600px" });
   const bg = useColorModeValue("brand.backgroundcolor2", "gray.900");
   const [profile, setProfile] = useState(props.profile || "");
@@ -34,93 +37,80 @@ const Profile = ({ isMyPage, ...props }: Input) => {
   const scrollstyle = useScrollbar();
   const router = useRouter();
   useEffect(() => {
+    //初期化
     setProfile(props.profile);
     setName(props.displayName);
   }, [props.displayName, props.profile, router.query.uid]);
-  const onSubmit = (value: string, name: "displayName" | "profile"): void => {
+  const onSubmit = (value: string, type: "displayName" | "profile"): void => {
+    if (
+      (type === "profile" && props.profile === profile) ||
+      (type === "displayName" && props.displayName === name)
+    )
+      //変更なかったらreturn
+      return;
     const userRef = doc(db, `users/${props.uid}`);
     (async () => {
       //存在しない→作成、存在する→上書き
-      await setDoc(
-        userRef,
-        {
-          [name]: value,
-        },
-        { merge: true }
-      );
-      if (name === "displayName") {
+      await setDoc(userRef, { [type]: value }, { merge: true });
+      if (type === "displayName") {
         document.title = `Wavelet ${value}`;
       }
     })();
   };
+
   return (
-    <Flex px={6} py={5} mt={20} mx="auto" w={w} bg={bg} rounded={10}>
-      <Box
-        as="button"
-        height="100px"
-        width="100px"
-        position="relative"
-        _active={{ boxShadow: "outline" }}
-        _focus={{}}
-      >
-        {props.photoURL && (
-          <Image
-            src={props.photoURL}
-            width="100px"
-            height="100px"
-            layout="fixed"
-            alt="プロフィール画像"
-          />
-        )}
-      </Box>
-      <Stack w="100%" ml={2}>
-        <Heading size="sm">
+    <Flex flexDirection="column">
+      <Flex px={6} py={5} mt={20} mx="auto" w={w} bg={bg} rounded={10}>
+        <ImageModal {...props} />
+        <Stack ml={2}>
+          <Heading size="sm">
+            <Editable
+              textAlign="left"
+              fontSize="2xl"
+              w="100%"
+              placeholder={props.displayName || "名前を入力してください"}
+              submitOnBlur={false}
+              value={name}
+              onChange={(value: string) => setName(value.slice(0, 6))}
+              onSubmit={(value: string) => onSubmit(value, "displayName")}
+              isDisabled={!isMyPage}
+              isPreviewFocusable={isMyPage}
+            >
+              <Flex alignItems="center" justifyContent="space-between">
+                <EditablePreview pl={2} />
+                <EditableInput w="80%" pl={2} />
+                <EditableControls isMyPage={isMyPage} />
+              </Flex>
+            </Editable>
+          </Heading>
           <Editable
             textAlign="left"
-            fontSize="2xl"
+            fontSize="md"
+            mr="50px"
             w="100%"
-            placeholder={props.displayName || "名前を入力してください"}
+            placeholder={props.profile || "自己紹介文を書いてください"}
             submitOnBlur={false}
-            value={name}
-            onChange={(value: string) => setName(value)}
-            onSubmit={(value: string) => onSubmit(value, "displayName")}
+            value={profile}
+            onChange={(value: string) => setProfile(value)}
+            onSubmit={(value: string) => onSubmit(value, "profile")}
             isDisabled={!isMyPage}
             isPreviewFocusable={isMyPage}
           >
             <Flex alignItems="center" justifyContent="space-between">
               <EditablePreview pl={2} />
-              <EditableInput w="80%" pl={2} />
+              <EditableInput
+                as="textarea"
+                w="80%"
+                h="100%"
+                pl={2}
+                css={scrollstyle}
+              />
               <EditableControls isMyPage={isMyPage} />
             </Flex>
           </Editable>
-        </Heading>
-        <Editable
-          textAlign="left"
-          fontSize="md"
-          mr="50px"
-          w="100%"
-          placeholder={props.profile || "自己紹介文を書いてください"}
-          submitOnBlur={false}
-          value={profile}
-          onChange={(value: string) => setProfile(value)}
-          onSubmit={(value: string) => onSubmit(value, "profile")}
-          isDisabled={!isMyPage}
-          isPreviewFocusable={isMyPage}
-        >
-          <Flex alignItems="center" justifyContent="space-between">
-            <EditablePreview pl={2} />
-            <EditableInput
-              as="textarea"
-              w="80%"
-              h="100%"
-              pl={2}
-              css={scrollstyle}
-            />
-            <EditableControls isMyPage={isMyPage} />
-          </Flex>
-        </Editable>
-      </Stack>
-      <Link href="/users/7Jw7QMcfHPPWsij67CRq1AWzRrU2">aa</Link>
+        </Stack>
+      </Flex>
+      <Box mx="auto"></Box>
     </Flex>
   );
 };

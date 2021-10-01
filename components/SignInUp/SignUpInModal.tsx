@@ -31,7 +31,8 @@ import { useRecoilValue } from "recoil";
 import { currentUserState } from "../../states/currentUser";
 import { Profilemenu } from "../Profile/Profilemenu";
 import ModeIcon from "../Header/ModeIcon";
-
+import { currentUserStore } from "../../states/currentUserStore";
+import styles from "../Layout.module.css";
 type Input = {
   isMd: boolean;
   isHeader?: boolean;
@@ -43,11 +44,11 @@ const SignUpInModal = ({ isMd, isHeader = true }: Input) => {
   const bg = useColorModeValue("#F7F9FF", "gray.700");
   const profileiconcolor = useColorModeValue("#383838", "#E6EDFF");
   const currentUser = useRecoilValue(currentUserState);
+  const currentUserstore = useRecoilValue(currentUserStore);
   const onClick = (issignup: boolean) => {
     onOpen();
     setIsSignUp(issignup);
   };
-
   return (
     <>
       {isHeader ? (
@@ -64,11 +65,13 @@ const SignUpInModal = ({ isMd, isHeader = true }: Input) => {
                 </Link>
               )}
               <Profilemenu>
-                {currentUser && currentUser.photoURL ? (
+                {currentUserstore && currentUserstore.photoURL ? (
                   <Image
-                    src={currentUser.photoURL}
+                    src={currentUserstore.photoURL}
                     layout="fill"
+                    objectFit="cover"
                     alt="Picture of the author"
+                    className={styles.image}
                   />
                 ) : (
                   <FaUserCircle size={40} color={profileiconcolor} />
