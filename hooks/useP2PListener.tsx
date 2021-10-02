@@ -19,7 +19,6 @@ const config = {
 const useP2PListener = ({ remotevideoRef, socket }: InputType) => {
   const router = useRouter();
   const listenerRef = useRef<RTCPeerConnection>(new RTCPeerConnection(config));
-  console.log(listenerRef.current);
   const reconnection = useCallback(() => {
     ListenerConnectHost({ listenerRef, socket, remotevideoRef });
   }, [remotevideoRef, socket]);
@@ -27,6 +26,7 @@ const useP2PListener = ({ remotevideoRef, socket }: InputType) => {
   useEffect(() => {
     socket.emit("join", router.query.live, false);
     listenerRef.current.addEventListener("icecandidate", async (e) => {
+      console.log(e);
       socket.emit("IceCandidateFromListener", e.candidate);
     });
     listenerRef.current.addEventListener("connectionstatechange", (e) => {
@@ -38,11 +38,14 @@ const useP2PListener = ({ remotevideoRef, socket }: InputType) => {
           // setTimeout(() => {
           //   ListenerConnectHost({ listenerRef, socket, remotevideoRef });
           // }, 1000);
+          console.log("disconnected");
           break;
         case "failed":
-        // if (listenerRef.current) {
-        //   ListenerConnectHost({ listenerRef, socket, remotevideoRef });
-        // }
+          console.log("failed");
+          // if (listenerRef.current) {
+          //   ListenerConnectHost({ listenerRef, socket, remotevideoRef });
+          // }
+          break;
       }
     });
   }, [reconnection, remotevideoRef, router.query.live, socket]);
@@ -64,7 +67,6 @@ const ListenerConnectHost = ({
   remotevideoRef,
 }: ListenerConnectHostType) => {
   listenerRef.current = new RTCPeerConnection(config);
-  console.log(listenerRef.current);
   //SDP生成
   listenerRef.current.createOffer(offerOptions).then(async (offer) => {
     if (listenerRef.current.signalingState !== "closed") {
@@ -72,6 +74,7 @@ const ListenerConnectHost = ({
       await listenerRef.current.setLocalDescription(offer);
     }
   });
+  let remotecount = 0;
   socket.on(
     "P2PAnswerToListener",
     async (answer: RTCSessionDescriptionInit) => {
@@ -80,8 +83,10 @@ const ListenerConnectHost = ({
         !listenerRef.current.remoteDescription
       ) {
         try {
-          console.log(listenerRef.current);
-          await listenerRef.current.setRemoteDescription(answer);
+          if (remotecount === 0) {
+            await listenerRef.current.setRemoteDescription(answer);
+            remotecount += 1;
+          }
         } catch (e) {
           console.error(e);
         }

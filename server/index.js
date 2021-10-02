@@ -54,6 +54,7 @@ io.on("connection", (socket) => {
 
   socket.on("P2PAnswerFromHost", (data, toId) => {
     //放送者からのP2P接続アンサーを受信
+    console.log("P2PAnswerFromHost");
     io.to(toId).emit("P2PAnswerToListener", data); //リスナーへdataを横流し
   });
 

@@ -60,10 +60,14 @@ interface InitType extends InputType {
 const Init = async ({ socket, router, setStream, videoRef }: InitType) => {
   socket.emit("join", router.query.live, true);
   //getUserMedia
-  const Localstream = await navigator.mediaDevices.getDisplayMedia({
+  const constrain = {
     audio: true,
-    video: true,
-  });
+    video: {
+      width: { ideal: 1280, max: 1920 },
+      height: { ideal: 720, max: 1080 },
+    },
+  };
+  const Localstream = await navigator.mediaDevices.getDisplayMedia(constrain);
   videoRef.current.srcObject = Localstream;
 
   setStream(Localstream);
@@ -83,13 +87,14 @@ const ListenerConnectHost = ({
   stream,
 }: ListenerConnectHostType) => {
   let host = new RTCPeerConnection(config);
-
+  let icecount = 0;
   host.addEventListener("connectionstatechange", (e) => {
     switch (host.connectionState) {
       case "connected":
         break;
       case "disconnected":
       case "closed":
+        console.log("disconnected");
         break;
       case "failed":
         if (host) {
@@ -112,22 +117,26 @@ const ListenerConnectHost = ({
       host.addTrack(track, stream);
     });
 
-  host.addEventListener("icecandidate", async (e) =>
-    socket.emit("IceCandidateFromHost", e.candidate, fromId)
-  );
-
-  socket.on(
-    "IceCandidateToHost",
-    async (candidate: RTCIceCandidate, fromId: string) => {
-      if (host.signalingState !== "closed") {
-        await host.addIceCandidate(candidate);
-      }
+  host.addEventListener("icecandidate", async (e) => {
+    if (icecount === 0) {
+      socket.emit("IceCandidateFromHost", e.candidate, fromId);
+      icecount += 1;
     }
-  );
+  });
+
+  // socket.on(
+  //   "IceCandidateToHost",
+  //   async (candidate: RTCIceCandidate, fromId: string) => {
+  //     console.log(candidate);
+  //     if (host.signalingState !== "closed") {
+  //       await host.addIceCandidate(candidate);
+  //     }
+  //   }
+  // );
   return host;
 };
 
-//ホストからリスナーへ接続
+//ホストからリスナーへ接続 未完成！！！！！！！！！！！！！！！！！！！！！！！
 const HostConnectListener = ({
   offer,
   fromId,
@@ -140,6 +149,7 @@ const HostConnectListener = ({
       await host.setRemoteDescription(offer);
       const answer = await host.createAnswer();
       await host.setLocalDescription(answer);
+      console.log(answer);
       socket.emit("P2PAnswerFromHost", answer, fromId); //signaling serverに送信
     })();
   }

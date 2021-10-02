@@ -24,7 +24,6 @@ const MobileHeader = () => {
       position="sticky"
       zIndex="sticky"
       top="0"
-      overflow="hidden"
     >
       <Flex width="full" p={2}>
         <Menubar />
