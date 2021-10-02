@@ -27,7 +27,6 @@ const PcHeader = () => {
       zIndex="sticky"
       top="0"
       height="60px"
-      overflow="hidden"
     >
       {/* minW="1040px"  */}
       <Flex width="100vw" px={5} alignItems="center">
