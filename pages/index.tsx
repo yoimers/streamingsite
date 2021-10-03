@@ -1,5 +1,9 @@
 import { VStack } from "@chakra-ui/react";
-import { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
+import {
+  DocumentData,
+  QueryDocumentSnapshot,
+  Timestamp,
+} from "firebase/firestore";
 import type { GetServerSideProps, NextPage } from "next";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
@@ -12,6 +16,7 @@ const Home: NextPage = (props) => {
   const router = useRouter();
   const { cards }: any = props;
   const [properties, setProperties] = useState<CardType[]>(cards);
+
   return (
     <Layout title="Wavelet">
       <VStack height="calc(100% - 60px)" pb="50px">
