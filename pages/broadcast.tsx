@@ -3,14 +3,7 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { Layout } from "../components/Layout";
 import { useRequireLogin } from "../hooks/useRequireLogin";
-import {
-  AspectRatio,
-  Box,
-  Center,
-  Flex,
-  Spacer,
-  VStack,
-} from "@chakra-ui/layout";
+import { Box, Flex, Spacer } from "@chakra-ui/layout";
 import {
   Button,
   FormControl,
@@ -108,7 +101,6 @@ const Broadcast: NextPage = () => {
     validationSchema: broadcastSchema,
   });
 
-  if (!currentUser) router.push("/");
   if (currentUser && !isAuthChecking && !isUploading) {
     return (
       <Layout title="wavlet 放送設定画面">
