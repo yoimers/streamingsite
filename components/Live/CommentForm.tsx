@@ -4,7 +4,9 @@ import {
   Box,
   Button,
   Center,
+  Flex,
   HStack,
+  IconButton,
   Input,
   InputGroup,
   InputRightElement,
@@ -18,6 +20,8 @@ import { currentUserState } from "../../states/currentUser";
 import { useRecoilValue } from "recoil";
 import { useRouter } from "next/router";
 import { currentUserStore } from "../../states/currentUserStore";
+import { RepeatIcon } from "@chakra-ui/icons";
+import { AiFillHeart } from "react-icons/ai";
 
 const maxlength = 100;
 const validationSchema = Yup.object({
@@ -79,9 +83,26 @@ const CommentForm = () => {
         spacing={0}
         onSubmit={formik.handleSubmit as any}
       >
-        <Center w="200px" bg="gray.800" h={8} rounded={10}>
-          何か入れる枠
-        </Center>
+        <Flex
+          flexDirection="row-reverse"
+          alignItems="center"
+          w="200px"
+          h={8}
+          px={2}
+          rounded={10}
+        >
+          <IconButton
+            aria-label="video update"
+            icon={<RepeatIcon fontSize="20px" />}
+            _focus={{}}
+          />
+          <IconButton
+            aria-label="video update"
+            icon={<AiFillHeart size="20px" />}
+            mx={2}
+            _focus={{}}
+          />
+        </Flex>
         <InputGroup display="block">
           <Input
             name="comment"

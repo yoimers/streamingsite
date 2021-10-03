@@ -10,7 +10,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "serve": "npm run build && firebase emulators:start --only functions,hosting",
+    "shell": "npm run build && firebase functions:shell",
+    "deploy": "firebase deploy --only functions,hosting",
+    "logs": "firebase functions:log"
   },
   "dependencies": {
     "@chakra-ui/icons": "^1.0.15",
@@ -46,7 +50,9 @@
     "simple-peer": "^9.11.0",
     "socket.io": "^4.2.0",
     "socket.io-client": "^4.2.0",
-    "yup": "^0.32.9"
+    "yup": "^0.32.9",
+    "firebase-admin": "^9.4.2",
+    "firebase-functions": "^3.13.1"
   },
   "devDependencies": {
     "@types/react": "17.0.20",

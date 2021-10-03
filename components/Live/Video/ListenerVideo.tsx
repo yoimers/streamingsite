@@ -9,16 +9,18 @@ import useP2PListener from "../../../hooks/useP2PListener";
 const socket = io("http://localhost:5001");
 
 const ListenerVideo = (props: LiveInfomationType) => {
-  const remotevideoRef =
-    useRef<HTMLVideoElement>() as React.MutableRefObject<HTMLVideoElement>;
-  const router = useRouter();
-  const { reconnection } = useP2PListener({
-    remotevideoRef,
+  const { reconnection, remotevideoRef } = useP2PListener({
     socket,
   });
+  // const reconnection = () => {};
   return (
-    <Box>
-      <video ref={remotevideoRef as any} autoPlay playsInline muted />
+    <Box w="100%">
+      <video
+        style={{ width: "100%", height: "100%" }}
+        ref={remotevideoRef as any}
+        playsInline
+        autoPlay
+      />
       <Button w={100} h={100} bg="tomato" onClick={reconnection}>
         aaaaaaaaaaaaaaaaaa
       </Button>

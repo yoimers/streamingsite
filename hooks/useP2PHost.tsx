@@ -7,7 +7,7 @@ type InputType = {
   socket: Socket<DefaultEventsMap, DefaultEventsMap>;
 };
 
-const config = {
+export const config = {
   iceServers: [
     { urls: "stun:stun.l.google.com:19302" },
     { urls: "stun:stun1.l.google.com:19302" },
@@ -23,43 +23,34 @@ const useP2PHost = ({ socket }: InputType) => {
   const videoRef =
     useRef<HTMLVideoElement>() as React.MutableRefObject<HTMLVideoElement>;
 
+  useEffect(() => {
+    //最初の１回だけ
+    socket.emit("join", router.query.live, true);
+  }, [router, router.query.live, socket]);
+
   useMemo(() => {
+    //リスナーからのoffer待機
     socket.on(
       "P2POfferToHost",
-      async (offer: RTCSessionDescriptionInit, fromId: string) => {
+      (offer: RTCSessionDescriptionInit, fromId: string) => {
         setFromId(fromId);
         setOffer(offer);
       }
     );
   }, [socket]);
-
   useEffect(() => {
-    (async () => {
-      await Init({ socket, router, setStream, videoRef });
-    })();
-    return () => {
-      setStream(null);
-    };
-  }, [router, router.query.live, socket]);
-
-  useEffect(() => {
-    const host = ListenerConnectHost({ fromId, offer, socket, stream });
-    return () => {
-      host && host.close();
-    };
+    //リスナーからのofferに対応
+    ListenerConnectHost({ fromId, offer, socket, stream });
   }, [fromId, offer, socket, stream]);
 
-  return { videoRef };
+  const SetMediaState = () => SetMedia(setStream, videoRef);
+  return { videoRef, SetMediaState };
 };
 
-interface InitType extends InputType {
-  router: NextRouter;
-  setStream: React.Dispatch<React.SetStateAction<MediaStream | null>>;
-  videoRef: React.MutableRefObject<HTMLVideoElement>;
-}
-const Init = async ({ socket, router, setStream, videoRef }: InitType) => {
-  socket.emit("join", router.query.live, true);
-  //getUserMedia
+const SetMedia = async (
+  setStream: React.Dispatch<React.SetStateAction<MediaStream | null>>,
+  videoRef: React.MutableRefObject<HTMLVideoElement>
+) => {
   const constrain = {
     audio: true,
     video: {
@@ -69,7 +60,6 @@ const Init = async ({ socket, router, setStream, videoRef }: InitType) => {
   };
   const Localstream = await navigator.mediaDevices.getDisplayMedia(constrain);
   videoRef.current.srcObject = Localstream;
-
   setStream(Localstream);
 };
 
@@ -87,11 +77,9 @@ const ListenerConnectHost = ({
   stream,
 }: ListenerConnectHostType) => {
   let host = new RTCPeerConnection(config);
-  let icecount = 0;
-  host.addEventListener("connectionstatechange", (e) => {
+
+  host.onconnectionstatechange = (e) => {
     switch (host.connectionState) {
-      case "connected":
-        break;
       case "disconnected":
       case "closed":
         console.log("disconnected");
@@ -102,66 +90,30 @@ const ListenerConnectHost = ({
           host = null as any;
         }
     }
-  });
+  };
   if (host.signalingState !== "closed" && offer) {
     (async () => {
       await host.setRemoteDescription(offer);
       const answer = await host.createAnswer();
-      await host.setLocalDescription(answer);
       socket.emit("P2PAnswerFromHost", answer, fromId); //signaling serverに送信
+      await host.setLocalDescription(answer);
     })();
   }
-
   stream &&
     stream.getTracks().forEach((track) => {
       host.addTrack(track, stream);
     });
 
-  host.addEventListener("icecandidate", async (e) => {
-    if (icecount === 0) {
+  let icecount = true;
+  host.onicecandidate = (e) => {
+    if (icecount) {
       socket.emit("IceCandidateFromHost", e.candidate, fromId);
-      icecount += 1;
+      icecount = false;
     }
-  });
-
-  // socket.on(
-  //   "IceCandidateToHost",
-  //   async (candidate: RTCIceCandidate, fromId: string) => {
-  //     console.log(candidate);
-  //     if (host.signalingState !== "closed") {
-  //       await host.addIceCandidate(candidate);
-  //     }
-  //   }
-  // );
-  return host;
-};
-
-//ホストからリスナーへ接続 未完成！！！！！！！！！！！！！！！！！！！！！！！
-const HostConnectListener = ({
-  offer,
-  fromId,
-  socket,
-  stream,
-}: ListenerConnectHostType) => {
-  const host = new RTCPeerConnection(config);
-  if (host.signalingState !== "closed" && offer) {
-    (async () => {
-      await host.setRemoteDescription(offer);
-      const answer = await host.createAnswer();
-      await host.setLocalDescription(answer);
-      console.log(answer);
-      socket.emit("P2PAnswerFromHost", answer, fromId); //signaling serverに送信
-    })();
-  }
-
-  stream &&
-    stream.getTracks().forEach((track) => {
-      host.addTrack(track, stream);
-    });
-
-  host.addEventListener("icecandidate", async (e) =>
-    socket.emit("IceCandidateFromHost", e.candidate, fromId)
-  );
+  };
+  host.ontrack = (e) => {
+    console.log(e);
+  };
 
   socket.on(
     "IceCandidateToHost",
@@ -173,4 +125,5 @@ const HostConnectListener = ({
   );
   return host;
 };
+
 export default useP2PHost;
