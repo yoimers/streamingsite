@@ -1,6 +1,6 @@
 import { Server } from "socket.io";
 
-const ioHandler = (req, res) => {
+export default ioHandler = (req, res) => {
   if (!res.socket.server.io) {
     console.log("*First use, starting socket.io");
 
@@ -25,5 +25,3 @@ export const config = {
     bodyParser: false,
   },
 };
-
-export default ioHandler;
