@@ -167,7 +167,13 @@ const Broadcast: NextPage = () => {
         </Flex>
       </Layout>
     );
-  } else return <MySpinner title="wavlet 放送設定画面" />;
+  } else
+    return (
+      <MySpinner
+        title="wavlet 放送設定画面"
+        message="放送画面へ移動しています..."
+      />
+    );
 };
 
 export default Broadcast;

@@ -21,12 +21,12 @@ const Live = (props: LiveInfomationType) => {
         <Box w="100%" maxW="5xl" minW="2xl" h="100%">
           <AspectRatio ratio={16 / 9}>
             <Box bg="blue.600" h="calc(100% - 42px)" roundedTopLeft={10}>
-              {!isAuthChecking &&
+              {/* {!isAuthChecking &&
                 (isHost ? (
                   <HostVideo {...props} />
                 ) : (
                   <ListenerVideo {...props} />
-                ))}
+                ))} */}
             </Box>
           </AspectRatio>
           <CommentForm />

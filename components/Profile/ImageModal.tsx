@@ -32,6 +32,7 @@ const ImageModal = (props: any) => {
   const [imageState, setImageState] = useState<ImageStateType | null>();
   const currentUserstore = useSetRecoilState(currentUserStore);
   const { isMyPage, isAuthChecking, currentUser } = useIsMyPage();
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const onClick = async () => {
     if (!currentUser || !imageState) {
@@ -40,18 +41,29 @@ const ImageModal = (props: any) => {
     }
     const time = Date.now().toString();
     const fileName: string = currentUser.uid + time + imageState?.file.name;
-    //画像をアップロード
-    await UploadImage(`profileImage`, imageState, fileName);
-    //ユーザーDBを更新
-    await setDoc(
-      doc(db, `users/${currentUser.uid}`),
-      { photoSource: fileName },
-      { merge: true }
-    );
-    const url = await getDownloadURL(ref(storage, `profileImage/${fileName}`));
-    currentUserstore((prev: any) => ({ ...prev, photoURL: url }));
-    router.push(`/users/${props.uid}`);
-    onClose();
+    try {
+      //ローディング中に設定
+      setIsLoading(true);
+      //画像をアップロード
+      await UploadImage(`profileImage`, imageState, fileName);
+      //画像のURLを取得
+      const photoURL = await getDownloadURL(
+        ref(storage, `profileImage/${fileName}`)
+      );
+      //ユーザーDBを更新
+      await setDoc(
+        doc(db, `users/${currentUser.uid}`),
+        { photoSource: fileName, photoURL },
+        { merge: true }
+      );
+      currentUserstore((prev: any) => ({ ...prev, photoURL }));
+      router.push(`/users/${props.uid}`);
+      onClose();
+    } catch (e) {
+      alert("画像のアップロードに失敗しました。もう一度実行してください。");
+    }
+    //ローディング中でない
+    setIsLoading(false);
   };
   return (
     <>
@@ -86,7 +98,12 @@ const ImageModal = (props: any) => {
           </ModalBody>
 
           <ModalFooter>
-            <Button mx="auto" colorScheme="blue" onClick={onClick}>
+            <Button
+              mx="auto"
+              colorScheme="blue"
+              onClick={onClick}
+              isLoading={isLoading}
+            >
               更新
             </Button>
           </ModalFooter>

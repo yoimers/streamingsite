@@ -17,9 +17,11 @@ function AppInit() {
   const setCurrentUserStore = useSetRecoilState(currentUserStore);
 
   useEffect(() => {
+    //認証状態が変更時に実行される
     onAuthStateChanged(auth, (user: User | null) => {
       if (user) {
         (async () => {
+          //userRef作成
           const uidref = doc(db, `users/${user.uid}`);
           const docSnap = await getDoc(uidref);
           if (docSnap.exists()) {

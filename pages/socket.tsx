@@ -1,32 +1,31 @@
-import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
-import TextField from "@material-ui/core/TextField";
-import AssignmentIcon from "@material-ui/icons/Assignment";
-import PhoneIcon from "@material-ui/icons/Phone";
-import React, { LegacyRef, useEffect, useRef, useState } from "react";
-import { CopyToClipboard } from "react-copy-to-clipboard";
-import Peer from "simple-peer";
+import React, { useEffect } from "react";
 import io from "socket.io-client";
-import { Layout } from "../components/Layout";
 
-const socket = io("http://localhost:5001");
-
-function Socket() {
-  const videoRef = useRef() as LegacyRef<HTMLVideoElement>;
-
+const Socket = () => {
   useEffect(() => {
-    (async () => {
-      const stream = await navigator.mediaDevices.getDisplayMedia({
-        audio: true,
-        video: true,
-      }); 
-    })();
-  }, []);
+    fetch("/api/socketio").finally(() => {
+      const socket = io();
 
-  return (
-    <Layout title="aaaaaaaaa">
-      <video ref={videoRef} autoPlay playsInline></video>
-    </Layout>
-  );
-}
+      socket.on("connect", () => {
+        console.log("connect");
+        socket.emit("hello");
+      });
+
+      socket.on("hello", (data) => {
+        console.log("hello", data);
+      });
+
+      socket.on("a user connected", () => {
+        console.log("a user connected");
+      });
+
+      socket.on("disconnect", () => {
+        console.log("disconnect");
+      });
+    });
+  }, []); // Added [] as useEffect filter so it will be executed only once, when component is mounted
+
+  return <h1>Socket.io</h1>;
+};
+
 export default Socket;
