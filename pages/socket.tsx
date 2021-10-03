@@ -4,7 +4,7 @@ import io from "socket.io-client";
 const Socket = () => {
   useEffect(() => {
     fetch("/api/socketio").finally(() => {
-      const socket = io("/api/socketio");
+      const socket = io("/");
 
       socket.on("connect", () => {
         console.log("connect");
