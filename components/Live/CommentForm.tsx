@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import {
+  Text,
   Badge,
   Box,
   Button,
-  Center,
   Flex,
   HStack,
   IconButton,
   Input,
   InputGroup,
   InputRightElement,
+  Spacer,
   useColorModeValue,
 } from "@chakra-ui/react";
 import * as Yup from "yup";
@@ -22,6 +23,8 @@ import { useRouter } from "next/router";
 import { currentUserStore } from "../../states/currentUserStore";
 import { RepeatIcon } from "@chakra-ui/icons";
 import { AiFillHeart } from "react-icons/ai";
+import { NumberLocale } from "yup/lib/locale";
+import CardTime from "../Card/CardTime";
 
 const maxlength = 100;
 const validationSchema = Yup.object({
@@ -31,12 +34,13 @@ const validationSchema = Yup.object({
 type InputType = {
   comment: string;
 };
-const CommentForm = () => {
+const CommentForm = ({ createdAt }: { createdAt: number }) => {
   const bg = useColorModeValue("brand.backgroundcolor2", "gray.600");
   const borderright = useColorModeValue("gray.100", "gray.500");
   const currentUser = useRecoilValue(currentUserState);
   const currentUserstore = useRecoilValue(currentUserStore);
   const router = useRouter();
+
   const onSubmit = (
     values: InputType,
     formikHelpers: FormikHelpers<InputType>
@@ -84,18 +88,14 @@ const CommentForm = () => {
         onSubmit={formik.handleSubmit as any}
       >
         <Flex
-          flexDirection="row-reverse"
+          flexDirection="row"
           alignItems="center"
           w="200px"
           h={8}
-          px={2}
           rounded={10}
         >
-          <IconButton
-            aria-label="video update"
-            icon={<RepeatIcon fontSize="20px" />}
-            _focus={{}}
-          />
+          <CardTime createdAt={createdAt} />
+          <Spacer />
           <IconButton
             aria-label="video update"
             icon={<AiFillHeart size="20px" />}

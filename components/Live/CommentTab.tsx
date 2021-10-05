@@ -58,7 +58,7 @@ const CommentTab = () => {
     <Box
       position="absolute"
       w="100%"
-      h="calc(100% - 42px)"
+      h="calc(100% - 16px)"
       overflow="auto"
       ref={containerRef}
       css={scrollstyle}

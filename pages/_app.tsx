@@ -22,22 +22,20 @@ function AppInit() {
       if (user) {
         (async () => {
           //userRef作成
-          const uidref = doc(db, `users/${user.uid}`);
-          const docSnap = await getDoc(uidref);
-          if (docSnap.exists()) {
-            const data = docSnap.data();
-            let url: string = data.photoURL;
-            if (data.photoSource) {
-              url = await getDownloadURL(
-                ref(storage, `profileImage/${data.photoSource}`)
-              );
+          try {
+            const uidref = doc(db, `users/${user.uid}`);
+            const docSnap = await getDoc(uidref);
+            if (docSnap.exists()) {
+              const data = docSnap.data();
+              setCurrentUser(user);
+              setCurrentUserStore({ ...data });
             }
-            setCurrentUser(user);
-            setCurrentUserStore({ ...data, photoURL: url });
+          } catch (e) {
+            setCurrentUser(null);
           }
         })();
       } else {
-        setCurrentUser(user);
+        setCurrentUser(null);
       }
     });
   }, [setCurrentUser, setCurrentUserStore]);

@@ -5,7 +5,7 @@ export const broadcastSchema = Yup.object({
     .max(20, "タイトルが長すぎます")
     .required("タイトルを入力してください"),
   content: Yup.string()
-    .min(6, "説明文が短すぎます")
+    .min(2, "説明文が短すぎます")
     .max(255, "説明文が長すぎます")
     .required("説明文を入力してください"),
 });

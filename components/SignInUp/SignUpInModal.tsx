@@ -14,25 +14,19 @@ import {
   ModalFooter,
   Divider,
   HStack,
-  Box,
   Button,
-  useBreakpointValue,
 } from "@chakra-ui/react";
 import { GoogleLoginButton } from "react-social-login-buttons";
-import { FaUserCircle } from "react-icons/fa";
-import React, { ReactElement, useState } from "react";
+import React, { useState } from "react";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 import { signInWithGoogle } from "../../src/lib/firebase";
 import Link from "next/link";
-import Image from "next/image";
 import { SignInOutTriger } from "../../src/lib/SignInOutTriger";
 import { useRecoilValue } from "recoil";
-import { currentUserState } from "../../states/currentUser";
 import { Profilemenu } from "../Profile/Profilemenu";
-import ModeIcon from "../Header/ModeIcon";
 import { currentUserStore } from "../../states/currentUserStore";
-import styles from "../Layout.module.css";
+import IconImage from "../CommonComponents/IconImage";
 type Input = {
   isMd: boolean;
   isHeader?: boolean;
@@ -42,8 +36,6 @@ const SignUpInModal = ({ isMd, isHeader = true }: Input) => {
   const [isSignUp, setIsSignUp] = useState<boolean>(false);
   const tabcolor = useColorModeValue("brand.maincolor", "blue.300");
   const bg = useColorModeValue("#F7F9FF", "gray.700");
-  const profileiconcolor = useColorModeValue("#383838", "#E6EDFF");
-  const currentUser = useRecoilValue(currentUserState);
   const currentUserstore = useRecoilValue(currentUserStore);
   const onClick = (issignup: boolean) => {
     onOpen();
@@ -65,17 +57,10 @@ const SignUpInModal = ({ isMd, isHeader = true }: Input) => {
                 </Link>
               )}
               <Profilemenu>
-                {currentUserstore && currentUserstore.photoURL ? (
-                  <Image
-                    src={currentUserstore.photoURL}
-                    layout="fill"
-                    objectFit="cover"
-                    alt="Picture of the author"
-                    className={styles.image}
-                  />
-                ) : (
-                  <FaUserCircle size={40} color={profileiconcolor} />
-                )}
+                <IconImage
+                  photoURL={currentUserstore && currentUserstore.photoURL}
+                  size={40}
+                />
               </Profilemenu>
             </>
           }

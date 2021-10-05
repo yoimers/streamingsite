@@ -13,21 +13,19 @@ import { LiveInfomationType } from "./LiveType";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "../Layout.module.css";
+import IconImage from "../CommonComponents/IconImage";
 const LiveHeader = (props: LiveInfomationType) => {
   const videofixed = useBreakpointValue({ lg: "flex-start", xl: "center" });
   return (
     <Flex justifyContent={videofixed}>
-      <Box rounded={10} p={2} mt={8} w="100%" minWidth="992px" maxW="1351px">
+      <Box rounded={10} p={2} w="100%" minWidth="992px" maxW="1351px">
         <Flex>
-          <Box w="50px" h="50px" position="relative">
-            <Image
-              src={props.photoURL}
-              layout="fill"
-              objectFit="cover"
-              alt="user image"
-              className={styles.image}
-            />
-          </Box>
+          <Link href={`/users/${props.uid}`} passHref>
+            <Box as="a" w="50px" h="50px" position="relative">
+              {/* 放送開始後に放送者の名前/画像を変えても反映されないのは仕様 */}
+              <IconImage photoURL={props.photoURL} size={50} />
+            </Box>
+          </Link>
           <Stack spacing={0} ml={2}>
             <Text fontSize="lg" fontWeight="semibold">
               {props.title}

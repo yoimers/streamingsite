@@ -6,7 +6,7 @@ import HomeIcon from "@material-ui/icons/Home";
 import AccountBoxIcon from "@material-ui/icons/AccountBox";
 import { CgMediaPodcast } from "react-icons/cg";
 import Link from "next/link";
-
+//スマホ用のフッター
 const Footerbar = () => {
   const bg = useColorModeValue("brand.backgroundcolor2", "gray.800");
   const isMobile = useBreakpointValue({ base: true, md: false });

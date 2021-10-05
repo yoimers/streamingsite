@@ -41,16 +41,15 @@ exports.scheduledFunction = functions
     nowbroadRef.get().then((querySnapshot) => {
       querySnapshot.forEach((broad) => {
         const data = broad.data();
-        const now = admin.firestore.FieldValue.serverTimestamp();
-        console.log(data.createdAt.seconds, Number(now));
-        if ((now - data.createdAt.seconds) / 3600 > 1) {
-          console.log("１時間以上経過！");
-          // nowbroadRef.doc(broad.id).set(
-          //   {
-          //     isNow: false,
-          //   },
-          //   { merge: true }
-          // );
+        const now = Date.now() / 1000;
+        if (now - data.createdAt.seconds > 3600 * 6) {
+          console.log(`６時間以上経過！${broad.id}`);
+          db.collection("broads").doc(broad.id).set(
+            {
+              isNow: false,
+            },
+            { merge: true }
+          );
         }
       });
     });

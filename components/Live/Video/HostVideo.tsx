@@ -24,7 +24,7 @@ export type StreamTrack = MediaStreamTrack[] | undefined | null;
 const HostVideo = (props: LiveInfomationType) => {
   const { videoRef, SetMediaState } = useP2PHost({ socket });
   return (
-    <Box>
+    <Box bg="blue.600" h="calc(100% - 42px)" roundedTopLeft={10}>
       <video ref={videoRef as any} autoPlay playsInline></video>
       <Button onClick={SetMediaState}>aaaaaaaa</Button>
     </Box>

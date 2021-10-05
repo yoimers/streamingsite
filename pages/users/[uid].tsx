@@ -32,19 +32,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const docSnap = await getDoc(uidref);
   const data = docSnap.data();
   if (docSnap.exists() && data) {
-    let url: string = data.photoURL;
-    if (data.photoSource) {
-      url = await getDownloadURL(
-        ref(storage, `profileImage/${data.photoSource}`)
-      );
-    }
     return {
       props: {
         uid: params.uid,
         ...data,
-        photoURL: url,
-        createdAt: data.creationTime,
-        lastSignInTime: data.lastSignInTime,
+        createdAt: data?.creationTime || null,
+        lastSignInTime: data?.lastSignInTime || null,
       },
     };
   } else {

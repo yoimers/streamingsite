@@ -1,4 +1,5 @@
 import { HamburgerIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
+import { IoIosDocument, IoMdInformationCircle } from "react-icons/io";
 import { Input } from "@chakra-ui/input";
 import {
   Drawer,
@@ -12,6 +13,7 @@ import {
   useColorMode,
   Spacer,
   useBreakpointValue,
+  Flex,
 } from "@chakra-ui/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -22,6 +24,8 @@ import { MenuItem } from "./MenuItem";
 import SignUpInModal from "../SignInUp/SignUpInModal";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { currentUserState } from "../../states/currentUser";
+import EmailIcon from "@mui/icons-material/Email";
+import { MdEmail } from "react-icons/md";
 
 type Input = {
   isOpen: boolean;
@@ -50,7 +54,7 @@ export const Menubar = () => {
       <Icon isOpen={true} mr={6} />
       <Drawer isOpen={isOpen} placement="left" onClose={onClose} size="xss">
         <DrawerOverlay />
-        <DrawerContent>
+        <DrawerContent pb={4}>
           {/* <SignUpInModal isMd={!isMd} isHeader={false} /> */}
           <HStack pt={1} pl={4} height="60px" boxShadow="base">
             <Icon isOpen={false} mr={6} />
@@ -80,7 +84,16 @@ export const Menubar = () => {
               Live
             </MenuItem>
           </DrawerBody>
-          <DrawerFooter justifyContent="left"></DrawerFooter>
+          <MenuItem Icon={MdEmail} onClose={onClose} link="/question">
+            お問い合わせ
+          </MenuItem>
+          <MenuItem
+            Icon={IoMdInformationCircle}
+            onClose={onClose}
+            link="/service"
+          >
+            利用規約
+          </MenuItem>
         </DrawerContent>
       </Drawer>
     </>

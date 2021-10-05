@@ -75,6 +75,7 @@ const Profile = ({ isMyPage, ...props }: Inputdata) => {
               onSubmit={(value: string) => onSubmit(value, "displayName")}
               isDisabled={!isMyPage}
               isPreviewFocusable={isMyPage}
+              spellCheck="false"
             >
               <Flex alignItems="center" justifyContent="space-between">
                 <EditablePreview pl={2} />
@@ -95,6 +96,7 @@ const Profile = ({ isMyPage, ...props }: Inputdata) => {
             onSubmit={(value: string) => onSubmit(value, "profile")}
             isDisabled={!isMyPage}
             isPreviewFocusable={isMyPage}
+            spellCheck="false"
           >
             <Flex alignItems="center" justifyContent="space-between">
               <EditablePreview pl={2} />

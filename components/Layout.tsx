@@ -10,6 +10,7 @@ import Head from "next/head";
 import React, { ReactChild, ReactChildren, useEffect, useRef } from "react";
 import useScrollbar from "../hooks/useScrollbar";
 import theme from "../theme";
+import Footer from "./Footer/Footer";
 import Footerbar from "./Footer/Footerbar";
 import Header from "./Header/Header";
 
@@ -36,6 +37,7 @@ export const Layout = ({ title, children }: Input) => {
           {children}
         </Box>
         {/* <Footerbar /> */}
+        <Footer />
       </Box>
     </>
   );

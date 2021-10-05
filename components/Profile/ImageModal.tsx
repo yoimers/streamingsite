@@ -26,6 +26,7 @@ import { useSetRecoilState } from "recoil";
 import { getDownloadURL } from "@firebase/storage";
 import { ref } from "firebase/storage";
 import { PersonalVideo } from "@material-ui/icons";
+import IconImage from "../CommonComponents/IconImage";
 
 const ImageModal = (props: any) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -77,15 +78,7 @@ const ImageModal = (props: any) => {
         _active={{}}
         _focus={{}}
       >
-        {props.photoURL && (
-          <Image
-            src={props.photoURL}
-            layout="fill"
-            objectFit="cover"
-            alt="プロフィール画像"
-            className={styles.image}
-          />
-        )}
+        <IconImage photoURL={props && props.photoURL} size={100} />
       </Box>
 
       <Modal isOpen={isOpen} onClose={onClose}>

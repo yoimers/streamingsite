@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import io from "socket.io-client";
 
+// const socketroute = io("http://localhost:3000", { path: "/api/route" });
+
 const Socket = () => {
   useEffect(() => {
     fetch("/api/socketio").finally(() => {

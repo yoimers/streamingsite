@@ -7,6 +7,7 @@ import { doc } from "firebase/firestore";
 import { useRouter } from "next/router";
 import React from "react";
 import { useCurrentUser } from "../../hooks/useCurrentUser";
+import useIsMobile from "../../hooks/useIsMobile";
 import { db } from "../../src/lib/firebase";
 import MySpinner from "../CommonComponents/MySpinner";
 import { LiveInfomationType } from "./LiveType";
@@ -15,6 +16,7 @@ const LiveFooter = (props: LiveInfomationType) => {
   const { currentUser, isAuthChecking } = useCurrentUser();
   const bg = useColorModeValue("white", "gray.600");
   const videofixed = useBreakpointValue({ lg: "flex-start", xl: "center" });
+  const isMobile = useIsMobile();
   const router = useRouter();
   if (currentUser?.uid !== props.uid) return <></>; //放送者以外には何も表示しない
   if (isAuthChecking) return <MySpinner />; //Loading中
@@ -30,15 +32,7 @@ const LiveFooter = (props: LiveInfomationType) => {
   };
   return (
     <Flex justifyContent={videofixed}>
-      <Box
-        bg={bg}
-        rounded={10}
-        p={2}
-        mt={8}
-        w="100%"
-        minWidth="992px"
-        maxW="1351px"
-      >
+      <Box bg={bg} rounded={10} p={2} mt={8} w="100%">
         <Button
           colorScheme="red"
           variant="solid"

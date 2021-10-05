@@ -8,7 +8,7 @@ import { Server } from "socket.io";
 const app = express();
 const server = http.createServer(app);
 
-export default ioHandler = (req, res) => {
+const ioHandler = (req, res) => {
   const io = require("socket.io")(server, {
     cors: {
       origin: "*",
@@ -81,5 +81,7 @@ export default ioHandler = (req, res) => {
     });
   });
 };
+
+export default ioHandler;
 // exports.io = io;
 // server.listen(PORT, () => console.log(`Server is running on port ${PORT}`));

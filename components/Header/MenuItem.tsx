@@ -1,17 +1,26 @@
 import { useColorModeValue } from "@chakra-ui/color-mode";
+import { IconProps } from "@chakra-ui/icons";
 import { HStack, Heading } from "@chakra-ui/layout";
+import { ComponentWithAs } from "@chakra-ui/react";
 import { SvgIconTypeMap } from "@material-ui/core";
 import { OverridableComponent } from "@material-ui/core/OverridableComponent";
 import Link from "next/link";
 import React, { ReactNode } from "react";
 
 type Input = {
-  Icon: OverridableComponent<SvgIconTypeMap<{}, "svg">>;
+  Icon: any;
   children?: ReactNode;
   onClose?: () => void;
   link: string;
+  fontSize?: string;
 };
-export const MenuItem = ({ link, Icon, children, onClose }: Input) => {
+export const MenuItem = ({
+  link,
+  Icon,
+  children,
+  onClose,
+  fontSize,
+}: Input) => {
   const menucolor = useColorModeValue("brand.h2", "gray.200");
   const menuhover = useColorModeValue("gray.100", "gray.600");
   return (
@@ -28,9 +37,9 @@ export const MenuItem = ({ link, Icon, children, onClose }: Input) => {
         animation="linear"
         transition="background-color 0.1s linear"
       >
-        <Icon fontSize="medium" />
+        <Icon fontSize="medium" size="24px" />
         {children && (
-          <Heading variant="menuitem" size="md">
+          <Heading variant="menuitem" size="md" fontSize={fontSize}>
             {children}
           </Heading>
         )}

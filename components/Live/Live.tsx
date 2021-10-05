@@ -2,39 +2,45 @@ import { AspectRatio, Box, Flex } from "@chakra-ui/layout";
 import { useBreakpointValue } from "@chakra-ui/react";
 import React from "react";
 import { useCurrentUser } from "../../hooks/useCurrentUser";
+import useIsMobile from "../../hooks/useIsMobile";
 import CommentForm from "./CommentForm";
 import LiveFooter from "./LiveFooter";
 import LiveHeader from "./LiveHeader";
 import { LiveInfomationType } from "./LiveType";
-import HostVideo from "./Video/HostVideo";
-import ListenerVideo from "./Video/ListenerVideo";
+import CommonVideo from "./Video/CommonVideo";
 import VideoSidemenu from "./VideoSidemenu";
 
 const Live = (props: LiveInfomationType) => {
-  const videofixed = useBreakpointValue({ lg: "flex-start", xl: "center" });
+  const isMobile = useIsMobile();
   const { currentUser, isAuthChecking } = useCurrentUser();
   const isHost = currentUser?.uid === props.uid;
   return (
-    <Box mx={6}>
-      <LiveHeader {...props} />
-      <Flex justifyContent={videofixed} position="relative">
-        <Box w="100%" maxW="5xl" minW="2xl" h="100%">
-          <AspectRatio ratio={16 / 9}>
-            <Box bg="blue.600" h="calc(100% - 42px)" roundedTopLeft={10}>
-              {/* {!isAuthChecking &&
+    <Box px={{ base: 0, md: 6 }} pt={{ base: 0, md: 8 }}>
+      <Flex
+        mx={{ base: 0, md: "auto" }}
+        flexDirection="column"
+        minWidth={{ base: "100%", md: "1080px" }}
+        maxW="6xl"
+      >
+        {!isMobile && <LiveHeader {...props} />}
+        <Flex
+          flexDirection={{ base: "column", md: "row" }}
+          h={{ base: "calc(100vh - 72px)", md: "100%" }}
+        >
+          <Box w="100%">
+            {/* {!isAuthChecking &&
                 (isHost ? (
                   <HostVideo {...props} />
-                ) : (
-                  <ListenerVideo {...props} />
-                ))} */}
-            </Box>
-          </AspectRatio>
-          <CommentForm />
-        </Box>
-        <VideoSidemenu />
+                  ) : (
+                    <ListenerVideo {...props} />
+                  ))} */}
+            <CommonVideo {...props} />
+            <CommentForm createdAt={props.createdAt} />
+          </Box>
+          <VideoSidemenu />
+        </Flex>
+        <LiveFooter {...props} />
       </Flex>
-      <LiveFooter {...props} />
-      <Box pb="50px" />
     </Box>
   );
 };
