@@ -8,6 +8,8 @@ import LiveFooter from "./LiveFooter";
 import LiveHeader from "./LiveHeader";
 import { LiveInfomationType } from "./LiveType";
 import CommonVideo from "./Video/CommonVideo";
+import HostVideo from "./Video/HostVideo";
+import ListenerVideo from "./Video/ListenerVideo";
 import VideoSidemenu from "./VideoSidemenu";
 
 const Live = (props: LiveInfomationType) => {
@@ -28,13 +30,13 @@ const Live = (props: LiveInfomationType) => {
           h={{ base: "calc(100vh - 72px)", md: "100%" }}
         >
           <Box w="100%">
-            {/* {!isAuthChecking &&
-                (isHost ? (
-                  <HostVideo {...props} />
-                  ) : (
-                    <ListenerVideo {...props} />
-                  ))} */}
-            <CommonVideo {...props} />
+            {!isAuthChecking &&
+              (isHost ? (
+                <HostVideo {...props} />
+              ) : (
+                <ListenerVideo {...props} />
+              ))}
+            {/* <CommonVideo {...props} /> */}
             <CommentForm createdAt={props.createdAt} />
           </Box>
           <VideoSidemenu />

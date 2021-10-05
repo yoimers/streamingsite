@@ -4,6 +4,7 @@ import { LiveInfomationType } from "../LiveType";
 import { io } from "socket.io-client";
 import useP2PHost from "../../../hooks/useP2PHost";
 import { Button } from "@chakra-ui/react";
+import CommonVideo from "./CommonVideo";
 
 // const socket = io("http://localhost:5001");
 const socket = io(
@@ -15,6 +16,7 @@ const socket = io(
     },
   }
 );
+
 export const offerOptions = {
   offerToReceiveAudio: true,
   offerToReceiveVideo: true,
@@ -22,12 +24,11 @@ export const offerOptions = {
 
 export type StreamTrack = MediaStreamTrack[] | undefined | null;
 const HostVideo = (props: LiveInfomationType) => {
-  const { videoRef, SetMediaState } = useP2PHost({ socket });
+  // const { videoRef, SetMediaState } = useP2PHost({ socket });
   return (
-    <Box bg="blue.600" h="calc(100% - 42px)" roundedTopLeft={10}>
-      <video ref={videoRef as any} autoPlay playsInline></video>
-      <Button onClick={SetMediaState}>aaaaaaaa</Button>
-    </Box>
+    <>
+      <CommonVideo {...props} />
+    </>
   );
 };
 

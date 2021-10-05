@@ -2,15 +2,15 @@ import socketio, { Server } from "socket.io";
 import express from "express";
 import http from "http";
 import cors from "cors";
+
 const app = express();
 const server = http.createServer(app);
 
 app.use(cors());
 const PORT = process.env.PORT || 5001;
 
-const ioHandler = (req: any, res: any) => {
+const ioHandler = (req, res) => {
   res.send("Running");
-  console.log(res.socket.server.io);
   if (!res.socket.server.io) {
     console.log("*First use, starting socket.io");
 
