@@ -2,9 +2,10 @@ const app = require("express")();
 const server = require("http").createServer(app);
 const cors = require("cors");
 
+const URL = "https://streamingsite-eight.vercel.app";
 const io = require("socket.io")(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: URL,
     methods: ["GET", "POST", "HEAD", "OPTIONS"],
     allowedHeaders: [
       "Access-Control-Allow-Origin",
