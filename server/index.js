@@ -4,8 +4,13 @@ const cors = require("cors");
 
 const io = require("socket.io")(server, {
   cors: {
-    origin: "*",
-    methods: ["GET", "POST"],
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST", "HEAD", "OPTIONS"],
+    allowedHeaders: [
+      "Access-Control-Allow-Origin",
+      "Access-Control-Allow-Credentials",
+    ],
+    credentials: true,
   },
 });
 app.use(cors());
@@ -60,6 +65,7 @@ io.on("connection", (socket) => {
 
   socket.on("IceCandidateFromListener", (data) => {
     //リスナーからの候補
+    console.log("IceCandidateFromListener");
     const hostId = roomhost[store[socket.id] && store[socket.id].roomId];
     if (hostId) {
       io.to(hostId).emit("IceCandidateToHost", data, socket.id); //放送者へdataを横流し
@@ -68,6 +74,7 @@ io.on("connection", (socket) => {
 
   socket.on("IceCandidateFromHost", (data, toId) => {
     //ホストからの候補
+    console.log("IceCandidateFromHost");
     io.to(toId).emit("IceCandidateToListener", data); //リスナーへdataを横流し
   });
 });

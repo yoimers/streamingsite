@@ -73,6 +73,7 @@ const ListenerConnectHost = ({
         listenerRef.current.signalingState !== "closed" &&
         !listenerRef.current.remoteDescription
       ) {
+        console.log("P2PAnswerToListener");
         listenerRef.current.setRemoteDescription(answer);
         remotecount = false;
       }

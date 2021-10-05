@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { Fade } from "@chakra-ui/transition";
 import { isTransitionDefined } from "framer-motion/types/animation/utils/transitions";
-import React, { useEffect, useState } from "react";
+import React, { forwardRef, useEffect, useState } from "react";
 import { AiFillHeart } from "react-icons/ai";
 import { useHover } from "../../../hooks/useHover";
 import useIsMobile from "../../../hooks/useIsMobile";
@@ -24,7 +24,10 @@ const NotMobileBackGround =
   "linear-gradient(0deg, rgba(16,18,22,0.7049194677871149) 0%, rgba(54,62,75,0.7) 20%, rgba(54,62,75,0) 30%)";
 const MobileBackGround =
   "linear-gradient(0deg, rgba(16,18,22,0.7049194677871149) 0%, rgba(54,62,75,0.7) 20%, rgba(54,62,75,0) 30%, rgba(54,62,75,0) 70%, rgba(54,62,75,0.7) 80%, rgba(16,18,22,0.7) 100%)";
-const CommonVideo = (props: LiveInfomationType) => {
+const CommonVideo = forwardRef(function A(
+  props: LiveInfomationType,
+  videoRef: any
+) {
   const [ref, value] = useHover<HTMLDivElement>();
   const isMobile = useIsMobile();
   const bg = useColorModeValue("brand.backgroundcolor2", "gray.600");
@@ -41,6 +44,7 @@ const CommonVideo = (props: LiveInfomationType) => {
           poster={props.imageUrl}
           autoPlay
           playsInline
+          ref={videoRef}
           style={{
             width: "100%",
             height: "100%",
@@ -84,6 +88,6 @@ const CommonVideo = (props: LiveInfomationType) => {
       </Box>
     </AspectRatio>
   );
-};
+});
 
 export default CommonVideo;
