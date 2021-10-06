@@ -7,13 +7,16 @@ import { Button } from "@chakra-ui/react";
 import CommonVideo from "./CommonVideo";
 
 // const socket = io("http://localhost:5001");
-const socket = io("http://localhost:5001", {
-  withCredentials: true,
-  extraHeaders: {
-    "Access-Control-Allow-Origin": "http://localhost:3000",
-    "Access-Control-Allow-Credentials": "true",
-  },
-});
+const socket = io(
+  "https://asia-northeast1-wavelet-f30ce.cloudfunctions.net/signaling",
+  {
+    withCredentials: true,
+    extraHeaders: {
+      "Access-Control-Allow-Origin": "http://localhost:3000",
+      "Access-Control-Allow-Credentials": "true",
+    },
+  }
+);
 
 export const offerOptions = {
   offerToReceiveAudio: true,

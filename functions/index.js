@@ -1,36 +1,45 @@
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 admin.initializeApp();
-// const app = require("express")();
-// const server = require("http").createServer(app);
-// const cors = require("cors");
-// const io = require("socket.io")(server);
-// {
-//   cors: {
-//     origin: "http://localhost:3000/",
-//     methods: ["GET", "POST", "OPTIONS"],
-//     allowedHeaders: ["Access-Control-Allow-Origin"],
-//   },
-// }
-// app.use(
-//   cors({
-//     origin: "http://localhost:3000", //アクセス許可するオリジン
-//     methods: ["GET", "POST", "OPTIONS"],
-//     credentials: true, //レスポンスヘッダーにAccess-Control-Allow-Credentials追加
-//     optionsSuccessStatus: 200, //レスポンスstatusを200に設定
-//   })
-// );
-// app.get("/", (req, res) => {
-//   res.send("Running");
-//   io.on("connection", (socket) => {
-//     console.log(socket.id);
-//   });
-// });
-// io.on("connection", (socket) => {
-//   console.log(socket.id);
-// });
-// exports.signalingg = functions.region("asia-northeast1").https.onRequest(app);
-// exports.signaling = functions.region("asia-northeast1").https.onRequest(io);
+const cors = require("cors");
+const app = require("express")();
+app.use(
+  cors({
+    origin: "http://localhost:3000", //アクセス許可するオリジン
+    methods: ["GET", "POST", "HEAD", "OPTIONS"],
+    allowedHeaders: [
+      "Access-Control-Allow-Origin",
+      "Access-Control-Allow-Credentials",
+    ],
+    credentials: true, //レスポンスヘッダーにAccess-Control-Allow-Credentials追加
+    optionsSuccessStatus: 200, //レスポンスstatusを200に設定
+  })
+);
+
+app.get("/", (req, res) => {
+  res.send("Running");
+  io.on("connection", (socket) => {
+    console.log(socket.id);
+  });
+});
+
+const server = require("http").createServer(app);
+const io = require("socket.io")(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST", "HEAD", "OPTIONS"],
+    allowedHeaders: [
+      "Access-Control-Allow-Origin",
+      "Access-Control-Allow-Credentials",
+    ],
+    credentials: true,
+  },
+});
+io.on("connection", (socket) => {
+  console.log(socket.id);
+});
+exports.signalingg = functions.region("asia-northeast1").https.onRequest(app);
+exports.signaling = functions.region("asia-northeast1").https.onRequest(io);
 
 exports.scheduledFunction = functions
   .region("asia-northeast1")

@@ -4,7 +4,7 @@ import {
   QueryDocumentSnapshot,
   Timestamp,
 } from "firebase/firestore";
-import type { GetServerSideProps, NextPage } from "next";
+import type { GetServerSideProps, GetStaticProps, NextPage } from "next";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import CardList from "../components/Card/CardList";
@@ -26,7 +26,7 @@ const Home: NextPage = (props) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getStaticProps: GetStaticProps = async (context) => {
   const querySnapshot = await getBroadLists();
   const cards: CardType[] = [];
 
@@ -34,8 +34,24 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const data = toData(doc);
     cards.push({ ...data });
   });
-  return { props: { cards } };
+  return {
+    props: {
+      cards,
+    },
+    revalidate: 10,
+  };
 };
+
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//   const querySnapshot = await getBroadLists();
+//   const cards: CardType[] = [];
+
+//   querySnapshot.forEach((doc) => {
+//     const data = toData(doc);
+//     cards.push({ ...data });
+//   });
+//   return { props: { cards } };
+// };
 
 const toData = (doc: QueryDocumentSnapshot<DocumentData>): any => {
   const data = doc.data();
