@@ -46,7 +46,7 @@ const ImageModal = (props: any) => {
       //ローディング中に設定
       setIsLoading(true);
       //画像をアップロード
-      await UploadImage(`profileImage`, imageState, fileName);
+      await UploadImage(`profileImage`, imageState, fileName, 0.4, 100, 1);
       //画像のURLを取得
       const photoURL = await getDownloadURL(
         ref(storage, `profileImage/${fileName}`)

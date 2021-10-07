@@ -61,7 +61,14 @@ const Broadcast: NextPage = () => {
         let url: string | undefined = undefined;
         if (imageState) {
           //imageをアップロード
-          await UploadImage("broadcastImage", imageState, fileName);
+          await UploadImage(
+            "broadcastImage",
+            imageState,
+            fileName,
+            0.5,
+            1000,
+            1
+          );
           //imageURLを取得
           url = await getDownloadURL(
             ref(storage, `broadcastImage/${fileName}`)
