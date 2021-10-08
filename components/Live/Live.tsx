@@ -1,5 +1,6 @@
 import { AspectRatio, Box, Flex } from "@chakra-ui/layout";
 import { useBreakpointValue } from "@chakra-ui/react";
+import Script from "next/script";
 import React from "react";
 import { useCurrentUser } from "../../hooks/useCurrentUser";
 import useIsMobile from "../../hooks/useIsMobile";
@@ -18,6 +19,7 @@ const Live = (props: LiveInfomationType) => {
   const isHost = currentUser?.uid === props.uid;
   return (
     <Box px={{ base: 0, md: 6 }} pt={{ base: 0, md: 8 }}>
+      <Script src="https://js.pusher.com/7.0/pusher.min.js" />
       <Flex
         mx={{ base: 0, md: "auto" }}
         flexDirection="column"

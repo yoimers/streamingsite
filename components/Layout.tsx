@@ -24,6 +24,7 @@ export const Layout = ({ title, children }: Input) => {
           name="viewport"
           content="width=device-width,initial-scale=1"
         ></meta>
+
       </Head>
       <ColorModeScript initialColorMode={theme.config.initialColorMode} />
       <Box height="100vh" width="100%">
