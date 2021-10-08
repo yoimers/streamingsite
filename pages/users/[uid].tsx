@@ -1,5 +1,4 @@
 import { doc } from "@firebase/firestore";
-import { getDownloadURL, ref } from "@firebase/storage";
 import { getDoc } from "firebase/firestore";
 import { GetServerSideProps, NextPage } from "next";
 import { useRouter } from "next/router";
@@ -9,7 +8,7 @@ import NotLogin from "../../components/CommonComponents/NotLogin";
 import { Layout } from "../../components/Layout";
 import MyPage from "../../components/Profile/MyPage";
 import { useIsMyPage } from "../../hooks/useIsMyPage";
-import { db, storage } from "../../src/lib/firebase";
+import { db } from "../../src/lib/firebase";
 
 export const UserPage: NextPage = (props: any) => {
   const { isMyPage, isAuthChecking, currentUser } = useIsMyPage();

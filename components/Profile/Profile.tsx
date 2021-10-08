@@ -1,4 +1,4 @@
-import { Box, Center, Flex, Spacer } from "@chakra-ui/layout";
+import { Box, Flex } from "@chakra-ui/layout";
 import {
   ButtonGroup,
   Editable,
@@ -14,14 +14,11 @@ import {
   useEditableControls,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
 import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
 import { doc, setDoc } from "@firebase/firestore";
-import { db, storage } from "../../src/lib/firebase";
-import Link from "next/link";
+import { db } from "../../src/lib/firebase";
 import { useRouter } from "next/router";
 import useScrollbar from "../../hooks/useScrollbar";
-import { getDownloadURL, ref } from "@firebase/storage";
 import ImageModal from "./ImageModal";
 
 type Inputdata = {

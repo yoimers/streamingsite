@@ -1,22 +1,18 @@
 import { VStack } from "@chakra-ui/react";
-import {
-  DocumentData,
-  QueryDocumentSnapshot,
-  Timestamp,
-} from "firebase/firestore";
-import type { GetServerSideProps, GetStaticProps, NextPage } from "next";
-import { useRouter } from "next/router";
-import React, { useState } from "react";
+import { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
+import type { GetStaticProps, NextPage } from "next";
+import React, { useEffect, useState } from "react";
 import CardList from "../components/Card/CardList";
 import { CardType } from "../components/Card/CardType";
 import { Layout } from "../components/Layout";
 import { getBroadLists } from "../src/lib/getBroadLists";
 
 const Home: NextPage = (props) => {
-  const router = useRouter();
   const { cards }: any = props;
   const [properties, setProperties] = useState<CardType[]>(cards);
-
+  // const a = [...cards, ...cards, ...cards, ...cards, ...cards];
+  // const b = [...a, ...a, ...a];
+  // setProperties(b);
   return (
     <Layout title="Wavelet">
       <VStack height="calc(100% - 60px)" pb="50px">
@@ -27,13 +23,7 @@ const Home: NextPage = (props) => {
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const querySnapshot = await getBroadLists();
-  const cards: CardType[] = [];
-
-  querySnapshot.forEach((doc) => {
-    const data = toData(doc);
-    cards.push({ ...data });
-  });
+  const cards = await getBroadLists();
   return {
     props: {
       cards,
@@ -52,14 +42,5 @@ export const getStaticProps: GetStaticProps = async (context) => {
 //   });
 //   return { props: { cards } };
 // };
-
-const toData = (doc: QueryDocumentSnapshot<DocumentData>): any => {
-  const data = doc.data();
-  return {
-    ...data,
-    broadId: doc.id,
-    createdAt: data.createdAt.seconds,
-  };
-};
 
 export default Home;

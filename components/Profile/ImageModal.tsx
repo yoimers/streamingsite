@@ -25,7 +25,6 @@ import { currentUserStore } from "../../states/currentUserStore";
 import { useSetRecoilState } from "recoil";
 import { getDownloadURL } from "@firebase/storage";
 import { ref } from "firebase/storage";
-import { PersonalVideo } from "@material-ui/icons";
 import IconImage from "../CommonComponents/IconImage";
 
 const ImageModal = (props: any) => {

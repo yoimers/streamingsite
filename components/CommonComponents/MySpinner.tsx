@@ -5,8 +5,9 @@ import { Layout } from "../Layout";
 type InputType = {
   title?: string;
   message?: string;
+  isLayout?: boolean;
 };
-const MySpinner = ({ title, message }: InputType) => {
+const MySpinner = ({ title, message, isLayout }: InputType) => {
   return (
     <Layout title={`Wavelet ${title}`}>
       <Center w="100%" h="100vh" flexDirection="column">
@@ -17,9 +18,11 @@ const MySpinner = ({ title, message }: InputType) => {
           color="blue.500"
           size="xl"
         />
-        <Text as="h3" fontSize="xl" pt={1}>
-          {message}
-        </Text>
+        {message && (
+          <Text as="h3" fontSize="xl" pt={1}>
+            {message}
+          </Text>
+        )}
       </Center>
     </Layout>
   );

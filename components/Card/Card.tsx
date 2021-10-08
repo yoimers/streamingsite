@@ -32,7 +32,7 @@ const Card = ({ property }: Input) => {
 
   return (
     <GridItem bg={bg} rounded={10} p={1}>
-      <Link href={`/live/${property.broadId}`} passHref>
+      <Link href={`/live/${property.broadId}`} prefetch={false} passHref>
         <Stack as="a" align="center" direction={{ base: "row", md: "column" }}>
           <Container
             m={0}
