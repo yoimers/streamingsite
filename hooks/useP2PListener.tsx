@@ -1,23 +1,25 @@
 import { useRouter } from "next/router";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Socket } from "socket.io-client";
-import { DefaultEventsMap } from "socket.io-client/build/typed-events";
+import { io } from "socket.io-client";
 import { connectionstatechange } from "../components/Live/Video/connectionstatechange";
-import { offerOptions } from "../components/Live/Video/HostVideo";
-import { config } from "./useP2PHost";
+import { config, offerOptions } from "./useP2PHost";
 
-type InputType = {
-  socket: Socket<DefaultEventsMap, DefaultEventsMap>;
-};
+const socket = io("https://arcane-badlands-27717.herokuapp.com/", {
+  withCredentials: true,
+  extraHeaders: {
+    "Access-Control-Allow-Origin": "http://localhost:3000",
+    "Access-Control-Allow-Credentials": "true",
+  },
+});
 
-const useP2PListener = ({ socket }: InputType) => {
+const useP2PListener = () => {
   const router = useRouter();
   const remotevideoRef =
     useRef<HTMLVideoElement>() as React.MutableRefObject<HTMLVideoElement>;
   const listenerRef = useRef(new RTCPeerConnection(config));
   const reconnection = useCallback(() => {
-    ListenerConnectHost({ listenerRef, socket, remotevideoRef });
-  }, [remotevideoRef, socket]);
+    ListenerConnectHost({ listenerRef, remotevideoRef });
+  }, [remotevideoRef]);
 
   useEffect(() => {
     socket.emit("join", router.query.live, false);
@@ -27,7 +29,7 @@ const useP2PListener = ({ socket }: InputType) => {
     listenerRef.current.onconnectionstatechange = connectionstatechange(
       listenerRef.current
     );
-  }, [reconnection, remotevideoRef, router.query.live, socket]);
+  }, [reconnection, remotevideoRef, router.query.live]);
 
   useEffect(() => {
     reconnection();
@@ -35,18 +37,17 @@ const useP2PListener = ({ socket }: InputType) => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
       listenerRef.current.close();
     };
-  }, [reconnection, remotevideoRef, socket]);
+  }, [reconnection, remotevideoRef]);
 
   return { reconnection, remotevideoRef };
 };
 
-interface ListenerConnectHostType extends InputType {
+interface ListenerConnectHostType {
   listenerRef: React.MutableRefObject<RTCPeerConnection>;
   remotevideoRef: React.MutableRefObject<HTMLVideoElement>;
 }
 const ListenerConnectHost = ({
   listenerRef,
-  socket,
   remotevideoRef,
 }: ListenerConnectHostType) => {
   listenerRef.current = new RTCPeerConnection(config);

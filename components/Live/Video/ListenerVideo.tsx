@@ -5,18 +5,8 @@ import { Box, Button } from "@chakra-ui/react";
 import useP2PListener from "../../../hooks/useP2PListener";
 import CommonVideo from "./CommonVideo";
 
-const socket = io("http://localhost:5001", {
-  withCredentials: true,
-  extraHeaders: {
-    "Access-Control-Allow-Origin": "http://localhost:3000",
-    "Access-Control-Allow-Credentials": "true",
-  },
-});
 const ListenerVideo = (props: LiveInfomationType) => {
-  const { reconnection, remotevideoRef } = useP2PListener({
-    socket,
-  });
-  // const reconnection = () => {};
+  const { reconnection, remotevideoRef } = useP2PListener();
   return (
     <>
       {/* <CommonVideo {...props} /> */}

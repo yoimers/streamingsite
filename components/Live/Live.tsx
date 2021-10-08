@@ -34,7 +34,8 @@ const Live = (props: LiveInfomationType) => {
               (isHost ? (
                 <HostVideo {...props} />
               ) : (
-                <ListenerVideo {...props} />
+                <></>
+                // <ListenerVideo {...props} />
               ))}
             {/* <CommonVideo {...props} /> */}
             <CommentForm createdAt={props.createdAt} />

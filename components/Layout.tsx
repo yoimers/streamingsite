@@ -1,13 +1,7 @@
-import {
-  Box,
-  Center,
-  ColorModeScript,
-  useColorModeValue,
-  VStack,
-} from "@chakra-ui/react";
-
+import { Box, ColorModeScript } from "@chakra-ui/react";
+import Script from "next/script";
 import Head from "next/head";
-import React, { ReactChild, ReactChildren, useEffect, useRef } from "react";
+import React, { ReactChild, ReactChildren } from "react";
 import useScrollbar from "../hooks/useScrollbar";
 import theme from "../theme";
 import Footer from "./Footer/Footer";

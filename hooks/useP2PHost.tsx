@@ -1,12 +1,20 @@
-import { NextRouter, useRouter } from "next/router";
+import { useRouter } from "next/router";
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { Socket } from "socket.io-client";
-import { DefaultEventsMap } from "socket.io-client/build/typed-events";
+import { io } from "socket.io-client";
 
-type InputType = {
-  socket: Socket<DefaultEventsMap, DefaultEventsMap>;
+// const socket = io("http://localhost:5001");
+const socket = io("https://arcane-badlands-27717.herokuapp.com/", {
+  withCredentials: true,
+  extraHeaders: {
+    "Access-Control-Allow-Origin": "https://streamingsite-eight.vercel.app/",
+    "Access-Control-Allow-Credentials": "true",
+  },
+});
+
+export const offerOptions = {
+  offerToReceiveAudio: true,
+  offerToReceiveVideo: true,
 };
-
 export const config = {
   iceServers: [
     { urls: "stun:stun.l.google.com:19302" },
@@ -15,18 +23,18 @@ export const config = {
   ],
 };
 
-const useP2PHost = ({ socket }: InputType) => {
+const useP2PHost = () => {
   const [stream, setStream] = useState<MediaStream | null>(null);
   const [fromId, setFromId] = useState("");
   const [offer, setOffer] = useState<RTCSessionDescriptionInit>();
   const router = useRouter();
   const videoRef =
     useRef<HTMLVideoElement>() as React.MutableRefObject<HTMLVideoElement>;
-
+  socket.on("hello", (a) => console.log(a));
   useEffect(() => {
     //最初の１回だけ
     socket.emit("join", router.query.live, true);
-  }, [router, router.query.live, socket]);
+  }, [router, router.query.live]);
 
   useMemo(() => {
     //リスナーからのoffer待機
@@ -37,11 +45,11 @@ const useP2PHost = ({ socket }: InputType) => {
         setOffer(offer);
       }
     );
-  }, [socket]);
+  }, []);
   useEffect(() => {
     //リスナーからのofferに対応
-    ListenerConnectHost({ fromId, offer, socket, stream });
-  }, [fromId, offer, socket, stream]);
+    ListenerConnectHost({ fromId, offer, stream });
+  }, [fromId, offer, stream]);
 
   const SetMediaState = () => SetMedia(setStream, videoRef);
   return { videoRef, SetMediaState };
@@ -63,7 +71,7 @@ const SetMedia = async (
   setStream(Localstream);
 };
 
-interface ListenerConnectHostType extends InputType {
+interface ListenerConnectHostType {
   offer: RTCSessionDescriptionInit | undefined;
   fromId: string;
   stream: MediaStream | null;
@@ -73,7 +81,6 @@ interface ListenerConnectHostType extends InputType {
 const ListenerConnectHost = ({
   offer,
   fromId,
-  socket,
   stream,
 }: ListenerConnectHostType) => {
   let host = new RTCPeerConnection(config);
