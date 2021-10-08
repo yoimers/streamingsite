@@ -1,28 +1,17 @@
-import {
-  Box,
-  HStack,
-  Stack,
-  VStack,
-  Text,
-  Flex,
-  useBreakpointValue,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { Box, Stack, Text, Flex, useBreakpointValue } from "@chakra-ui/react";
 import React from "react";
 import { LiveInfomationType } from "./LiveType";
-import Image from "next/image";
 import Link from "next/link";
-import styles from "../Layout.module.css";
 import IconImage from "../CommonComponents/IconImage";
-const LiveHeader = (props: LiveInfomationType) => {
+
+const LiveHeader = (props: LiveInfomationType & { color?: string }) => {
   const videofixed = useBreakpointValue({ lg: "flex-start", xl: "center" });
   return (
     <Flex justifyContent={videofixed}>
       <Box rounded={10} p={2} w="100%" minWidth="992px" maxW="1351px">
-        <Flex>
+        <Flex color={props.color}>
           <Link href={`/users/${props.uid}`} passHref>
             <Box as="a" w="50px" h="50px" position="relative">
-              {/* 放送開始後に放送者の名前/画像を変えても反映されないのは仕様 */}
               <IconImage photoURL={props.photoURL} size={50} />
             </Box>
           </Link>

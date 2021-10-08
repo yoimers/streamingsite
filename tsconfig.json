@@ -19,9 +19,9 @@
     "**/*.ts",
     "**/*.tsx",
     "src/lib/firebase.ts",
-    "pages/api/signaling.js",
+    "server/signaling.js",
     "functions/server/index.js",
-    "pages/api/socketio.js",
+    "server/socketio.js",
     "server.js"
   ],
   "exclude": ["node_modules"]

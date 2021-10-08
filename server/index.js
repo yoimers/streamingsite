@@ -5,6 +5,7 @@ const cors = require("cors");
 // const URL = "https://streamingsite-eight.vercel.app";
 const URL = "http://localhost:3000";
 const io = require("socket.io")(server, {
+  cookie: false,
   cors: {
     origin: URL,
     methods: ["GET", "POST", "HEAD", "OPTIONS"],
@@ -16,7 +17,7 @@ const io = require("socket.io")(server, {
   },
 });
 app.use(cors());
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 5005;
 app.get("/", (req, res) => {
   res.send("Running");
 });
@@ -80,6 +81,10 @@ io.on("connection", (socket) => {
     io.to(toId).emit("IceCandidateToListener", data); //リスナーへdataを横流し
   });
 });
+setInterval(() => {
+  io.emit("hello", new Date().toTimeString());
+  io.emit("time", new Date().toTimeString());
+}, 1000);
 exports.io = io;
 // exports.app = app;
 server.listen(PORT, () => console.log(`Server is running on port ${PORT}`));

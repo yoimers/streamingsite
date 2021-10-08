@@ -68,7 +68,7 @@ const CommonVideo = forwardRef(function A(
               // "linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(40,40,40,0.788953081232493) 21%, rgba(255,255,255,0) 100%)",
             }}
           >
-            {isMobile && <LiveHeader {...props} />}
+            {isMobile && <LiveHeader color="white" {...props} />}
             <Spacer />
             <Flex>
               <VideoSlider />

@@ -19,7 +19,7 @@ const CardTime = ({ createdAt }: Input) => {
   return (
     <Flex flexDirection="row" justifyContent="flex-start">
       <AccessTimeIcon style={{ fontSize: "16px" }} />
-      <Heading variant="menuitem" as="h4" size="xs" ml={1}>
+      <Heading variant="menuitem" as="h4" size="xs" ml={1} w="76px">
         {hour}:{minute}:{second}
       </Heading>
     </Flex>

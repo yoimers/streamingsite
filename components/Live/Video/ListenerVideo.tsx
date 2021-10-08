@@ -9,8 +9,8 @@ const ListenerVideo = (props: LiveInfomationType) => {
   const { reconnection, remotevideoRef } = useP2PListener();
   return (
     <>
-      {/* <CommonVideo {...props} /> */}
-      <Box w="100%">
+      <CommonVideo {...props} />
+      {/* <Box w="100%">
         <video
           style={{ width: "100%", height: "100%" }}
           ref={remotevideoRef as any}
@@ -20,7 +20,7 @@ const ListenerVideo = (props: LiveInfomationType) => {
         <Button w={100} h={100} bg="tomato" onClick={reconnection}>
           aaaaaaaaaaaaaaaaaa
         </Button>
-      </Box>
+      </Box> */}
     </>
   );
 };
