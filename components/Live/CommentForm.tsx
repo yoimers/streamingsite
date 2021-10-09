@@ -98,7 +98,7 @@ const CommentForm = ({ createdAt }: { createdAt: number }) => {
           <Spacer />
           <IconButton
             aria-label="video update"
-            icon={<AiFillHeart size="20px" />}
+            // icon={<AiFillHeart size="20px" />}
             mx={2}
             _focus={{}}
           />

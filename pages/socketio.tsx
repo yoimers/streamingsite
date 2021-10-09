@@ -7,7 +7,6 @@ import axios from "axios";
 
 const Socketio = () => {
   const [name, setName] = useState("");
-
   useEffect(() => {
     let mounted = true;
     if (mounted) {
@@ -17,6 +16,11 @@ const Socketio = () => {
         // authEndpoint: "api/pusher/auth",
         // auth: { params: { name } },
       });
+
+      pusher.connection.bind("connected", () => {
+        console.log(pusher.connection.socket_id);
+      });
+
       const channel = pusher.subscribe("chat");
       channel.bind("message", (data: any) => {
         console.log(data);

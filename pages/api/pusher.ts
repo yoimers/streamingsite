@@ -1,9 +1,11 @@
 import { pusher } from "../../src/lib/pusher";
 
-const handle = (req: any, res: any) => {
+const handler = (req: any, res: any) => {
   pusher.trigger("chat", "message", {
-    message: "hello world",
+    message: req.body,
   });
+
+  res.end();
 };
 
-export default handle;
+export default handler;
