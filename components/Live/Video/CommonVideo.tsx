@@ -1,31 +1,15 @@
-import { RepeatIcon } from "@chakra-ui/icons";
 import { Box, AspectRatio, Flex } from "@chakra-ui/layout";
-import {
-  IconButton,
-  Slider,
-  SliderFilledTrack,
-  SliderThumb,
-  SliderTrack,
-  Spacer,
-  useColorModeValue,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Spacer, useColorModeValue } from "@chakra-ui/react";
 import { Fade } from "@chakra-ui/transition";
-import { isTransitionDefined } from "framer-motion/types/animation/utils/transitions";
-import React, { forwardRef, useEffect, useState } from "react";
-import { AiFillHeart } from "react-icons/ai";
+import React, { forwardRef, useRef } from "react";
 import { useHover } from "../../../hooks/useHover";
 import useIsMobile from "../../../hooks/useIsMobile";
-import { Heart } from "../Heart";
+import { Heart } from "../../Icons/Heart";
 import LiveHeader from "../LiveHeader";
 import { LiveInfomationType } from "../LiveType";
-import ReLoad from "../ReLoad";
+import ReLoad from "../../Icons/ReLoad";
 import VideoSlider from "./VideoSlider";
-
-const NotMobileBackGround =
-  "linear-gradient(0deg, rgba(16,18,22,0.7049194677871149) 0%, rgba(54,62,75,0.7) 20%, rgba(54,62,75,0) 30%)";
-const MobileBackGround =
-  "linear-gradient(0deg, rgba(16,18,22,0.7049194677871149) 0%, rgba(54,62,75,0.7) 20%, rgba(54,62,75,0) 30%, rgba(54,62,75,0) 70%, rgba(54,62,75,0.7) 80%, rgba(16,18,22,0.7) 100%)";
+import SpreadHearts from "../../Icons/SpreadHearts";
 
 const CommonVideo = forwardRef(function A(
   props: LiveInfomationType,
@@ -34,6 +18,7 @@ const CommonVideo = forwardRef(function A(
   const [ref, value] = useHover<HTMLDivElement>();
   const isMobile = useIsMobile();
   const bg = useColorModeValue("brand.backgroundcolor2", "gray.600");
+
   return (
     <AspectRatio ratio={16 / 9} position="relative">
       <Box
@@ -53,7 +38,8 @@ const CommonVideo = forwardRef(function A(
             height: "100%",
             objectFit: "cover",
           }}
-        ></video>
+        />
+        <SpreadHearts />
         <Fade in={value} transition={{ exit: { delay: 1 } }}>
           <Flex
             top="0"
@@ -85,4 +71,8 @@ const CommonVideo = forwardRef(function A(
   );
 });
 
+const NotMobileBackGround =
+  "linear-gradient(0deg, rgba(16,18,22,0.7049194677871149) 0%, rgba(54,62,75,0.7) 20%, rgba(54,62,75,0) 30%)";
+const MobileBackGround =
+  "linear-gradient(0deg, rgba(16,18,22,0.7049194677871149) 0%, rgba(54,62,75,0.7) 20%, rgba(54,62,75,0) 30%, rgba(54,62,75,0) 70%, rgba(54,62,75,0.7) 80%, rgba(16,18,22,0.7) 100%)";
 export default CommonVideo;

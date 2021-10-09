@@ -19,8 +19,8 @@ import { useRecoilValue } from "recoil";
 import { useRouter } from "next/router";
 import { currentUserStore } from "../../states/currentUserStore";
 import CardTime from "../Card/CardTime";
-import { Heart } from "./Heart";
-import ReLoad from "./ReLoad";
+import { Heart } from "../Icons/Heart";
+import ReLoad from "../Icons/ReLoad";
 
 const maxlength = 100;
 const validationSchema = Yup.object({

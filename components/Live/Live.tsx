@@ -7,6 +7,7 @@ import LiveFooter from "./LiveFooter";
 import LiveHeader from "./LiveHeader";
 import { LiveInfomationType } from "./LiveType";
 import HostVideo from "./Video/HostVideo";
+import ListenerVideo from "./Video/ListenerVideo";
 import VideoSidemenu from "./VideoSidemenu";
 
 const Live = (props: LiveInfomationType) => {
@@ -31,8 +32,7 @@ const Live = (props: LiveInfomationType) => {
               (isHost ? (
                 <HostVideo {...props} />
               ) : (
-                <></>
-                // <ListenerVideo {...props} />
+                <ListenerVideo {...props} />
               ))}
             {/* <CommonVideo {...props} /> */}
             <CommentForm createdAt={props.createdAt} />

@@ -8,7 +8,7 @@ import {
 } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import { doc, setDoc, getFirestore } from "firebase/firestore";
-import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import { getStorage } from "firebase/storage";
 // TODO: Replace the following with your app's Firebase project configuration
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,

@@ -1,36 +1,18 @@
-import animationData from "../public/67021-love-animation-with-particle.json";
-import { Player, Controls } from "@lottiefiles/react-lottie-player";
-import React, { useRef } from "react";
-import { Box } from "@chakra-ui/layout";
-import { Button } from "@chakra-ui/button";
+import { Spacer, Box } from "@chakra-ui/layout";
+import React from "react";
+import { Heart } from "../components/Icons/Heart";
+import ReLoad from "../components/Icons/ReLoad";
+import SpreadHearts from "../components/Icons/SpreadHearts";
+import CommonVideo from "../components/Live/Video/CommonVideo";
 
 const Test = () => {
-  const ref = useRef<any>();
   return (
-    <Box w="500px" h="500px">
-      <Player
-        ref={ref}
-        src={animationData}
-        autoplay={false}
-        loop={false}
-        onEvent={(event) => {
-          if (event === "load") ref.current.play();
-        }}
-      >
-        <Controls
-          visible={true}
-          buttons={["play", "repeat", "frame", "debug"]}
-        />
-      </Player>
-      <Button
-        onClick={() => {
-          console.log(ref.current);
-          const totalFrames = ref.current.state.instance.totalFrames;
-          ref.current.setSeeker(totalFrames, true);
-          ref.current.play();
-        }}
-      ></Button>
-    </Box>
+    <>
+      <SpreadHearts />
+      <Heart />
+      <Box mx={1} />
+      <ReLoad />
+    </>
   );
 };
 

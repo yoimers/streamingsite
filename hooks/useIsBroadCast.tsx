@@ -1,16 +1,7 @@
-import { Button } from "@chakra-ui/button";
 import { useDisclosure } from "@chakra-ui/hooks";
-import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-} from "@chakra-ui/modal";
 import { onSnapshot, doc } from "@firebase/firestore";
-import { NextRouter, useRouter } from "next/router";
-import React, { useEffect } from "react";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 import { db } from "../src/lib/firebase";
 
 const useIsBroadCast = () => {

@@ -4,6 +4,7 @@ import React from "react";
 import { Layout } from "../../components/Layout";
 import Live from "../../components/Live/Live";
 import ReturnModal from "../../components/Live/ReturnModal";
+import CommonVideo from "../../components/Live/Video/CommonVideo";
 import useIsBroadCast from "../../hooks/useIsBroadCast";
 import { db } from "../../src/lib/firebase";
 

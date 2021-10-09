@@ -31,7 +31,7 @@ const Socketio = () => {
     };
   }, [name]);
   const onClick = async (e: any) => {
-    await axios.post("/api/pusher", { name });
+    await axios.post(`/api/pusher`, { name });
   };
   return (
     <FormControl>
