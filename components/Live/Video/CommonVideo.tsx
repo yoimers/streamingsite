@@ -16,14 +16,17 @@ import React, { forwardRef, useEffect, useState } from "react";
 import { AiFillHeart } from "react-icons/ai";
 import { useHover } from "../../../hooks/useHover";
 import useIsMobile from "../../../hooks/useIsMobile";
+import { Heart } from "../Heart";
 import LiveHeader from "../LiveHeader";
 import { LiveInfomationType } from "../LiveType";
+import ReLoad from "../ReLoad";
 import VideoSlider from "./VideoSlider";
 
 const NotMobileBackGround =
   "linear-gradient(0deg, rgba(16,18,22,0.7049194677871149) 0%, rgba(54,62,75,0.7) 20%, rgba(54,62,75,0) 30%)";
 const MobileBackGround =
   "linear-gradient(0deg, rgba(16,18,22,0.7049194677871149) 0%, rgba(54,62,75,0.7) 20%, rgba(54,62,75,0) 30%, rgba(54,62,75,0) 70%, rgba(54,62,75,0.7) 80%, rgba(16,18,22,0.7) 100%)";
+
 const CommonVideo = forwardRef(function A(
   props: LiveInfomationType,
   videoRef: any
@@ -64,8 +67,6 @@ const CommonVideo = forwardRef(function A(
               backgroundImage: isMobile
                 ? MobileBackGround
                 : NotMobileBackGround,
-              // "linear-gradient(0deg, rgba(74,85,104,1) 0%, rgba(74,85,104,1) 20%, rgba(255,255,255,0) 100%)",
-              // "linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(40,40,40,0.788953081232493) 21%, rgba(255,255,255,0) 100%)",
             }}
           >
             {isMobile && <LiveHeader color="white" {...props} />}
@@ -73,15 +74,9 @@ const CommonVideo = forwardRef(function A(
             <Flex>
               <VideoSlider />
               <Spacer />
-              <IconButton
-                aria-label="video update"
-                icon={<RepeatIcon fontSize="20px" />}
-                color="white"
-                bg="gray.600"
-                _hover={{ bg: "gray.500" }}
-                _focus={{}}
-                _active={{}}
-              />
+              <Heart />
+              <Box mx={1} />
+              <ReLoad />
             </Flex>
           </Flex>
         </Fade>

@@ -1,6 +1,4 @@
-import { AspectRatio, Box, Flex } from "@chakra-ui/layout";
-import { useBreakpointValue } from "@chakra-ui/react";
-import Script from "next/script";
+import { Box, Flex } from "@chakra-ui/layout";
 import React from "react";
 import { useCurrentUser } from "../../hooks/useCurrentUser";
 import useIsMobile from "../../hooks/useIsMobile";
@@ -8,9 +6,7 @@ import CommentForm from "./CommentForm";
 import LiveFooter from "./LiveFooter";
 import LiveHeader from "./LiveHeader";
 import { LiveInfomationType } from "./LiveType";
-import CommonVideo from "./Video/CommonVideo";
 import HostVideo from "./Video/HostVideo";
-import ListenerVideo from "./Video/ListenerVideo";
 import VideoSidemenu from "./VideoSidemenu";
 
 const Live = (props: LiveInfomationType) => {
@@ -19,7 +15,6 @@ const Live = (props: LiveInfomationType) => {
   const isHost = currentUser?.uid === props.uid;
   return (
     <Box px={{ base: 0, md: 6 }} pt={{ base: 0, md: 8 }}>
-      <Script src="https://js.pusher.com/7.0/pusher.min.js" />
       <Flex
         mx={{ base: 0, md: "auto" }}
         flexDirection="column"
