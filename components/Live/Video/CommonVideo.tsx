@@ -4,13 +4,10 @@ import { Fade } from "@chakra-ui/transition";
 import React, { forwardRef } from "react";
 import { useHover } from "../../../hooks/useHover";
 import useIsMobile from "../../../hooks/useIsMobile";
-import { Heart } from "../../Icons/Heart";
 import LiveHeader from "../LiveHeader";
 import { LiveInfomationType } from "../LiveType";
-import ReLoad from "../../Icons/ReLoad";
 import VideoSlider from "./VideoSlider";
 import SpreadHearts from "../../Icons/SpreadHearts";
-import { Star } from "../../Icons/Star";
 import SpreadStars from "../../Icons/SpreadStars";
 import { EffectIcons } from "../../Icons/EffectIcons";
 
@@ -65,7 +62,6 @@ const CommonVideo = forwardRef(function A(
               <VideoSlider />
               <Spacer />
               <EffectIcons />
-
             </Flex>
           </Flex>
         </Fade>

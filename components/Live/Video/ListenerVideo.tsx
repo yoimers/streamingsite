@@ -6,8 +6,9 @@ import useP2PListener from "../../../hooks/useP2PListener";
 import CommonVideo from "./CommonVideo";
 
 const ListenerVideo = (props: LiveInfomationType) => {
-  // const { reconnection, remotevideoRef } = useP2PListener();
-  const remotevideoRef = useRef();
+  const { remotevideoRef } = useP2PListener();
+  // const remotevideoRef = useRef();
+
   return (
     <>
       <CommonVideo {...props} ref={remotevideoRef as any} />
@@ -18,9 +19,6 @@ const ListenerVideo = (props: LiveInfomationType) => {
           playsInline
           autoPlay
         /> */}
-        {/* <Button w={100} h={25} bg="tomato" onClick={reconnection}>
-          aaaaaaaaaaaaaaaaaa
-        </Button> */}
       </Box>
     </>
   );

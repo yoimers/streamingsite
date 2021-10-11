@@ -7,12 +7,12 @@ import CommonVideo from "./CommonVideo";
 export type StreamTrack = MediaStreamTrack[] | undefined | null;
 
 const HostVideo = (props: LiveInfomationType) => {
-  // const { videoRef, SetMediaState } = useP2PHost();
-  const videoRef = useRef();
+  const { videoRef, SetMediaState } = useP2PHost();
+  // const videoRef = useRef();
   return (
     <>
       <CommonVideo {...props} ref={videoRef} />
-      {/* <Button onClick={SetMediaState}>aaaaaaaaa</Button> */}
+      <Button onClick={SetMediaState}>aaaaaaaaa</Button>
     </>
   );
 };

@@ -1,15 +1,20 @@
 import animationData from "../../public/lf30_editor_87ub3wwv.json";
 import { Player } from "@lottiefiles/react-lottie-player";
-import React, { useRef } from "react";
+import React, { useCallback, useRef } from "react";
 import { Box } from "@chakra-ui/react";
 import { MyIconButton } from "./MyIconButton";
+import { useRecoilValue } from "recoil";
+import { movieReload } from "../../states/movieReload";
 
 const ReLoad = () => {
   const ref = useRef<any>(null);
-  const start = async () => {
+  const reload = useRecoilValue(movieReload);
+
+  const start = useCallback(() => {
     ref.current.setSeeker(0, true);
     ref.current.play();
-  };
+    reload && reload();
+  }, [reload]);
   return (
     <>
       <Box position="relative" w="40px" h="40px">

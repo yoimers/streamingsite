@@ -1,7 +1,9 @@
 import { useRouter } from "next/router";
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useSetRecoilState } from "recoil";
 import { io } from "socket.io-client";
 import { connectionstatechange } from "../components/Live/Video/connectionstatechange";
+import { movieReload } from "../states/movieReload";
 import { config, offerOptions } from "./useP2PHost";
 
 const socket = io("https://arcane-badlands-27717.herokuapp.com/", {
@@ -17,6 +19,8 @@ const useP2PListener = () => {
   const remotevideoRef =
     useRef<HTMLVideoElement>() as React.MutableRefObject<HTMLVideoElement>;
   const listenerRef = useRef(new RTCPeerConnection(config));
+  const setMovieReload = useSetRecoilState(movieReload);
+
   const reconnection = useCallback(() => {
     ListenerConnectHost({ listenerRef, remotevideoRef });
   }, [remotevideoRef]);
@@ -33,13 +37,10 @@ const useP2PListener = () => {
 
   useEffect(() => {
     reconnection();
-    return () => {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      listenerRef.current.close();
-    };
-  }, [reconnection, remotevideoRef]);
+    setMovieReload(reconnection);
+  }, [reconnection, remotevideoRef, setMovieReload]);
 
-  return { reconnection, remotevideoRef };
+  return { remotevideoRef };
 };
 
 interface ListenerConnectHostType {
