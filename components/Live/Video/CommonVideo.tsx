@@ -1,7 +1,7 @@
 import { Box, AspectRatio, Flex } from "@chakra-ui/layout";
 import { Spacer, useColorModeValue } from "@chakra-ui/react";
 import { Fade } from "@chakra-ui/transition";
-import React, { forwardRef, useRef } from "react";
+import React, { forwardRef } from "react";
 import { useHover } from "../../../hooks/useHover";
 import useIsMobile from "../../../hooks/useIsMobile";
 import { Heart } from "../../Icons/Heart";
@@ -10,6 +10,9 @@ import { LiveInfomationType } from "../LiveType";
 import ReLoad from "../../Icons/ReLoad";
 import VideoSlider from "./VideoSlider";
 import SpreadHearts from "../../Icons/SpreadHearts";
+import { Star } from "../../Icons/Star";
+import SpreadStars from "../../Icons/SpreadStars";
+import { EffectIcons } from "../../Icons/EffectIcons";
 
 const CommonVideo = forwardRef(function A(
   props: LiveInfomationType,
@@ -39,6 +42,7 @@ const CommonVideo = forwardRef(function A(
             objectFit: "cover",
           }}
         />
+        <SpreadStars />
         <SpreadHearts />
         <Fade in={value} transition={{ exit: { delay: 1 } }}>
           <Flex
@@ -60,9 +64,8 @@ const CommonVideo = forwardRef(function A(
             <Flex>
               <VideoSlider />
               <Spacer />
-              <Heart />
-              <Box mx={1} />
-              <ReLoad />
+              <EffectIcons />
+
             </Flex>
           </Flex>
         </Fade>

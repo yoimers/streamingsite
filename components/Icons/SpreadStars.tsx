@@ -1,27 +1,26 @@
-import animationData from "../../public/5756-like-5x.json";
+import animationData from "../../public/71391-stars.json";
 import { Player } from "@lottiefiles/react-lottie-player";
 import React from "react";
 import { useSetRecoilState } from "recoil";
 import { Box } from "@chakra-ui/layout";
 import { MovieEffects } from "../../states/movieEffects";
 
-const SpreadHearts = () => {
+const SpreadStars = () => {
   const setMovieEffects = useSetRecoilState(MovieEffects);
 
   return (
     <Box position="absolute" top={0} left={0}>
       <Player
         lottieRef={(instance) =>
-          setMovieEffects((prev) => ({ ...prev, heart: instance }))
+          setMovieEffects((prev) => ({ ...prev, star: instance }))
         }
         src={animationData}
         autoplay={false}
         loop={false}
-        onEvent={(event) => {}}
         style={{ width: "800px", height: "500px" }}
       />
     </Box>
   );
 };
 
-export default SpreadHearts;
+export default SpreadStars;
