@@ -6,7 +6,7 @@ import { connectionstatechange } from "../components/Live/Video/connectionstatec
 import { movieReload } from "../states/movieReload";
 import { config, offerOptions } from "./useP2PHost";
 
-const socket = io("https://arcane-badlands-27717.herokuapp.com/", {
+const socket = io("http://localhost:5005", {
   withCredentials: true,
   extraHeaders: {
     "Access-Control-Allow-Origin": "http://localhost:3000",
