@@ -21,7 +21,7 @@ export const EffectIcon = ({ effect, src, height, width }: InputType) => {
   const ref = useRef<any>(null);
   const effects = useRecoilValue(MovieEffects);
   const animation = effects[effect];
-  const [socket, setSocket] = useRecoilState(socketState);
+  const [_, setSocket] = useRecoilState(socketState);
 
   const start = useCallback(() => {
     animation && animation.play();
@@ -77,7 +77,7 @@ export const EffectIcon = ({ effect, src, height, width }: InputType) => {
           if (["frame"].includes(event)) {
             const totalFrames = ref.current.state.instance.totalFrames;
             const currentFrame = ref.current.state.instance.currentFrame;
-            if (totalFrames - 2 < currentFrame) {
+            if (totalFrames - 6 < currentFrame) {
               ref.current.pause();
             }
           }
