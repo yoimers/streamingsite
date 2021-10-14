@@ -13,6 +13,7 @@ type Input = {
   onClose?: () => void;
   link: string;
   fontSize?: string;
+  iconSize?: string;
 };
 export const MenuItem = ({
   link,
@@ -20,6 +21,7 @@ export const MenuItem = ({
   children,
   onClose,
   fontSize,
+  iconSize,
 }: Input) => {
   const menucolor = useColorModeValue("brand.h2", "gray.200");
   const menuhover = useColorModeValue("gray.100", "gray.600");
@@ -37,7 +39,7 @@ export const MenuItem = ({
         animation="linear"
         transition="background-color 0.1s linear"
       >
-        <Icon fontSize="medium" size="24px" />
+        <Icon fontSize="medium" size={iconSize || "24px"} />
         {children && (
           <Heading variant="menuitem" size="md" fontSize={fontSize}>
             {children}

@@ -152,6 +152,7 @@ const Broadcast: NextPage = () => {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.content}
+              spellCheck="false"
             />
             <Box h={1}>
               <FormErrorMessage m={0} p={0}>

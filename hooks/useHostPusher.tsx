@@ -16,8 +16,6 @@ const useHostPusher = () => {
   useEffect(() => {
     let mounted = true;
     if (!mounted || !stream) return;
-    pusher.connection.bind("connected", () => {});
-    pusher.connection.bind("disconnected", () => {});
     const channel = pusher.subscribe(router.query.live as string);
     channel.bind("Offer", async (data: BodyType) => {
       let p2p = new RTCPeerConnection(config);
@@ -38,10 +36,7 @@ const useHostPusher = () => {
       await axios.post("/api/live/signaling", body);
       p2p.onconnectionstatechange = (e) => {
         switch (p2p.connectionState) {
-          case "disconnected":
-          case "closed":
           case "failed":
-            console.log("close!");
             p2p.close();
             p2p = null as any;
             break;
@@ -86,7 +81,7 @@ export const offerOptions = {
 export const config = {
   iceServers: [
     { urls: "stun:stun.l.google.com:19302" },
-    // { urls: "stun:stun1.l.google.com:19302" },
-    // { urls: "stun:stun2.l.google.com:19302" },
+    { urls: "stun:stun1.l.google.com:19302" },
+    { urls: "stun:stun2.l.google.com:19302" },
   ],
 };

@@ -1,9 +1,11 @@
-import { VStack } from "@chakra-ui/react";
+import { Box, Flex, Spacer, VStack } from "@chakra-ui/react";
 import { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
 import type { GetStaticProps, NextPage } from "next";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import CardList from "../components/Card/CardList";
 import { CardType } from "../components/Card/CardType";
+import Footer from "../components/Footer/Footer";
 import { Layout } from "../components/Layout";
 import { getBroadLists } from "../src/lib/getBroadLists";
 
@@ -15,9 +17,13 @@ const Home: NextPage = (props) => {
   // setProperties(b);
   return (
     <Layout title="Wavelet">
-      <VStack height="calc(100% - 60px)" pb="50px">
-        <CardList properties={properties} title="オススメのライブ" />
-      </VStack>
+      <Flex flexDirection="column" h="100%">
+        <VStack>
+          <CardList properties={properties} title="オススメのライブ" />
+        </VStack>
+        <Spacer />
+        <Footer />
+      </Flex>
     </Layout>
   );
 };

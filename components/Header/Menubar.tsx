@@ -1,5 +1,5 @@
-import { HamburgerIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
-import { IoIosDocument, IoMdInformationCircle } from "react-icons/io";
+import { HamburgerIcon } from "@chakra-ui/icons";
+import { IoMdInformationCircle } from "react-icons/io";
 import { Input } from "@chakra-ui/input";
 import {
   Drawer,
@@ -9,23 +9,18 @@ import {
   IconButton,
   useDisclosure,
   HStack,
-  DrawerFooter,
-  useColorMode,
-  Spacer,
   useBreakpointValue,
-  Flex,
 } from "@chakra-ui/react";
 import Image from "next/image";
-import Link from "next/link";
 import HeadsetIcon from "@material-ui/icons/Headset";
 import HomeIcon from "@material-ui/icons/Home";
 import React from "react";
 import { MenuItem } from "./MenuItem";
 import SignUpInModal from "../SignInUp/SignUpInModal";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import { currentUserState } from "../../states/currentUser";
-import EmailIcon from "@mui/icons-material/Email";
 import { MdEmail } from "react-icons/md";
+import { IoDocumentText } from "react-icons/io5";
 
 type Input = {
   isOpen: boolean;
@@ -84,16 +79,33 @@ export const Menubar = () => {
               Live
             </MenuItem>
           </DrawerBody>
-          <MenuItem Icon={MdEmail} onClose={onClose} link="/question">
+          {/* <MenuItem
+            Icon={MdEmail}
+            onClose={onClose}
+            link="/question"
+            fontSize="sm"
+            iconSize="16px"
+          >
             お問い合わせ
           </MenuItem>
           <MenuItem
             Icon={IoMdInformationCircle}
             onClose={onClose}
             link="/service"
+            fontSize="sm"
+            iconSize="16px"
           >
             利用規約
           </MenuItem>
+          <MenuItem
+            Icon={IoDocumentText}
+            onClose={onClose}
+            link="/privacy"
+            fontSize="sm"
+            iconSize="16px"
+          >
+            プライバシーポリシー
+          </MenuItem> */}
         </DrawerContent>
       </Drawer>
     </>

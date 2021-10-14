@@ -3,9 +3,9 @@ import { atom } from "recoil";
 // undefined : ログイン確認中の状態
 // null      : ログイン確認をした結果、ログインしていない状態
 
-export const broadCastMedia = atom<any>({
+export const broadCastMedia = atom<() => void>({
   key: "broadCastMedia",
-  default: undefined,
+  default: () => {},
   dangerouslyAllowMutability: true,
 });
 

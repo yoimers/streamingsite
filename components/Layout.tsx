@@ -27,11 +27,16 @@ export const Layout = ({ title, children }: Input) => {
       <ColorModeScript initialColorMode={theme.config.initialColorMode} />
       <Box height="100vh" width="100%">
         <Header />
-        <Box height="calc(100% - 60px)" overflowX="scroll" css={scrollstyle}>
+        <Box
+          height="calc(100% - 60px)"
+          w="100%"
+          overflow="auto"
+          css={scrollstyle}
+        >
           {children}
         </Box>
         {/* <Footerbar /> */}
-        <Footer />
+        {/* <Footer /> */}
       </Box>
     </>
   );

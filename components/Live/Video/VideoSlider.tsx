@@ -37,9 +37,9 @@ const VideoSlider = ({ video }: any) => {
 
   useEffect(() => {
     if (video && video.current) {
-      video.current.volume = volume / 100;
+      video.current.volume = isMute ? 0 : volume / 100;
     }
-  }, [video, volume]);
+  }, [isMute, video, volume]);
 
   return (
     <Flex flexDirection="row" alignItems="center" position="relative">
