@@ -16,6 +16,7 @@ import { Menubar } from "./Menubar";
 import Link from "next/link";
 import SignUpInModal from "../SignInUp/SignUpInModal";
 import ModeIcon from "./ModeIcon";
+import { Search } from "./Search";
 
 const PcHeader = () => {
   const bg = useColorModeValue("brand.backgroundcolor2", "gray.800");
@@ -43,16 +44,7 @@ const PcHeader = () => {
               />
             </Center>
           </Link>
-          <InputGroup w="100%" maxWidth="240px" justifyItems="center" mr={4}>
-            <Input placeholder="放送を検索！" variant="searchinput" />
-            <InputRightElement width="40px" height="40px" mr={1}>
-              <SearchIcon
-                color="brand.searchcolor"
-                width="20px"
-                height="20px"
-              />
-            </InputRightElement>
-          </InputGroup>
+          <Search />
         </Flex>
         <Spacer />
         <HStack spacing={6}>

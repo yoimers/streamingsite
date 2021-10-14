@@ -12,6 +12,7 @@ import { getBroadLists } from "../src/lib/getBroadLists";
 const Home: NextPage = (props) => {
   const { cards }: any = props;
   const [properties, setProperties] = useState<CardType[]>(cards);
+  console.log(cards[0]);
   // const a = [...cards, ...cards, ...cards, ...cards, ...cards];
   // const b = [...a, ...a, ...a];
   // setProperties(b);
