@@ -6,7 +6,7 @@ import {
   SliderThumb,
   SliderTrack,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MdGraphicEq } from "react-icons/md";
 import {
   ImVolumeHigh,
@@ -15,9 +15,8 @@ import {
   ImVolumeMute,
   ImVolumeMute2,
 } from "react-icons/im";
-import { IconType } from "react-icons";
 
-const VideoSlider = () => {
+const VideoSlider = ({ video }: any) => {
   const [volume, setVolume] = useState(60);
   const [isMute, setIsMute] = useState(false);
   let icon;
@@ -35,6 +34,13 @@ const VideoSlider = () => {
       icon = <ImVolumeHigh size="24px" onClick={mute} color="white" />;
     }
   }
+
+  useEffect(() => {
+    if (video && video.current) {
+      video.current.volume = volume / 100;
+    }
+  }, [video, volume]);
+
   return (
     <Flex flexDirection="row" alignItems="center" position="relative">
       {icon}

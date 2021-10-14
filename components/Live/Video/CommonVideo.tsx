@@ -18,7 +18,6 @@ const CommonVideo = forwardRef(function A(
   const [ref, value] = useHover<HTMLDivElement>();
   const isMobile = useIsMobile();
   const bg = useColorModeValue("brand.backgroundcolor2", "gray.600");
-
   return (
     <AspectRatio ratio={16 / 9} position="relative">
       <Box
@@ -59,7 +58,7 @@ const CommonVideo = forwardRef(function A(
             {isMobile && <LiveHeader color="white" {...props} />}
             <Spacer />
             <Flex>
-              <VideoSlider />
+              <VideoSlider video={videoRef} />
               <Spacer />
               <EffectIcons />
             </Flex>

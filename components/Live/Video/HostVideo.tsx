@@ -6,11 +6,10 @@ import CommonVideo from "./CommonVideo";
 import useHostPusher from "../../../hooks/useHostPusher";
 
 const HostVideo = (props: LiveInfomationType) => {
-  const { videoRef, SetMediaState } = useHostPusher();
+  const { videoRef } = useHostPusher();
   return (
     <>
       <CommonVideo {...props} ref={videoRef} />
-      <Button onClick={SetMediaState}>aaaaaaaaa</Button>
     </>
   );
 };

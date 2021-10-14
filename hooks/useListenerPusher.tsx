@@ -23,6 +23,7 @@ const useListenerPusher = () => {
 
   useEffect(() => {
     let mounted = true;
+    setMovieReload(() => connection);
     if (!mounted || !listenerRef.current) return;
     pusher.connection.bind("connected", connection);
     pusher.connection.bind("disconnected", () => {
@@ -42,10 +43,10 @@ const useListenerPusher = () => {
     return () => {
       console.log("unmoundted");
       mounted = false;
-      listenerRef.current && listenerRef.current.close();
-      listenerRef.current = null as any;
+      // listenerRef.current && listenerRef.current.close();
+      // listenerRef.current = null as any;
     };
-  }, [connection, router.query.live]);
+  }, [connection, router.query.live, setMovieReload]);
   return { remoteRef, connection };
 };
 interface ListenerConnectHostType {
@@ -58,6 +59,10 @@ const ListenerConnectHost = async ({
   listenerRef,
   remoteRef,
 }: ListenerConnectHostType) => {
+  if (listenerRef.current) {
+    listenerRef.current.close();
+    listenerRef.current = null as any;
+  }
   listenerRef.current = new RTCPeerConnection(config);
   listenerRef.current.addTransceiver("video", { direction: "recvonly" });
   listenerRef.current.addTransceiver("audio", { direction: "recvonly" });
@@ -88,14 +93,14 @@ const ListenerConnectHost = async ({
   };
 
   listenerRef.current.onconnectionstatechange = (e: any) => {
-    console.log(listenerRef.current.connectionState);
-    if (listenerRef.current.connectionState === "connected") {
-      const tracks = listenerRef.current.getReceivers().map((r) => r.track);
-      const stream = new MediaStream(tracks);
-      if (remoteRef.current && remoteRef.current.srcObject !== stream) {
-        remoteRef.current.srcObject = stream;
-        console.log(stream);
-      }
+    switch (listenerRef.current.connectionState) {
+      case "disconnected":
+      case "closed":
+      case "failed":
+        console.log("close!");
+        listenerRef.current.close();
+        listenerRef.current = null as any;
+        break;
     }
   };
   const offer = await listenerRef.current.createOffer(offerOptions);

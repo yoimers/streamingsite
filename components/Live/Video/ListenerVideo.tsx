@@ -10,20 +10,6 @@ const ListenerVideo = (props: LiveInfomationType) => {
   return (
     <>
       <CommonVideo {...props} ref={remoteRef} />
-      <Button
-        onClick={async () => {
-          await remoteRef.current.play();
-        }}
-      >
-        aaaaaaaaa
-      </Button>
-      <Button
-        onClick={async () => {
-          connection();
-        }}
-      >
-        aaaaaaaaa
-      </Button>
     </>
   );
 };
