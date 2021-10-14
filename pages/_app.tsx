@@ -6,21 +6,23 @@ import { auth, db } from "../src/lib/firebase";
 import { currentUserState } from "../states/currentUser";
 import theme from "../theme";
 // import "../styles/styles.css";
-import nprogress from "nprogress";
 import "../styles/nprogress.css";
 import { onAuthStateChanged, User } from "firebase/auth";
 import { doc, getDoc } from "@firebase/firestore";
 import { currentUserStore } from "../states/currentUserStore";
+import NextNprogress from "nextjs-progressbar";
 
-nprogress.configure({ showSpinner: false, speed: 400, minimum: 0.25 });
 function MyApp({ Component, pageProps }: AppProps) {
-  if (process.browser) nprogress.start();
-  useEffect(() => {
-    nprogress.done();
-  });
   return (
     <RecoilRoot>
       <AppInit />
+      <NextNprogress
+        color="#6ba2f5"
+        startPosition={0.3}
+        stopDelayMs={200}
+        height={2}
+        showOnShallow={true}
+      />
       <ChakraProvider theme={theme}>
         <Component {...pageProps} />
       </ChakraProvider>

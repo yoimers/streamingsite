@@ -8,13 +8,13 @@ import { movieReload } from "../../states/movieReload";
 
 const ReLoad = () => {
   const ref = useRef<any>(null);
-  const reload = useRecoilValue(movieReload);
+  const connection = useRecoilValue(movieReload);
 
-  const start = useCallback(() => {
+  const start = () => {
     ref.current.setSeeker(0, true);
     ref.current.play();
-    reload && reload();
-  }, [reload]);
+    connection && connection();
+  };
   return (
     <>
       <Box position="relative" w="40px" h="40px">

@@ -17,7 +17,10 @@ const SpreadStars = () => {
         src={animationData}
         autoplay={false}
         loop={false}
-        style={{ width: "800px", height: "500px" }}
+        style={{
+          width: "90%",
+          height: "90%",
+        }}
       />
     </Box>
   );

@@ -98,6 +98,7 @@ const ListenerConnectHost = ({
           host.close();
           host = null as any;
         }
+        break;
     }
   };
   if (host.signalingState !== "closed" && offer) {
