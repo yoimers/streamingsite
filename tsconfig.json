@@ -23,6 +23,6 @@
     "functions/server/index.js",
     "server/socketio.js",
     "server.js"
-  ],
+, "src/algolia/algolia.js", "src/algolia/algolia.js"  ],
   "exclude": ["node_modules"]
 }
