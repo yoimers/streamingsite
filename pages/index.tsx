@@ -12,10 +12,6 @@ import { getBroadLists } from "../src/lib/getBroadLists";
 const Home: NextPage = (props) => {
   const { cards }: any = props;
   const [properties, setProperties] = useState<CardType[]>(cards);
-  console.log(cards[0]);
-  // const a = [...cards, ...cards, ...cards, ...cards, ...cards];
-  // const b = [...a, ...a, ...a];
-  // setProperties(b);
   return (
     <Layout title="Wavelet">
       <Flex flexDirection="column" h="100%">
@@ -29,7 +25,7 @@ const Home: NextPage = (props) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getStaticProps: GetStaticProps = async () => {
   const cards = await getBroadLists();
   return {
     props: {

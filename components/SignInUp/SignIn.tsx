@@ -148,7 +148,7 @@ export const MyLabel = ({
   isRequire?: boolean;
 }) => {
   return (
-    <HStack flexDirection="row">
+    <HStack flexDirection="row" spacing={1}>
       <Text>{label}</Text>
       {isRequire && <Text color="red.300">*</Text>}
     </HStack>

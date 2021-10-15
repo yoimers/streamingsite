@@ -21,6 +21,7 @@ export const getBroadLists = async () => {
   const cards: CardType[] = [];
   querySnapshot.forEach((doc) => {
     const data = toData(doc);
+    delete data.imageSource;
     cards.push({ ...data });
   });
   return cards;

@@ -10,12 +10,12 @@ import NoMatch from "../components/Live/NoMatch";
 import { index } from "../src/algolia/algolia";
 
 const Search: NextPage = () => {
-  const [properties, setProperties] = useState<CardType[]>([]);
+  const [properties, setProperties] = useState<CardType[] | null>(null);
   const router = useRouter();
   const query = router.query.search as any;
   useEffect(() => {
     if (typeof query !== "string") {
-      router.push("/");
+      // router.push("/");
       return;
     }
     index
@@ -49,14 +49,15 @@ const Search: NextPage = () => {
     <Layout title="Wavelet">
       <Flex flexDirection="column" h="100%">
         <VStack>
-          {properties.length === 0 ? (
-            <NoMatch query={query} />
-          ) : (
-            <CardList
-              properties={properties}
-              title={`検索結果 ${properties.length}件 : ${query}`}
-            />
-          )}
+          {properties &&
+            (properties.length === 0 ? (
+              <NoMatch query={query} />
+            ) : (
+              <CardList
+                properties={properties}
+                title={`検索結果 ${properties.length}件 : ${query}`}
+              />
+            ))}
         </VStack>
         <Spacer />
         <Footer />

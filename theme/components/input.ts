@@ -11,6 +11,7 @@ const Input = {
       rounded: "10",
       borderRadius: "xl",
       color: mode("gray.700", "gray.200")(props),
+      spellCheck: false,
     },
   }),
   sizes: {

@@ -22,7 +22,7 @@ export const UploadImage = async (
 
     const compressedFile = await imageCompression(imageState.file, options);
     await uploadBytes(ref(storage, `${bucket}/${filename}`), compressedFile, {
-      cacheControl: "public,max-age=600",
+      cacheControl: "public,max-age=6000",
       contentType: imageState.file.type,
     });
   }

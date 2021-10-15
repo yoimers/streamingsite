@@ -36,3 +36,12 @@ export const signupSchema = Yup.object({
     .oneOf([Yup.ref("password"), null], "パスワードが一致しません")
     .required("パスワードを入力してください"),
 });
+
+export const questionSchema = Yup.object({
+  name: Yup.string().required("名前を入力してください"),
+  from: Yup.string()
+    .email("正しいメールアドレスを入力してください")
+    .required("メールアドレスを入力してください"),
+  subject: Yup.string().required("件名を入力してください"),
+  text: Yup.string().required("お問い合わせ内容を入力してください"),
+});

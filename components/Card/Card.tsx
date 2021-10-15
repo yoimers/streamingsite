@@ -31,7 +31,15 @@ const Card = ({ property }: Input) => {
   const bg = useColorModeValue("brand.backgroundcolor2", "gray.900");
 
   return (
-    <GridItem bg={bg} rounded={10} p={1}>
+    <GridItem
+      bg={bg}
+      rounded={10}
+      p={1}
+      _hover={{
+        transform: isMobile ? "scale(1.01)" : "scale(1.04)",
+        transitionDuration: "0.2s",
+      }}
+    >
       <Link href={`/live/${property.broadId}`} prefetch={false} passHref>
         <Stack as="a" align="center" direction={{ base: "row", md: "column" }}>
           <Container
@@ -42,7 +50,7 @@ const Card = ({ property }: Input) => {
             rounded="10"
             bg="gray.200"
             position="relative"
-            _hover={{ opacity: 0.6 }}
+            // _hover={{ opacity: 0.6 }}
             animation="ease-in-out"
             transition="opacity 0.1s linear"
           >

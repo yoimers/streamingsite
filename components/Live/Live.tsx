@@ -6,6 +6,7 @@ import CommentForm from "./CommentForm";
 import LiveFooter from "./LiveFooter";
 import LiveHeader from "./LiveHeader";
 import { LiveInfomationType } from "./LiveType";
+import CommonVideo from "./Video/CommonVideo";
 import HostVideo from "./Video/HostVideo";
 import ListenerVideo from "./Video/ListenerVideo";
 import VideoSidemenu from "./VideoSidemenu";
@@ -15,7 +16,7 @@ const Live = (props: LiveInfomationType) => {
   const { currentUser, isAuthChecking } = useCurrentUser();
   const isHost = currentUser?.uid === props.uid;
   return (
-    <Box px={{ base: 0, md: 6 }} pt={{ base: 0, md: 8 }}>
+    <Box px={{ base: 0, md: 6 }} pt={{ base: 0, md: 8 }} h="500px">
       <Flex
         mx={{ base: 0, md: "auto" }}
         flexDirection="column"
@@ -28,13 +29,16 @@ const Live = (props: LiveInfomationType) => {
           h={{ base: "calc(100vh - 72px)", md: "100%" }}
         >
           <Box w="100%">
-            {!isAuthChecking &&
-              (isHost ? (
+            {!isAuthChecking ? (
+              isHost ? (
                 <HostVideo {...props} />
               ) : (
                 <ListenerVideo {...props} />
-              ))}
-            {/* <CommonVideo {...props} /> */}
+              )
+            ) : (
+              <CommonVideo {...props} />
+            )}
+
             <CommentForm createdAt={props.createdAt} />
           </Box>
           <VideoSidemenu />
