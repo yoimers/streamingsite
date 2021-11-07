@@ -1,6 +1,11 @@
 import { doc } from "@firebase/firestore";
 import { getDoc } from "firebase/firestore";
-import { GetServerSideProps, NextPage } from "next";
+import {
+  GetServerSideProps,
+  GetStaticPaths,
+  GetStaticProps,
+  NextPage,
+} from "next";
 import { useRouter } from "next/router";
 import React from "react";
 import MySpinner from "../../components/CommonComponents/MySpinner";
@@ -23,7 +28,14 @@ export const UserPage: NextPage = (props: any) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: [],
+    fallback: "blocking",
+  };
+};
+
+export const getStaticProps: GetStaticProps = async (context) => {
   const { params } = context;
   if (!params) return { props: {} };
 

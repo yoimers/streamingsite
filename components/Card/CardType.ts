@@ -11,6 +11,7 @@ export interface CardType {
   uid: string;
   photoURL: string | null;
   createdAt: number | Timestamp;
+  timeStamp: Timestamp;
   isNow: boolean;
   connections?: number;
   rating?: number;

@@ -1,19 +1,19 @@
-import { Spacer, Box } from "@chakra-ui/layout";
-import React from "react";
-import { Heart } from "../components/Icons/Heart";
-import ReLoad from "../components/Icons/ReLoad";
-import SpreadHearts from "../components/Icons/SpreadHearts";
-import CommonVideo from "../components/Live/Video/CommonVideo";
+import React, { useEffect, useRef, useState } from "react";
 
-const Test = () => {
-  return (
-    <>
-      <SpreadHearts />
-      <Heart />
-      <Box mx={1} />
-      <ReLoad />
-    </>
-  );
+const Test: React.FC = () => {
+  useEffect(() => {
+    navigator.mediaDevices.enumerateDevices().then((devices) => {
+      devices.map((device) => {
+        console.log(device);
+        if (
+          device.kind === "videoinput" &&
+          device.label === "OBS Virtual Camera"
+        ) {
+        }
+      });
+    });
+  }, []);
+  return <></>;
 };
 
 export default Test;

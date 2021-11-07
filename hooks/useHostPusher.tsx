@@ -1,10 +1,12 @@
 import axios from "axios";
 import { useRouter } from "next/router";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { BodyType } from "../pages/api/live/signaling";
 import pusher from "../src/lib/clientpusher";
+import { audioList } from "../states/audioList";
 import { broadCastMedia } from "../states/broadCastMedia";
+import { selectedAudioId } from "../states/selectedAudio";
 
 let hosts: { [key: string]: RTCPeerConnection | null } = {};
 
@@ -13,6 +15,11 @@ const useHostPusher = () => {
   const [stream, setStream] = useState<MediaStream | null>(null);
   const videoRef = useRef<any>();
   const SetMediaState = useSetRecoilState(broadCastMedia);
+  const SetAudioList = useSetRecoilState(audioList);
+  const SelectedAudioId = useRecoilValue(selectedAudioId);
+  const [channel, setChannel] = useState(
+    pusher.subscribe(router.query.live as string)
+  );
   useEffect(() => {
     let mounted = true;
     if (!mounted || !stream) return;
@@ -44,32 +51,64 @@ const useHostPusher = () => {
       };
       hosts[data.fromId] = p2p;
     });
-
+    console.log("render");
     return () => {
       mounted = false;
+      console.log("unmount");
+      pusher.unsubscribe(router.query.live as string);
+      stream.getTracks().forEach((track) => track.stop());
     };
   }, [router.query.live, stream]);
-  const MediaState = useCallback(() => SetMedia(videoRef, setStream), []);
+
+  useEffect(() => {
+    (async () => {
+      await navigator.mediaDevices.getUserMedia({
+        audio: true,
+        video: true,
+      });
+      const devices = await navigator.mediaDevices.enumerateDevices();
+      const OBS = devices.filter(
+        (device) => device.label === "OBS Virtual Camera"
+      );
+      if (!OBS.length) {
+        alert("OBSが入っていません！");
+        throw Error("OBSが入っていません！");
+      }
+      const audiolist = devices.filter(
+        (device) => device.kind === "audioinput"
+      );
+      SetAudioList(audiolist);
+    })();
+  }, [SetAudioList]);
+
+  const SetMedia = useCallback(async () => {
+    //OBSのみ許容
+    const devices = await navigator.mediaDevices.enumerateDevices();
+    const OBS = devices.filter(
+      (device) => device.label === "OBS Virtual Camera"
+    );
+    const videoSource = OBS[0].deviceId;
+    const constraints = {
+      audio: {
+        deviceId: SelectedAudioId ? { exact: SelectedAudioId } : undefined,
+      },
+      video: { deviceId: videoSource ? { exact: videoSource } : undefined },
+    };
+    const Localstream = await navigator.mediaDevices.getUserMedia(constraints);
+    videoRef.current.srcObject = Localstream;
+    setStream(Localstream);
+  }, [SelectedAudioId]);
+
+  useEffect(() => {
+    console.log(SelectedAudioId);
+  }, [SelectedAudioId]);
+  const MediaState = useCallback(() => SetMedia(), [SetMedia]);
+
   useEffect(() => {
     SetMediaState(() => MediaState);
   }, [MediaState, SetMediaState]);
-  return { videoRef };
-};
 
-const SetMedia = async (
-  videoRef: React.MutableRefObject<any>,
-  setStream: any
-) => {
-  const constrain = {
-    audio: true,
-    video: {
-      width: { ideal: 1280, max: 1920 },
-      height: { ideal: 720, max: 1080 },
-    },
-  };
-  const Localstream = await navigator.mediaDevices.getUserMedia(constrain);
-  videoRef.current.srcObject = Localstream;
-  setStream(Localstream);
+  return { videoRef };
 };
 
 export default useHostPusher;

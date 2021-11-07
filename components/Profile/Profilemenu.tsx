@@ -43,8 +43,8 @@ export const Profilemenu = ({ children }: Input): JSX.Element => {
             放送する
           </MenuItem>
         </Link>
-        <MenuItem icon={<TwitterIcon />}>余白２</MenuItem>
-        <MenuItem icon={<AppleIcon />}>余白３</MenuItem>
+        {/* <MenuItem icon={<TwitterIcon />}>余白２</MenuItem> */}
+        {/* <MenuItem icon={<AppleIcon />}>余白３</MenuItem> */}
         <MenuItem icon={<ExitToAppIcon />} onClick={signOutWithGoogle}>
           ログアウト
         </MenuItem>

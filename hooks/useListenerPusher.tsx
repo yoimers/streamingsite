@@ -32,6 +32,7 @@ const useListenerPusher = () => {
     });
     const channel = pusher.subscribe(router.query.live as string);
     channel.bind("Answer", async (data: any) => {
+      console.log("answer");
       if (
         data.toId === pusher.connection.socket_id &&
         !listenerRef.current.currentRemoteDescription
@@ -71,9 +72,11 @@ const ListenerConnectHost = async ({
     console.log("onTrack!!!!!!");
     if (remoteRef.current && remoteRef.current.srcObject !== e.streams[0]) {
       remoteRef.current.srcObject = e.streams[0];
+      remoteRef.current.muted = true;
       remoteRef.current
         .play()
         .then(() => {
+          remoteRef.current.muted = false;
           console.log("accepted");
         })
         .catch(() => console.log("rejected"));

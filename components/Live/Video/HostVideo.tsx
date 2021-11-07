@@ -7,6 +7,7 @@ import useHostPusher from "../../../hooks/useHostPusher";
 
 const HostVideo = (props: LiveInfomationType) => {
   const { videoRef } = useHostPusher();
+  
   return (
     <>
       <CommonVideo {...props} ref={videoRef} />

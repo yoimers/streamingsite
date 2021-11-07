@@ -1,5 +1,10 @@
 import { doc, getDoc } from "firebase/firestore";
-import { GetServerSideProps, NextPage } from "next";
+import {
+  GetServerSideProps,
+  GetStaticPaths,
+  GetStaticProps,
+  NextPage,
+} from "next";
 import React from "react";
 import { Layout } from "../../components/Layout";
 import Live from "../../components/Live/Live";
@@ -16,9 +21,16 @@ const LivePage: NextPage = (props: any) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: [],
+    fallback: "blocking",
+  };
+};
+
+export const getStaticProps: GetStaticProps = async (context) => {
   const { params } = context;
-  if (!params) return { props: {} };
+  if (!params) return { props: {}, revalidate: 10 };
 
   const docSnap = await getDoc(doc(db, `broads/${params.live}`));
   if (docSnap.exists() && docSnap.data().isNow) {
@@ -29,9 +41,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         ...data,
         createdAt: data.createdAt.seconds,
       },
+      revalidate: 10,
     };
   } else {
-    return { props: {} };
+    return { props: {}, revalidate: 10 };
   }
 };
 

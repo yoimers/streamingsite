@@ -14,20 +14,25 @@ type Input = {
   properties: CardType[];
   title: string;
   setProperties: React.Dispatch<React.SetStateAction<CardType[]>>;
+  effect?:
+    | "slide"
+    | "fade"
+    | "cube"
+    | "coverflow"
+    | "flip"
+    | "creative"
+    | "cards";
 };
 const getNum = 4;
-const CardList = ({ properties, title, setProperties }: Input) => {
+const PopularCards = ({ properties, title, setProperties, effect }: Input) => {
   const isMobile = useBreakpointValue({ base: true, md: false });
   const [hasMore, setHasMore] = useState(true);
   const slidesPerView = useBreakpointValue({
-    base: 1,
+    base: 3,
     md: 3,
     lg: 4,
-    xl: 5,
-    "2xl": 6,
   });
-  const isSize =
-    properties.length !== 0 && properties.length < (slidesPerView || 6);
+  const isSize = properties.length < (slidesPerView || 4);
   const getCards = async () => {
     const last = properties[properties.length - 1].timeStamp;
     const { cards } = await getBroadLists(getNum, last);
@@ -50,8 +55,8 @@ const CardList = ({ properties, title, setProperties }: Input) => {
       <Flex
         pt="10px"
         w="100%"
-        maxW={{ md: "670px", lg: "890px", xl: "1120px", "2xl": "1330px" }}
-        minW={{ md: "670px", lg: "890px", xl: "1120px", "2xl": "1330px" }}
+        maxW={{ md: "670px", lg: "890px" }}
+        minW={{ md: "670px", lg: "890px" }}
         flexDirection={{ base: "column", md: "row" }}
       >
         {isMobile || isSize ? (
@@ -59,18 +64,6 @@ const CardList = ({ properties, title, setProperties }: Input) => {
             {properties.map((property) => (
               <Card property={property} key={property.broadId} />
             ))}
-            {hasMore && isMobile && (
-              <Button
-                onClick={getCards}
-                mt={2}
-                mx="auto"
-                w="40%"
-                _focus={{}}
-                _active={{}}
-              >
-                続きを読み込む
-              </Button>
-            )}
           </>
         ) : (
           <Swiper
@@ -79,12 +72,10 @@ const CardList = ({ properties, title, setProperties }: Input) => {
             slidesPerGroup={1}
             loopFillGroupWithBlank={true}
             navigation={true}
-            onSlideChange={async (e) => {
-              if (e.isEnd && hasMore) {
-                await getCards();
-              }
-            }}
             className={`mySwiper`}
+            effect={effect || "slide"}
+            centeredSlides={!!effect}
+            loop={!!effect}
             coverflowEffect={{
               rotate: 0,
               stretch: 10,
@@ -92,9 +83,9 @@ const CardList = ({ properties, title, setProperties }: Input) => {
               modifier: 1,
             }}
           >
-            {properties.map((property) => (
+            {properties.map((property, index) => (
               <SwiperSlide key={property.broadId}>
-                <Card property={property} />
+                <Card property={property} badge={index} />
               </SwiperSlide>
             ))}
           </Swiper>
@@ -104,4 +95,4 @@ const CardList = ({ properties, title, setProperties }: Input) => {
   );
 };
 
-export default CardList;
+export default PopularCards;

@@ -1,11 +1,4 @@
-import {
-  Text,
-  Container,
-  HStack,
-  VStack,
-  GridItem,
-  Box,
-} from "@chakra-ui/layout";
+import { Text, Container, HStack, VStack, Box } from "@chakra-ui/layout";
 import React from "react";
 import Image from "next/image";
 import PersonIcon from "@material-ui/icons/Person";
@@ -21,20 +14,26 @@ import {
 import { CardType } from "./CardType";
 import Link from "next/link";
 import CardTime from "./CardTime";
+import cardstyles from "./Cards.module.css";
 
 type Input = {
   property: CardType;
+  badge?: "new" | 0 | 1 | 2 | 3 | number;
 };
 
-const Card = ({ property }: Input) => {
+const Card = ({ property, badge = "new" }: Input) => {
   const isMobile = useBreakpointValue({ base: true, md: false });
   const bg = useColorModeValue("brand.backgroundcolor2", "gray.900");
 
   return (
-    <GridItem
+    <Box
       bg={bg}
       rounded={10}
       p={1}
+      my={1}
+      mx={2}
+      minW={isMobile ? undefined : "210px"}
+      maxW={isMobile ? undefined : "210px"}
       _hover={{
         transform: isMobile ? "scale(1.01)" : "scale(1.04)",
         transitionDuration: "0.2s",
@@ -61,7 +60,7 @@ const Card = ({ property }: Input) => {
               objectFit="cover"
               className={styles.broadimage}
             />
-            <MyBadge>New</MyBadge>
+            <MyBadge badge={badge} />
           </Container>
           <VStack
             p={1}
@@ -111,25 +110,40 @@ const Card = ({ property }: Input) => {
           </VStack>
         </Stack>
       </Link>
-    </GridItem>
+    </Box>
   );
 };
 
-const MyBadge = (props: BadgeProps) => {
-  return (
-    <Badge
-      position="absolute"
-      borderRadius="full"
-      variant="outline"
-      colorScheme="green"
-      top="5%"
-      left="5%"
-      bg="blue.400"
-      color="white"
-      boxShadow={0}
-      {...props}
-    />
-  );
+type MyBadgeType = {
+  badge: Input["badge"];
+  rest?: BadgeProps;
+};
+const MyBadge = ({ badge, ...rest }: MyBadgeType) => {
+  switch (badge) {
+    case "new":
+      return (
+        <Badge
+          position="absolute"
+          borderRadius="full"
+          variant="outline"
+          colorScheme="green"
+          top="5%"
+          left="5%"
+          bg="blue.400"
+          color="white"
+          boxShadow={0}
+          {...rest}
+        />
+      );
+    case 0:
+      return <></>;
+    case 1:
+      return <></>;
+    case 2:
+      return <></>;
+    default:
+      return <></>;
+  }
 };
 
 export default Card;
