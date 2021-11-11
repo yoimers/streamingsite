@@ -42,6 +42,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const uidref = doc(db, `users/${params.uid}`);
   const docSnap = await getDoc(uidref);
   const data = docSnap.data();
+  console.log(data);
   if (docSnap.exists() && data) {
     return {
       props: {
