@@ -28,7 +28,12 @@ export const Search = () => {
         onChange={(e) => setValue(e.target.value)}
       />
       <InputRightElement width="40px" height="40px" mr={1}>
-        <SearchIcon color="brand.searchcolor" width="20px" height="20px" />
+        <SearchIcon
+          color="brand.searchcolor"
+          width="20px"
+          height="20px"
+          onClick={onSubmit}
+        />
       </InputRightElement>
     </InputGroup>
   );

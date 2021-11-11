@@ -58,6 +58,7 @@ const Card = ({ property, badge = "new" }: Input) => {
               alt="動画用のサムネイル"
               layout="fill"
               objectFit="cover"
+              quality={80}
               className={styles.broadimage}
             />
             <MyBadge badge={badge} />
