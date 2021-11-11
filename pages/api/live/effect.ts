@@ -4,7 +4,6 @@ import { pusher } from "../../../src/lib/pusher";
 
 let time: number;
 const handler = (req: NextApiRequest, res: NextApiResponse) => {
-  console.log(Date.now() - time);
   if (time == null || Date.now() - time > 1000 * 5) {
     const liveUrl = req.query.url;
     const effect = req.body.effect;
