@@ -30,8 +30,8 @@ export { auth, db, storage };
 const provider = new GoogleAuthProvider();
 
 export const signInWithGoogle = () => {
-  // signInWithPopup(auth, provider)
-  signInWithRedirect(auth, provider)
+  signInWithPopup(auth, provider)
+  // signInWithRedirect(auth, provider)
     .then((result: any) => {
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const token = credential?.accessToken;

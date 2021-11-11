@@ -3,8 +3,6 @@ import Image from "next/image";
 import styles from "../Layout.module.css";
 import { FaUserCircle } from "react-icons/fa";
 import { useColorModeValue } from "@chakra-ui/color-mode";
-import { useRecoilValue } from "recoil";
-import { currentUserStore } from "../../states/currentUserStore";
 
 type InputType = {
   photoURL: string | null | undefined;

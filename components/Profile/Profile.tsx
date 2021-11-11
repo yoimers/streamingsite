@@ -20,6 +20,8 @@ import { db } from "../../src/lib/firebase";
 import { useRouter } from "next/router";
 import useScrollbar from "../../hooks/useScrollbar";
 import ImageModal from "./ImageModal";
+import { useSetRecoilState } from "recoil";
+import { currentUserStore } from "../../states/currentUserStore";
 
 type Inputdata = {
   isMyPage: boolean;
@@ -31,6 +33,7 @@ const Profile = ({ isMyPage, ...props }: Inputdata) => {
   const bg = useColorModeValue("brand.backgroundcolor2", "gray.900");
   const [profile, setProfile] = useState(props.profile || "");
   const [name, setName] = useState(props.displayName || "");
+  const setCurrentUserStore = useSetRecoilState(currentUserStore);
   const scrollstyle = useScrollbar();
   const router = useRouter();
   useEffect(() => {
@@ -46,13 +49,13 @@ const Profile = ({ isMyPage, ...props }: Inputdata) => {
       //変更なかったらreturn
       return;
     const userRef = doc(db, `users/${props.uid}`);
-    (async () => {
-      //存在しない→作成、存在する→上書き
-      await setDoc(userRef, { [type]: value }, { merge: true });
+    //存在しない→作成、存在する→上書き
+    setDoc(userRef, { [type]: value }, { merge: true }).then(() => {
+      setCurrentUserStore((prev: any) => ({ ...prev, displayName: name }));
       if (type === "displayName") {
         document.title = `Wavelet ${value}`;
       }
-    })();
+    });
   };
 
   return (
@@ -68,7 +71,7 @@ const Profile = ({ isMyPage, ...props }: Inputdata) => {
               placeholder={props.displayName || "名前を入力してください"}
               submitOnBlur={false}
               value={name}
-              onChange={(value: string) => setName(value.slice(0, 6))}
+              onChange={(value: string) => setName(value.slice(0, 9))}
               onSubmit={(value: string) => onSubmit(value, "displayName")}
               isDisabled={!isMyPage}
               isPreviewFocusable={isMyPage}

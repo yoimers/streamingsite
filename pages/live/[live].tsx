@@ -35,6 +35,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const docSnap = await getDoc(doc(db, `broads/${params.live}`));
   if (docSnap.exists() && docSnap.data().isNow) {
     const data = docSnap.data();
+    delete data.timeStamp;
     return {
       props: {
         live: params?.live,
