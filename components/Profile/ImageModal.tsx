@@ -22,7 +22,7 @@ import { db, storage } from "../../src/lib/firebase";
 import { setDoc } from "firebase/firestore";
 import { useRouter } from "next/router";
 import { currentUserStore } from "../../states/currentUserStore";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { getDownloadURL } from "@firebase/storage";
 import { ref } from "firebase/storage";
 import IconImage from "../CommonComponents/IconImage";
@@ -30,7 +30,8 @@ import IconImage from "../CommonComponents/IconImage";
 const ImageModal = (props: any) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [imageState, setImageState] = useState<ImageStateType | null>();
-  const currentUserstore = useSetRecoilState(currentUserStore);
+  const [currentUserstore, setCurrentUserStore] =
+    useRecoilState(currentUserStore);
   const { isMyPage, isAuthChecking, currentUser } = useIsMyPage();
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -56,7 +57,7 @@ const ImageModal = (props: any) => {
         { photoSource: fileName, photoURL },
         { merge: true }
       );
-      currentUserstore((prev: any) => ({ ...prev, photoURL }));
+      setCurrentUserStore((prev: any) => ({ ...prev, photoURL }));
       router.push(`/users/${props.uid}`);
       onClose();
     } catch (e) {
@@ -77,7 +78,10 @@ const ImageModal = (props: any) => {
         _active={{}}
         _focus={{}}
       >
-        <IconImage photoURL={props && props.photoURL} size={100} />
+        <IconImage
+          photoURL={currentUserstore && currentUserstore.photoURL}
+          size={100}
+        />
       </Box>
 
       <Modal isOpen={isOpen} onClose={onClose}>
