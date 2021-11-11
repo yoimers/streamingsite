@@ -1,30 +1,10 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Spacer,
-  useBreakpointValue,
-  VStack,
-} from "@chakra-ui/react";
-import {
-  collection,
-  DocumentData,
-  getDocs,
-  limit,
-  orderBy,
-  query,
-  QueryDocumentSnapshot,
-  startAfter,
-} from "firebase/firestore";
+import { Flex, Spacer, VStack } from "@chakra-ui/react";
 import type { GetStaticProps, NextPage } from "next";
-import useSWR from "swr";
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import CardList from "../components/Card/CardList";
 import { CardType } from "../components/Card/CardType";
 import Footer from "../components/Footer/Footer";
 import { Layout } from "../components/Layout";
-import { db } from "../src/lib/firebase";
 import { getBroadLists } from "../src/lib/getBroadLists";
 import PopularCards from "../components/Card/PopularCards";
 

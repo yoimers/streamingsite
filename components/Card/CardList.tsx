@@ -13,7 +13,7 @@ SwiperCore.use([Pagination, Navigation, EffectCoverflow]);
 type Input = {
   properties: CardType[];
   title: string;
-  setProperties: React.Dispatch<React.SetStateAction<CardType[]>>;
+  setProperties?: React.Dispatch<React.SetStateAction<CardType[]>>;
 };
 const getNum = 4;
 const CardList = ({ properties, title, setProperties }: Input) => {
@@ -31,7 +31,7 @@ const CardList = ({ properties, title, setProperties }: Input) => {
   const getCards = async () => {
     const last = properties[properties.length - 1].timeStamp;
     const { cards } = await getBroadLists(getNum, last);
-    setProperties((prev) => [...prev, ...cards]);
+    setProperties && setProperties((prev) => [...prev, ...cards]);
     if (cards.length < getNum) setHasMore(false);
   };
   return (

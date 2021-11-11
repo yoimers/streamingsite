@@ -88,6 +88,7 @@ const Broadcast: NextPage = () => {
           photoURL: currentUserstore.photoURL,
           imageUrl: url,
           createdAt: Timestamp.now(),
+          timeStamp: Timestamp.now(),
           imageSource: imageState ? fileName : "default.png",
           isNow: true,
         };
